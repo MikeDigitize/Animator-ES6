@@ -42,7 +42,7 @@ gulp.task('compileJS', ['es6'], function() {
         entries: compiledPath + '/test.js',
         debug: true
     })
-    .transform(babelify)
+    //.transform(babelify)
     .bundle()
     .pipe(source('main.js'))
     .pipe(gulp.dest(compiledPath));
@@ -51,7 +51,7 @@ gulp.task('compileJS', ['es6'], function() {
 gulp.task('animator', ['compileJS'], function() {
     return gulp.src([promises, compiledPath + '/main.js'])
         .pipe(concat('animator.min.js'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest(buildPath + '/js'));
 });
 
