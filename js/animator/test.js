@@ -1,27 +1,30 @@
 import * as math from './module1';
+import { Promise as p } from './es6-promise.js';
 
 window.Animator = (function() {
 
+	let Promise = p;
+
 	var socket = io();
 
-	var arr = [1, 2, 3];
-	arr = arr.map( x => x * 2);
-	console.log("yo!", arr);
+	// var arr = [1, 2, 3];
+	// arr = arr.map( x => x * 2);
+	// console.log("yo!", arr);
 
 	var letsDoMaths = {};
 
-	socket.on("userid", function(data) {
-	    console.log("socket id", data);
-	});
+	// socket.on("userid", function(data) {
+	//     console.log("socket id", data);
+	// });
 	
 	letsDoMaths.math = math;
-	console.log("letsDoMaths", letsDoMaths);
+	// console.log("letsDoMaths", letsDoMaths);
 
 	var text = document.querySelector("p");
 
-	console.log('2π = ', letsDoMaths.math.sum(letsDoMaths.math.pi, letsDoMaths.math.pi));	
+	// console.log('2π = ', letsDoMaths.math.sum(letsDoMaths.math.pi, letsDoMaths.math.pi));	
 
-	var p = new Promise(function(resolve, reject) {
+	var sequence = new Promise(function(resolve, reject) {
 
 		setTimeout(function() {
 			text.innerHTML = "First promise...";
@@ -30,7 +33,7 @@ window.Animator = (function() {
 
 	});
 
-	p.then(function(msg) {
+	sequence.then(function(msg) {
 		
 		return new Promise(function(resolve, reject) {
 

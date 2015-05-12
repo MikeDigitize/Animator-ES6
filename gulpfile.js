@@ -42,28 +42,28 @@ gulp.task('compileJS', ['es6'], function() {
         entries: compiledPath + '/test.js',
         debug: true
     })
-    //.transform(babelify)
+    .transform(babelify)
     .bundle()
     .pipe(source('main.js'))
     .pipe(gulp.dest(compiledPath));
 });
 
-gulp.task('animator', ['compileJS'], function() {
-    return gulp.src([promises, compiledPath + '/main.js'])
+gulp.task('minify', ['compileJS'], function() {
+    return gulp.src(compiledPath + '/main.js')
         .pipe(concat('animator.min.js'))
         //.pipe(uglify())
         .pipe(gulp.dest(buildPath + '/js'));
 });
 
-gulp.task('cleanup', ['animator'], function() {
+gulp.task('cleanup', ['minify'], function() {
     return gulp.src(compiledPath)
         .pipe(clean());
 });
 
 gulp.task('watch', function () {
     gulp.watch(_sass, ['styles']);
-    gulp.watch(es6JS, ['es6', 'compileJS', 'animator', 'cleanup']);
+    gulp.watch(es6JS, ['es6', 'compileJS', 'minify', 'cleanup']);
     gulp.watch(html, ['html']);
 });
 
-gulp.task('default', ['html', 'styles', 'es6', 'compileJS', 'animator', 'cleanup', 'watch']);
+gulp.task('default', ['html', 'styles', 'es6', 'compileJS', 'minify', 'cleanup', 'watch']);
