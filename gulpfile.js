@@ -15,7 +15,6 @@ var compiledPath = './js/compiled';
 var es6JS = './js/animator/*.js';
 var _sass = './styles/*.scss';
 var html = './*.html';
-var promises = './js/es6-promise.js';
 
 gulp.task("html", function () {
     return gulp.src(html)
