@@ -7,8 +7,6 @@ window.Animator = (function() {
 	var socket = io();
 	var letsDoMaths = {};
 
-	console.log(get);
-
 	// socket.on("userid", function(data) {
 	//     console.log("socket id", data);
 	// });
@@ -17,8 +15,8 @@ window.Animator = (function() {
 	letsDoMaths.promises = promises;
 
 	return {
-		letsDoMaths : letsDoMaths
+		letsDoMaths : letsDoMaths,
+		get : get
 	};
-
 
 })();
