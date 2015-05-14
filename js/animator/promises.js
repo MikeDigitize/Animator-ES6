@@ -18,6 +18,7 @@ sequence.then(function(msg) {
 	return new Promise(function(resolve, reject) {
 
 		var random = Math.floor(Math.random() * 5) + 1;
+		console.log("random", random);
 		setTimeout(function() {
 
 			if(random > 3) {

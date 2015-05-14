@@ -1,6 +1,7 @@
 import * as math from './module1';
 import * as promises from './promises';
-import { getPrefixes as get } from './prefixes';
+import { Prefixes as prefixes } from './prefixes';
+//import Prefixes from './prefixes';
 
 window.Animator = (function() {
 
@@ -14,9 +15,13 @@ window.Animator = (function() {
 	letsDoMaths.math = math;
 	letsDoMaths.promises = promises;
 
-	return {
-		letsDoMaths : letsDoMaths,
-		get : get
-	};
+	//let a = new Prefixes();
+
+	console.log(prefixes);
+
+	// return {
+	// 	letsDoMaths : letsDoMaths,
+	// 	prefixes : new prefixes()
+	// };
 
 })();
