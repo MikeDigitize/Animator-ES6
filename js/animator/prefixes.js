@@ -1,4 +1,4 @@
-export class Prefixes {
+class Prefix {
     
     constructor() {
         
@@ -25,7 +25,7 @@ export class Prefixes {
 
     }
 
-    getPrefixes(prefix) {
+    getPrefix(prefix) {
 
 		if(!this.prefixes.has(prefix)) {
 			return false;
@@ -51,49 +51,14 @@ class someClass {
     }
 
     sayAge() {
-        alert(this.age);
+        console.log(this.age);
     }
 }
 
 let test = new someClass("mike", 23);
-console.log("test", test);
+test.sayAge();
 
-// const prefixes = new Map();
-// const testElement = document.createElement("div");
+let prefixes = new Prefix();
+console.log(prefixes, prefixes.getPrefix("transform"))
 
-// /*
-// 	Transforms
-// */
-
-// prefixes.set("transform", ["webkitTransform", "transform"]);
-// prefixes.set("transform-origin", ["webkitTransformOrigin", "transformOrigin"]);
-// prefixes.set("transform-style", ["webkitTransformStyle", "transformStyle"]);
-
-// /*
-// 	Transitions
-// */
-
-// prefixes.set("transition", ["webkitTransition", "transition"]);
-// prefixes.set("transition-delay", ["webkitTransitionDelay", "transitionDelay"]);
-// prefixes.set("transition-duration", ["webkitTransitionDuration", "transitionDuration"]);
-// prefixes.set("transition-property", ["webkitTransitionProperty", "transitionProperty"]);
-// prefixes.set("transition-timing-function", ["webkitTransitionTimingFunction", "transitionTimingFunction"]);
-
-
-// console.log(prefixes.size); 
-// console.log(prefixes.has("transform-origin"));
-// console.log(prefixes.get("transform"));
-
-
-// export function getPrefixes(prefix) {
-
-// 	let matches, match;
-
-// 	if(!prefixes.has(prefix)) {
-// 		return false;
-// 	}
-// 	else {
-// 		return prefixes.get(prefix).filter(f => testElement.style[f] !== undefined)[0];
-// 	}
-
-// }
+export let test2 = new someClass("mike", 23);
