@@ -61,4 +61,4 @@ test.sayAge();
 let prefixes = new Prefix();
 console.log(prefixes, prefixes.getPrefix("transform"))
 
-export let test2 = new someClass("mike", 23);
+export { prefixes }

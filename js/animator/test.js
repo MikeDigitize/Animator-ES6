@@ -1,7 +1,7 @@
 import * as math from './module1';
 import * as promises from './promises';
 //import { Prefixes as prefixes } from './prefixes';
-import { test2 as prefixes } from './prefixes';
+import { prefixes } from './prefixes';
 
 window.Animator = (function() {
 
@@ -15,7 +15,7 @@ window.Animator = (function() {
 	letsDoMaths.math = math;
 	letsDoMaths.promises = promises;
 
-	console.log("hey", prefixes, prefixes.sayAge());
+	console.log("hey", prefixes, prefixes.getPrefix("transform"));
 
 	// return {
 	// 	letsDoMaths : letsDoMaths,
