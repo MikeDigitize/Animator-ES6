@@ -1,8 +1,8 @@
 class Prefix {
     
     constructor() {
-        
-        this.prefixes = new Map();
+
+    	this.prefixes = new Map();
         this.testElement = document.createElement("div");
 
         /*
@@ -40,25 +40,4 @@ class Prefix {
 
 };
 
-class someClass {
-    constructor(name, age) {
-        this.name = name;
-        this.age = age;
- 	}
-
-    sayName() {
-        alert(this.name);
-    }
-
-    sayAge() {
-        console.log(this.age);
-    }
-}
-
-let test = new someClass("mike", 23);
-test.sayAge();
-
-let prefixes = new Prefix();
-console.log(prefixes, prefixes.getPrefix("transform"))
-
-export { prefixes }
+export default Prefix;

@@ -1,25 +1,24 @@
 import * as math from './module1';
 import * as promises from './promises';
-//import { Prefixes as prefixes } from './prefixes';
-import { prefixes } from './prefixes';
+import Prefix from './prefixes';
 
-window.Animator = (function() {
+var socket = io();
+socket.on("userid", function(data) {
+    console.log("socket id", data);
+});
 
-	var socket = io();
-	var letsDoMaths = {};
+var prefixes = new Prefix();
+console.log(prefixes.getPrefix("transition"));
 
-	// socket.on("userid", function(data) {
-	//     console.log("socket id", data);
-	// });
+class animator {
 	
-	letsDoMaths.math = math;
-	letsDoMaths.promises = promises;
+	constructor() {
+		
+	}
 
-	console.log("hey", prefixes, prefixes.getPrefix("transform"));
+	getPrefix(prefix) {
+		return prefixes.getPrefix(prefix);
+	}
+} 
 
-	// return {
-	// 	letsDoMaths : letsDoMaths,
-	// 	prefixes : new prefixes()
-	// };
-
-})();
+window.Animator = new animator();
