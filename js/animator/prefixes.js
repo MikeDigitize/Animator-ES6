@@ -2,9 +2,9 @@ class Prefix {
     
     constructor() {
 
-    	this.prefixes = new Map();
         this.testElement = document.createElement("div");
-
+        this.prefixes = new Map();
+        
         /*
 			Transforms
 		*/
@@ -23,6 +23,21 @@ class Prefix {
 		this.prefixes.set("transition-property", ["webkitTransitionProperty", "transitionProperty"]);
 		this.prefixes.set("transition-timing-function", ["webkitTransitionTimingFunction", "transitionTimingFunction"]);
 
+		/*
+			Transition / Animation end
+		*/
+
+		let WebkitTransition = "webkitTransitionEnd";
+		let transition = "transitionend";
+		let WebkitAnimation = "webkitAnimationEnd";
+		let animation = "animationend";
+		
+		let transitionend = { WebkitTransition, transition };
+		let animationend = { WebkitAnimation, animation };
+
+		this.prefixes.set("transitionend", transitionend);
+		this.prefixes.set("animationend", animationend);
+
     }
 
     getPrefix(prefix) {
@@ -30,11 +45,24 @@ class Prefix {
 		if(!this.prefixes.has(prefix)) {
 			return false;
 		}
+		else if(prefix === "transitionend" || prefix === "animationend") {
+			return this.getEventEnd(prefix);
+		}
 		else {
 			return this.prefixes
 				.get(prefix)
 				.filter(f => this.testElement.style[f] !== undefined)[0];
 		}
+
+	}
+
+	getEventEnd(evt) {
+
+		let evtNames = this.prefixes.get(evt);
+		let matches = Object.keys(evtNames).filter(t => {
+			return this.testElement.style[t] !== undefined;
+		});
+		return evtNames[matches[0]];
 
 	}
 

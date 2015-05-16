@@ -19,6 +19,7 @@ class animator {
 	getPrefix(prefix) {
 		return prefixes.getPrefix(prefix);
 	}
+
 } 
 
 window.Animator = new animator();
