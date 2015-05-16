@@ -1,5 +1,7 @@
 import { Promise as p } from './es6-promise.js';
 
+console.log("CALLED");
+
 let Promise = p;
 
 var text = document.querySelector("p");
@@ -43,7 +45,3 @@ sequence.then(function(msg) {
 	text.innerHTML = "Whoops! Second promise failed."
 	console.log("whoops", e);
 });
-
-export function awesome(x, y) {
-  return x + y;
-}

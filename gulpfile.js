@@ -39,7 +39,7 @@ gulp.task('es6', function () {
 
 gulp.task('compileJS', ['es6'], function() {
     return browserify({
-        entries: compiledPath + '/test.js',
+        entries: compiledPath + '/animator.js',
         debug: true
     })
     .transform(babelify)
