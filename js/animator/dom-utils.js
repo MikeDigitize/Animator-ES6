@@ -4,9 +4,9 @@ class DomUtils {
 
 	}
 
-	setClass(element, classList, remove) {
+	setClass(element, classList, add) {
 		let classes = classList instanceof Array ? [...classList] : [classList];
-		let action = remove ? "remove" : "add";
+		let action = add ? "add" : "remove";
 		classes.forEach(c => {
 			element.classList[action](c);
 		});

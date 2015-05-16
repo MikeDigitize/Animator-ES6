@@ -62,8 +62,8 @@ gulp.task('cleanup', ['minify'], function() {
 
 gulp.task('watch', function () {
     gulp.watch(styles, ['styles']);
-    gulp.watch(js, ['es6', 'compileJS', 'minify', 'cleanup']);
+    gulp.watch(js, ['es6', 'compileJS', 'minify']);
     gulp.watch(html, ['html']);
 });
 
-gulp.task('default', ['html', 'styles', 'es6', 'compileJS', 'minify', 'cleanup', 'watch']);
+gulp.task('default', ['html', 'styles', 'es6', 'compileJS', 'minify', 'watch']);

@@ -1,12 +1,9 @@
 import { Promise as p } from './es6-promise.js';
 
-console.log("CALLED");
-
 let Promise = p;
+let text = document.querySelector("p");
 
-var text = document.querySelector("p");
-
-var sequence = new Promise(function(resolve, reject) {
+let sequence = new Promise(function(resolve, reject) {
 
 	setTimeout(function() {
 		text.innerHTML = "First promise...";
@@ -19,7 +16,7 @@ sequence.then(function(msg) {
 	
 	return new Promise(function(resolve, reject) {
 
-		var random = Math.floor(Math.random() * 5) + 1;
+		let random = Math.floor(Math.random() * 5) + 1;
 		console.log("random", random);
 		setTimeout(function() {
 

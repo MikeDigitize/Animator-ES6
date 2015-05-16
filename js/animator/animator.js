@@ -1,7 +1,8 @@
-import Prefix from './prefixes';
-import CssUtils from './css-utils';
-import * as promises from './promises';
-import DomUtils from "./dom-utils"
+import Prefix from "./prefixes";
+import CssUtils from "./css-utils";
+import * as promises from "./promises";
+import DomUtils from "./dom-utils";
+import Transition from "./transition-seq";
 
 var socket = io();
 socket.on("userid", function(data) {
@@ -30,6 +31,41 @@ class animator {
 		return new DomUtils().setClass(element, classList, true);
 	}
 
+	transition(options) {
+		return new Transition(options);
+	}
+
 } 
 
 window.Animator = new animator();
+var p = document.querySelector("p");
+
+var sequence = Animator.transition({
+		element : p,
+		addClass : "transition"
+	});
+	sequence
+		.then(function() {
+			console.log("one done");
+			return Animator.transition({
+				element : p,
+				removeClass : "transition"
+			});
+		})
+		.then(function() {
+			console.log("two done");
+			return Animator.transition({
+				element : p,
+				addClass : "transition"
+			});
+		})
+		.then(function() {
+			console.log("three done");
+			return Animator.transition({
+				element : p,
+				removeClass : "transition"
+			});
+		})
+		.then(function() {
+			console.log("all done");
+		});
