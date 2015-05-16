@@ -46,7 +46,7 @@ class Prefix {
 			return false;
 		}
 		else if(prefix === "transitionend" || prefix === "animationend") {
-			return this.getEventEnd(prefix);
+			return this.getEventName(prefix);
 		}
 		else {
 			return this.prefixes
@@ -56,11 +56,11 @@ class Prefix {
 
 	}
 
-	getEventEnd(evt) {
+	getEventName(evt) {
 
 		let evtNames = this.prefixes.get(evt);
-		let matches = Object.keys(evtNames).filter(t => {
-			return this.testElement.style[t] !== undefined;
+		let matches = Object.keys(evtNames).filter(e => {
+			return this.testElement.style[e] !== undefined;
 		});
 		return evtNames[matches[0]];
 

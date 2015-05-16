@@ -12,8 +12,9 @@ var clean = require('gulp-clean');
 
 var buildPath = './build';
 var compiledPath = './js/compiled';
-var es6JS = './js/animator/*.js';
-var _sass = './styles/*.scss';
+var shim = './js/es6-shim.min.js';
+var js = './js/animator/*.js';
+var styles = './styles/*.scss';
 var html = './*.html';
 
 gulp.task("html", function () {
@@ -22,7 +23,7 @@ gulp.task("html", function () {
 });
 
 gulp.task('styles', function () {
-    return gulp.src(_sass)
+    return gulp.src(styles)
         .pipe(concat('demo-styles.scss'))
         .pipe(sass())
         .pipe(rename('styles.css'))
@@ -31,7 +32,7 @@ gulp.task('styles', function () {
 });
 
 gulp.task('es6', function () {
-    return gulp.src([es6JS])
+    return gulp.src([js])
         .pipe(babel())
         .pipe(gulp.dest(compiledPath));    
 });
@@ -48,9 +49,9 @@ gulp.task('compileJS', ['es6'], function() {
 });
 
 gulp.task('minify', ['compileJS'], function() {
-    return gulp.src(compiledPath + '/main.js')
+    return gulp.src([shim, compiledPath + '/main.js'])
         .pipe(concat('animator.min.js'))
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest(buildPath + '/js'));
 });
 
@@ -60,8 +61,8 @@ gulp.task('cleanup', ['minify'], function() {
 });
 
 gulp.task('watch', function () {
-    gulp.watch(_sass, ['styles']);
-    gulp.watch(es6JS, ['es6', 'compileJS', 'minify', 'cleanup']);
+    gulp.watch(styles, ['styles']);
+    gulp.watch(js, ['es6', 'compileJS', 'minify', 'cleanup']);
     gulp.watch(html, ['html']);
 });
 
