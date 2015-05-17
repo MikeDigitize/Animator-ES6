@@ -1,6 +1,6 @@
 import Prefix from "./prefixes";
 import CssUtils from "./css-utils";
-import * as promises from "./promises";
+//import * as promises from "./promises";
 import DomUtils from "./dom-utils";
 import Transition from "./transition-seq";
 
@@ -35,6 +35,10 @@ class animator {
 		return new DomUtils().setClass(element, classList, true);
 	}
 
+	createTransition(transitions) {
+		return new CssUtils().createTransition(transitions);
+	}
+
 	transition(options) {
 		return new Transition(options);
 	}
@@ -43,8 +47,14 @@ class animator {
 
 window.Animator = new animator();
 var p = document.querySelector("p");
-// Animator.setStyles(p, { "font-weight" : "bold !important" });
-// Animator.setStyles(p, { "font-family" : "Arial" });
+
+Animator.createTransition({
+	elements : p,
+    properties : ["font-size", "color"],
+    duration : ["100ms", "1000ms"],
+    easing : "ease",
+    delay : "0ms"
+});
 
 var sequence = Animator.transition({
 	element : p,
@@ -69,6 +79,14 @@ sequence
 			properties : ["font-size", "color"],
 			removeClass : {
 				before : "transition"
+			},
+			setStyles : {
+				before : {
+					"font-family" : "Georgia"
+				},
+				after : {
+					"font-weight" : "normal !important"
+				}
 			}
 		});
 	})
@@ -79,6 +97,14 @@ sequence
 			properties : ["font-size", "color"],
 			addClass : {
 				before : "transition"
+			},
+			setStyles : {
+				before : {
+					"font-family" : "Trebuchet MS"
+				},
+				after : {
+					"font-weight" : "bold !important"
+				}
 			}
 		});
 	})
