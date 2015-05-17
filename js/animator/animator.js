@@ -73,7 +73,7 @@ var sequence = Animator.transition({
 });
 sequence
 	.then(function(el) {
-		console.log("one done", el);
+		console.log("one done");
 		return Animator.transition({
 			element : p,
 			properties : ["font-size", "color"],

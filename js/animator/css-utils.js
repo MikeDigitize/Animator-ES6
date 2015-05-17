@@ -42,7 +42,7 @@ class CssUtils {
 
     getStyles(element, props) {
 
-    	let properties = props instanceof Array ? [...props] : [props];
+    	let properties = Array.isArray(props) ? [...props] : [props];
     	let styles = {};
     	properties.forEach(property => {
     		styles[property] = window.getComputedStyle(element).getPropertyValue(property);
@@ -55,10 +55,10 @@ class CssUtils {
 
         let transitionPrefix = new Prefix().getPrefix("transition");
         let elements = transitions.elements.length ? Array.from(transitions.elements) : [transitions.elements];
-        let properties = transitions.properties instanceof Array ? [...transitions.properties] : [transitions.properties];
-        let duration = transitions.duration instanceof Array ? [...transitions.duration] : [transitions.duration];
-        let easing = transitions.easing instanceof Array ? [...transitions.easing] : [transitions.easing];
-        let delay = transitions.delay instanceof Array ? [...transitions.delay] : [transitions.delay];
+        let properties = Array.isArray(transitions.properties) ? [...transitions.properties] : [transitions.properties];
+        let duration = Array.isArray(transitions.duration) ? [...transitions.duration] : [transitions.duration];
+        let easing = Array.isArray(transitions.easing) ? [...transitions.easing] : [transitions.easing];
+        let delay = Array.isArray(transitions.delay) ? [...transitions.delay] : [transitions.delay];
 
         elements.forEach(element => {
 
