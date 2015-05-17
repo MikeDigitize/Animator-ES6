@@ -42,28 +42,40 @@ var p = document.querySelector("p");
 
 var sequence = Animator.transition({
 		element : p,
-		addClass : "transition"
+		properties : ["font-size", "color"],
+		addClass : {
+			before : "transition" 
+		}
 	});
 	sequence
 		.then(function() {
 			console.log("one done");
 			return Animator.transition({
 				element : p,
-				removeClass : "transition"
+				properties : ["font-size", "color"],
+				removeClass : {
+					before : "transition"
+				}
 			});
 		})
 		.then(function() {
 			console.log("two done");
 			return Animator.transition({
 				element : p,
-				addClass : "transition"
+				properties : ["font-size", "color"],
+				addClass : {
+					before : "transition"
+				}
 			});
 		})
 		.then(function() {
 			console.log("three done");
 			return Animator.transition({
 				element : p,
-				removeClass : "transition"
+				properties : ["font-size", "color"],
+				removeClass : {
+					before : "transition"
+				}
 			});
 		})
 		.then(function() {

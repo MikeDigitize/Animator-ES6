@@ -11,22 +11,24 @@ class Transition {
 		this.options = options;
 		this.utils = new DomUtils();
 		this.prefix = new Prefix();
+		this.onTransitionEnd = this.callback.bind(this);
+		this.totaltransitions = options.properties.length;
+		this.transitionendCount = 0;
 
 		return new Promise((resolve, reject) => {
 
 			this.resolve = resolve;
 			this.reject = reject;
-			this.onTransitionEnd = this.callback.bind(this);
 
 			setTimeout(() => {
 
 				options.element.addEventListener(this.prefix.getPrefix("transitionend"), this.onTransitionEnd, false);
 
-				if(options.removeClass) {
+				if(options.removeClass && options.removeClass.before) {
 					this.utils.setClass(options.element, "transition", false);
 				}
 
-				if(options.addClass) {
+				if(options.addClass && options.addClass.before) {
 					this.utils.setClass(options.element, "transition", true);	
 				}	
 
@@ -38,8 +40,25 @@ class Transition {
 
 	callback() {
 
-		this.options.element.removeEventListener(this.prefix.getPrefix("transitionend"), this.onTransitionEnd, false);
-		this.resolve();
+		this.transitionendCount++;
+
+		console.log("count", this.transitionendCount);
+
+		if(this.transitionendCount === this.totaltransitions) {
+
+			this.options.element.removeEventListener(this.prefix.getPrefix("transitionend"), this.onTransitionEnd, false);
+
+			if(this.options.removeClass && this.options.removeClass.after) {
+				this.utils.setClass(options.element, "transition", false);
+			}
+
+			if(this.options.addClass && this.options.addClass.after) {
+				this.utils.setClass(options.element, "transition", true);	
+			}	
+
+			this.resolve();
+
+		}
 
 	}
 

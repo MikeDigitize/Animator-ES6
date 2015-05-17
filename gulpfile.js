@@ -8,10 +8,10 @@ var babel = require("gulp-babel");
 var babelify = require('babelify');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
-var clean = require('gulp-clean');
+var rimraf = require('gulp-rimraf');
 
 var buildPath = './build';
-var compiledPath = './js/compiled';
+var compiledPath = './js/temp';
 var shim = './js/es6-shim.min.js';
 var js = './js/animator/*.js';
 var styles = './styles/*.scss';
@@ -44,21 +44,20 @@ gulp.task('compileJS', ['es6'], function() {
     })
     .transform(babelify)
     .bundle()
-    .pipe(source('main.js'))
+    .pipe(source('temp.js'))
     .pipe(gulp.dest(compiledPath));
 });
 
 gulp.task('minify', ['compileJS'], function() {
-    return gulp.src([shim, compiledPath + '/main.js'])
+    return gulp.src([shim, compiledPath + '/temp.js'])
         .pipe(concat('animator.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest(buildPath + '/js'));
 });
 
-gulp.task('cleanup', ['minify'], function() {
-    return gulp.src(compiledPath)
-        .pipe(clean());
-});
+gulp.task('cleanup', ['cleanup'], function(cb) {
+    rimraf(compiledPath, cb);
+})
 
 gulp.task('watch', function () {
     gulp.watch(styles, ['styles']);

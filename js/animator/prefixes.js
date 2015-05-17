@@ -36,7 +36,7 @@ class Prefix {
 		let animationend = { WebkitAnimation, animation };
 
 		this.prefixes.set("transitionend", transitionend);
-		this.prefixes.set("animationend", animationend);
+		this.prefixes.set("animationend", animationend); 
 
     }
 
