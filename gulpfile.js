@@ -8,7 +8,7 @@ var babel = require("gulp-babel");
 var babelify = require('babelify');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
-var rimraf = require('gulp-rimraf');
+var del = require('del');
 
 var buildPath = './build';
 var compiledPath = './js/temp';
@@ -55,8 +55,8 @@ gulp.task('minify', ['compileJS'], function() {
         .pipe(gulp.dest(buildPath + '/js'));
 });
 
-gulp.task('cleanup', ['cleanup'], function(cb) {
-    rimraf(compiledPath, cb);
+gulp.task('cleanup', ['minify'], function() {
+    return del(compiledPath);
 })
 
 gulp.task('watch', function () {

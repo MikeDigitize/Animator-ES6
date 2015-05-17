@@ -9,7 +9,7 @@ socket.on("userid", function(data) {
     console.log("socket id", data);
 });
 
-class animator {
+class animator { 
 	
 	constructor() {
 		
@@ -21,6 +21,10 @@ class animator {
 
 	setStyles(element, styles) {
 		return new CssUtils().setStyles(element, styles);
+	}
+
+	getStyles(element, properties) {
+		return new CssUtils().getStyles(element, properties);
 	}
 
 	addClass(element, classList) {
@@ -39,45 +43,55 @@ class animator {
 
 window.Animator = new animator();
 var p = document.querySelector("p");
+// Animator.setStyles(p, { "font-weight" : "bold !important" });
+// Animator.setStyles(p, { "font-family" : "Arial" });
 
 var sequence = Animator.transition({
-		element : p,
-		properties : ["font-size", "color"],
-		addClass : {
-			before : "transition" 
+	element : p,
+	properties : ["font-size", "color"],
+	addClass : {
+		before : "transition" 
+	},
+	setStyles : {
+		before : {
+			"font-family" : "Arial"
+		},
+		after : {
+			"font-weight" : "bold !important"
 		}
-	});
-	sequence
-		.then(function() {
-			console.log("one done");
-			return Animator.transition({
-				element : p,
-				properties : ["font-size", "color"],
-				removeClass : {
-					before : "transition"
-				}
-			});
-		})
-		.then(function() {
-			console.log("two done");
-			return Animator.transition({
-				element : p,
-				properties : ["font-size", "color"],
-				addClass : {
-					before : "transition"
-				}
-			});
-		})
-		.then(function() {
-			console.log("three done");
-			return Animator.transition({
-				element : p,
-				properties : ["font-size", "color"],
-				removeClass : {
-					before : "transition"
-				}
-			});
-		})
-		.then(function() {
-			console.log("all done");
+	}
+});
+sequence
+	.then(function(el) {
+		console.log("one done", el);
+		return Animator.transition({
+			element : p,
+			properties : ["font-size", "color"],
+			removeClass : {
+				before : "transition"
+			}
 		});
+	})
+	.then(function(el) {
+		console.log("two done", el);
+		return Animator.transition({
+			element : p,
+			properties : ["font-size", "color"],
+			addClass : {
+				before : "transition"
+			}
+		});
+	})
+	.then(function(el) {
+		console.log("three done", el);
+		return Animator.transition({
+			element : p,
+			properties : ["font-size", "color"],
+			removeClass : {
+				before : "transition"
+			}
+		});
+	})
+	.then(function(el) {
+		console.log("all done", el);
+	});

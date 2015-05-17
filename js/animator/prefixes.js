@@ -9,19 +9,19 @@ class Prefix {
 			Transforms
 		*/
 
-		this.prefixes.set("transform", ["webkitTransform", "transform"]);
-		this.prefixes.set("transform-origin", ["webkitTransformOrigin", "transformOrigin"]);
-		this.prefixes.set("transform-style", ["webkitTransformStyle", "transformStyle"]);
+		this.prefixes.set("transform", ["-webkit-transform", "transform"]);
+		this.prefixes.set("transform-origin", ["-webkit-transform-origin", "transform-origin"]);
+		this.prefixes.set("transform-style", ["-webkit-transform-style", "transform-style"]);
 
 		/*
 			Transitions
 		*/
 
-		this.prefixes.set("transition", ["webkitTransition", "transition"]);
-		this.prefixes.set("transition-delay", ["webkitTransitionDelay", "transitionDelay"]);
-		this.prefixes.set("transition-duration", ["webkitTransitionDuration", "transitionDuration"]);
-		this.prefixes.set("transition-property", ["webkitTransitionProperty", "transitionProperty"]);
-		this.prefixes.set("transition-timing-function", ["webkitTransitionTimingFunction", "transitionTimingFunction"]);
+		this.prefixes.set("transition", ["-webkit-transition", "transition"]);
+		this.prefixes.set("transition-delay", ["-webkit-transition-delay", "transition-delay"]);
+		this.prefixes.set("transition-duration", ["-webkit-transition-duration", "transition-duration"]);
+		this.prefixes.set("transition-property", ["-webkit-transition-property", "transition-property"]);
+		this.prefixes.set("transition-timing-function", ["-webkit-transition-timing-function", "transition-timing-function"]);
 
 		/*
 			Transition / Animation end

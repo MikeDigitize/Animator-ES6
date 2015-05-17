@@ -24,13 +24,27 @@ class CssUtils {
     }
 
     setStyles(element, styles) {
+
     	Object.keys(styles).forEach(property => {
-    		element.style[this.cssTextToJs(property)] = styles[property];
+            let params = [property];
+            if(styles[property].includes("!important")) {
+                styles[property] = styles[property].replace("!important", "");
+                params.push("important");
+            }
+            params.splice(1, 0, styles[property]);
+            params = params.join().split(",");
+            element.style.setProperty(params[0], params[1], params[2] || null);
     	});
+        
     }
 
-    getStyles(element, style) {
-    	
+    getStyles(element, props) {
+    	let properties = props instanceof Array ? [...props] : [props];
+    	let styles = {};
+    	properties.forEach(property => {
+    		styles[property] = window.getComputedStyle(element).getPropertyValue(property);
+    	});
+    	return styles; 
     }
 
 }
