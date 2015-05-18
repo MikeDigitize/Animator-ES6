@@ -84,6 +84,10 @@ class CssUtils {
 
     }
 
+    createClass() {
+        
+    }
+
 }
 
 export default CssUtils;

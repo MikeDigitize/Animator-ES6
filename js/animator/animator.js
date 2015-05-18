@@ -51,9 +51,9 @@ var p = document.querySelector("p");
 Animator.createTransition({
 	elements : p,
     properties : ["font-size", "color"],
-    duration : ["100ms", "1000ms"],
+    duration : ["1000ms", "1000ms"],
     easing : "ease",
-    delay : "0ms"
+    delay : ["500ms", "50ms"]
 });
 
 var sequence = Animator.transition({

@@ -32,7 +32,7 @@ gulp.task('styles', function () {
 });
 
 gulp.task('es6', function () {
-    return gulp.src([js])
+    return gulp.src(js)
         .pipe(babel())
         .pipe(gulp.dest(compiledPath));    
 });
@@ -61,8 +61,8 @@ gulp.task('cleanup', ['minify'], function() {
 
 gulp.task('watch', function () {
     gulp.watch(styles, ['styles']);
-    gulp.watch(js, ['es6', 'compileJS', 'minify']);
+    gulp.watch(js, ['es6', 'compileJS', 'minify', 'cleanup']);
     gulp.watch(html, ['html']);
 });
 
-gulp.task('default', ['html', 'styles', 'es6', 'compileJS', 'minify', 'watch']);
+gulp.task('default', ['html', 'styles', 'es6', 'compileJS', 'minify', 'cleanup', 'watch']);
