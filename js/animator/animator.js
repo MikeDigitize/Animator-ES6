@@ -28,16 +28,20 @@ class animator {
 		return new CssUtils().getStyles(element, properties);
 	}
 
-	addClass(element, classList) {
-		return new DomUtils().setClass(element, classList, false);
+	createTransition(transitions) {
+		return new CssUtils().createTransition(transitions);
 	}
 
-	removeClass(element, classList) {
+	createClass(className, rules) {
+		return new CssUtils().createClass(className, rules);
+	}
+
+	addClass(element, classList) {
 		return new DomUtils().setClass(element, classList, true);
 	}
 
-	createTransition(transitions) {
-		return new CssUtils().createTransition(transitions);
+	removeClass(element, classList) {
+		return new DomUtils().setClass(element, classList, false);
 	}
 
 	transition(options) {
@@ -70,6 +74,8 @@ Animator.createTransition({
     delay : "0ms"
 });
 
+Animator.createClass("test", { "font-family" : "Georgia", "font-weight" : "bold", "color" : "blue" });
+
 var sequence = Animator.combo([
 	Animator.transition({
 		element : p1,
@@ -88,83 +94,9 @@ var sequence = Animator.combo([
 		}
 	})
 ]);
-// var sequence = Animator.transition({
-// 	element : p2,
-// 	properties : "font-size",
-// 	setStyles : {
-// 		before : {
-// 			"font-size" : "40px"
-// 		}
-// 	}
-// });
 
 sequence
 	.then(function(elements) {
+		Animator.addClass(elements[0], "test");
 		console.log("done!", elements);
 	});
-
-// var sequence = Animator.transition({
-// 	element : p1,
-// 	properties : ["font-size", "color"],
-// 	addClass : {
-// 		before : "transition" 
-// 	},
-// 	setStyles : {
-// 		before : {
-// 			"font-family" : "Arial"
-// 		},
-// 		after : {
-// 			"font-weight" : "bold !important"
-// 		}
-// 	}
-// });
-// sequence
-// 	.then(function(el) {
-// 		console.log("one done");
-// 		return Animator.transition({
-// 			element : el,
-// 			properties : ["font-size", "color"],
-// 			removeClass : {
-// 				before : "transition"
-// 			},
-// 			setStyles : {
-// 				before : {
-// 					"font-family" : "Georgia"
-// 				},
-// 				after : {
-// 					"font-weight" : "normal !important"
-// 				}
-// 			}
-// 		});
-// 	})
-// 	.then(function(el) {
-// 		console.log("two done", el);
-// 		return Animator.transition({
-// 			element : el,
-// 			properties : ["font-size", "color"],
-// 			addClass : {
-// 				before : "transition"
-// 			},
-// 			setStyles : {
-// 				before : {
-// 					"font-family" : "Trebuchet MS"
-// 				},
-// 				after : {
-// 					"font-weight" : "bold !important"
-// 				}
-// 			}
-// 		});
-// 	})
-// 	.then(function(el) {
-// 		console.log("three done", el);
-// 		return Animator.transition({
-// 			element : el,
-// 			properties : ["font-size", "color"],
-// 			removeClass : {
-// 				before : "transition"
-// 			}
-// 		});
-// 	})
-// 	.then(function(el) {
-// 		console.log("all done", el);
-// 	});

@@ -84,8 +84,23 @@ class CssUtils {
 
     }
 
-    createClass() {
-        
+    createClass(className, rules) {
+
+        console.log(this.stylesheet, rules);
+
+        let name = "." + className;
+        let styleRules = rules || {};
+        let cssString = "{ ";
+
+        Object.keys(styleRules).forEach(function(rule) {
+            cssString += rule + " : " + rules[rule] + "; ";
+        });
+
+        cssString += "}";
+
+        console.log(cssString);
+        this.stylesheet.insertRule(name + cssString, this.stylesheet.cssRules.length);
+
     }
 
 }
