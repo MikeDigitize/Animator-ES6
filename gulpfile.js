@@ -22,7 +22,7 @@ gulp.task("html", function () {
         .pipe(gulp.dest(buildPath));
 });
 
-gulp.task('styles', function () {
+gulp.task('styles', ['html'], function () {
     return gulp.src(styles)
         .pipe(concat('demo-styles.scss'))
         .pipe(sass())
@@ -31,7 +31,7 @@ gulp.task('styles', function () {
         .pipe(gulp.dest(buildPath + '/css'));
 });
 
-gulp.task('es6', function () {
+gulp.task('es6', ['styles'], function () {
     return gulp.src(js)
         .pipe(babel())
         .pipe(gulp.dest(compiledPath));    
@@ -61,8 +61,8 @@ gulp.task('cleanup', ['minify'], function() {
 
 gulp.task('watch', function () {
     gulp.watch(styles, ['styles']);
-    gulp.watch(js, ['es6', 'compileJS', 'minify', 'cleanup']);
+    gulp.watch(js, ['es6', 'compileJS', 'minify']);
     gulp.watch(html, ['html']);
 });
 
-gulp.task('default', ['html', 'styles', 'es6', 'compileJS', 'minify', 'cleanup', 'watch']);
+gulp.task('default', ['html', 'styles', 'es6', 'compileJS', 'minify', 'watch']);

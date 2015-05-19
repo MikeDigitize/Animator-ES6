@@ -14,7 +14,7 @@ class Transition {
 		this.prefix = new Prefix();
 		this.cssUtils = new CssUtils();
 		this.onTransitionEnd = this.callback.bind(this);
-		this.totaltransitions = options.properties.length;
+		this.totaltransitions = Array.isArray(options.properties) ? options.properties.length : 1;
 		this.transitionendCount = 0;
 
 		return new Promise((resolve, reject) => {
