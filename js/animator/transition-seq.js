@@ -1,19 +1,16 @@
-import { Promise as p } from "./es6-promise";
-let Promise = p;
-
 class Transition {
 
-	constructor(options, domUtils, prefix, cssutils) {
+	constructor(options, domUtils, prefix, cssutils, promise) {
 
 		this.options = options;
 		this.domUtils = domUtils;
-		this.prefix = prefix;
+		this.prefix = prefix.getPrefix("transitionend");
 		this.cssUtils = cssutils;
 		this.onTransitionEnd = this.callback.bind(this);
 		this.totaltransitions = Array.isArray(options.properties) ? options.properties.length : 1;
 		this.transitionendCount = 0;
 
-		return new Promise((resolve, reject) => {
+		return new promise((resolve, reject) => {
 			this.resolve = resolve;
 			this.reject = reject;
 			this.animationFrame = requestAnimationFrame(this.startTransition.bind(this));      
@@ -24,7 +21,7 @@ class Transition {
 	startTransition() {
 
 		let opts = this.options;
-		opts.element.addEventListener(this.prefix.getPrefix("transitionend"), this.onTransitionEnd, false);
+		opts.element.addEventListener(this.prefix, this.onTransitionEnd, false);
 
 		if(opts.removeClass && opts.removeClass.before) {
 			this.domUtils.setClass(opts.element, opts.removeClass.before, false);
@@ -47,7 +44,7 @@ class Transition {
 
 		if(this.transitionendCount === this.totaltransitions) {
 
-			opts.element.removeEventListener(this.prefix.getPrefix("transitionend"), this.onTransitionEnd, false);
+			opts.element.removeEventListener(this.prefix, this.onTransitionEnd, false);
 			cancelAnimationFrame(this.animationFrame);
 
 			if(opts.removeClass && opts.removeClass.after) {

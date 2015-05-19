@@ -1,10 +1,7 @@
-import { Promise as p } from "./es6-promise";
-let Promise = p;
-
 class Combo {
-	constructor(sequences) {
+	constructor(sequences, promise) {
 
-		return new Promise((resolve, reject) => {
+		return new promise((resolve, reject) => {
 
 			let watcher = this.sequenceWatcher();
 			this.resolve = resolve;

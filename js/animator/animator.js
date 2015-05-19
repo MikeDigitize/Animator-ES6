@@ -4,6 +4,7 @@ import DomUtils from "./dom-utils";
 import Animation from "./animation-seq";
 import Transition from "./transition-seq";
 import Combo from "./combo-seq.js";
+import { Promise as promise } from "./es6-promise";
 
 class animator { 
 	
@@ -47,15 +48,15 @@ class animator {
 	}
 
 	transition(options) {
-		return new Transition(options, new DomUtils(), new Prefix(), new CssUtils());
+		return new Transition(options, new DomUtils(), new Prefix(), new CssUtils(), promise);
 	}
 
 	animation(options) {
-		return new Animation(options, new DomUtils(), new Prefix());
+		return new Animation(options, new DomUtils(), new Prefix(), promise);
 	}
 
 	combo(animations) {
-		return new Combo(animations);
+		return new Combo(animations, promise);
 	}
 
 }
