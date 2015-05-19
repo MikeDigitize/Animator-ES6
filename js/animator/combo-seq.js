@@ -1,4 +1,5 @@
 import { Promise as p } from "./es6-promise";
+let Promise = p;
 
 class Combo {
 	constructor(sequences) {

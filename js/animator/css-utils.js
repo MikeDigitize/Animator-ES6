@@ -51,9 +51,9 @@ class CssUtils {
 
     }
 
-    createTransition(transitions) {
+    createTransition(transitions, prefix) {
 
-        let transitionPrefix = new Prefix().getPrefix("transition");
+        let transitionPrefix = prefix.getPrefix("transition");
         let elements = transitions.elements.length ? Array.from(transitions.elements) : [transitions.elements];
         let properties = Array.isArray(transitions.properties) ? [...transitions.properties] : [transitions.properties];
         let duration = Array.isArray(transitions.duration) ? [...transitions.duration] : [transitions.duration];
@@ -84,21 +84,16 @@ class CssUtils {
 
     }
 
-    createClass(className, rules) {
-
-        console.log(this.stylesheet, rules);
+    createClass(className, rules = {}) {
 
         let name = "." + className;
-        let styleRules = rules || {};
         let cssString = "{ ";
 
-        Object.keys(styleRules).forEach(function(rule) {
+        Object.keys(rules).forEach(function(rule) {
             cssString += rule + " : " + rules[rule] + "; ";
         });
 
         cssString += "}";
-
-        console.log(cssString);
         this.stylesheet.insertRule(name + cssString, this.stylesheet.cssRules.length);
 
     }

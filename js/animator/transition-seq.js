@@ -1,18 +1,14 @@
 import { Promise as p } from "./es6-promise";
-import Prefix from "./prefixes";
-import DomUtils from "./dom-utils";
-import CssUtils from "./css-utils";
-
 let Promise = p;
 
 class Transition {
 
-	constructor(options) {
+	constructor(options, domUtils, prefix, cssutils) {
 
 		this.options = options;
-		this.domUtils = new DomUtils();
-		this.prefix = new Prefix();
-		this.cssUtils = new CssUtils();
+		this.domUtils = domUtils;
+		this.prefix = prefix;
+		this.cssUtils = cssutils;
 		this.onTransitionEnd = this.callback.bind(this);
 		this.totaltransitions = Array.isArray(options.properties) ? options.properties.length : 1;
 		this.transitionendCount = 0;
