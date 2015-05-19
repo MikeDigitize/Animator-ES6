@@ -8,7 +8,10 @@ import Combo from "./combo-seq.js";
 class animator { 
 	
 	constructor() {
-		
+		let style = document.createElement("style");
+        style.appendChild(document.createTextNode(""));
+        document.head.appendChild(style);
+        this.stylesheet = style.sheet;
 	}
 
 	getPrefix(prefix) {
@@ -28,7 +31,11 @@ class animator {
 	}
 
 	createClass(className, rules) {
-		return new CssUtils().createClass(className, rules);
+		return new CssUtils().createClass(className, rules, this.stylesheet);
+	}
+
+	deleteClass(className) {
+		return new CssUtils().deleteClass(className, this.stylesheet);
 	}
 
 	addClass(element, classList) {

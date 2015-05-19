@@ -3,10 +3,7 @@ import Prefix from "./prefixes";
 class CssUtils {
 	
 	constructor() {
-        let style = document.createElement("style");
-        style.appendChild(document.createTextNode(""));
-        document.head.appendChild(style);
-        this.stylesheet = style.sheet;
+        
 	}
 
 	cssTextToJs(cssText) {
@@ -84,7 +81,7 @@ class CssUtils {
 
     }
 
-    createClass(className, rules = {}) {
+    createClass(className, rules = {}, stylesheet) {
 
         let name = "." + className;
         let cssString = "{ ";
@@ -94,7 +91,19 @@ class CssUtils {
         });
 
         cssString += "}";
-        this.stylesheet.insertRule(name + cssString, this.stylesheet.cssRules.length);
+        stylesheet.insertRule(name + cssString, stylesheet.cssRules.length);
+
+    }
+
+    deleteClass(className, stylesheet) {
+
+        let rules = stylesheet.rules;
+        let name = "." + className;
+        Object.keys(rules).forEach(rule => {
+            if (rules[rule] instanceof CSSStyleRule && rules[rule].selectorText === name) {
+                stylesheet.deleteRule(rule);
+            }
+        });
 
     }
 

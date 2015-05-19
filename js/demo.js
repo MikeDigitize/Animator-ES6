@@ -48,6 +48,9 @@
 	sequence
 		.then(function(elements) {
 			Animator.addClass(elements[0], "test");
+			setTimeout(function(){
+				Animator.deleteClass("test");
+			}, 1000);
 			console.log("done!", elements);
 		});
 
