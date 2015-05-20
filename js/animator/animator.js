@@ -3,8 +3,9 @@ import CssUtils from "./css-utils";
 import DomUtils from "./dom-utils";
 import Animation from "./animation-seq";
 import Transition from "./transition-seq";
-import Combo from "./combo-seq.js";
-import { Promise as promise } from "./es6-promise";
+import Combo from "./combo-seq";
+import SequenceWrapper from "./seq-wrapper";
+import { Promise as Promise } from "./es6-promise";
 
 class animator { 
 	
@@ -48,15 +49,16 @@ class animator {
 	}
 
 	transition(options) {
-		return new Transition(options, new DomUtils(), new Prefix(), new CssUtils(), promise, "transition");
+		//return new Transition(options, new DomUtils(), new Prefix(), new CssUtils(), Promise, Transition, Combo);
+		return new SequenceWrapper(options, new DomUtils(), new Prefix(), new CssUtils(), Promise, Transition, Combo);
 	}
 
 	animation(options) {
-		return new Animation(options, new DomUtils(), new Prefix(), new CssUtils(), promise, "animation");
+		return new Animation(options, new DomUtils(), new Prefix(), new CssUtils(), Promise, Animation, Combo);
 	}
 
 	combo(animations) {
-		return new Combo(animations, promise);
+		return new Combo(animations, Promise);
 	}
 
 }

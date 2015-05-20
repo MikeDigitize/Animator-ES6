@@ -1,39 +1,27 @@
-import Animation from "./animation-seq";
-import Transition from "./transition-seq";
-
-class SequenceWrapper() {
-	constructor(options, domUtils, prefix, cssutils, promise, type) {
-
-		this.options = options;
-		this.domUtils = domUtils;
-		this.prefix = prefix;
-		this.cssutils = cssutils;
-		this.promise = promise;
+class SequenceWrapper {
+	
+	constructor(options, domUtils, prefix, cssutils, promise, sequenceType, Combo) {
 
 		if(options.element.length) {
-			if(type === "transition") {
-				createTransitionWrapper();
-			}
-			else {
-				createAnimationWrapper();
-			} 
+			this.createSequenceWrapper(options, domUtils, prefix, cssutils, promise, sequenceType, Combo);
 		}
 		else {
-			if(type === "transition") {
-				return new Transition(options, domUtils, prefix, cssutils, promise);
-			}
-			else {
-				return new Animation(options, domUtils, prefix, cssutils, promise);
-			} 
+			return new sequenceType(options, domUtils, prefix, cssutils, promise);
 		}
 
 	}
 
-	createTransitionWrapper() {
+	createSequenceWrapper(options, domUtils, prefix, cssutils, promise, sequenceType, Combo) {
 
+		let sequences = [];
+		Array.from(options.element).forEach(element => {
+			let optionsCopy = options;
+			optionsCopy.element = element;
+			sequences.push(new this.sequenceType(optionsCopy, domUtils, prefix. cssutils, promise));
+		});
+		return new Combo(sequences);
 	}
 
-	createAnimationWrapper() {
-
-	}
 }
+
+export default SequenceWrapper;

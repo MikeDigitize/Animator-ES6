@@ -1,6 +1,6 @@
 class Transition {
 
-	constructor(options, domUtils, prefix, cssutils, promise) {
+	constructor(options, domUtils, prefix, cssutils, Promise) {
 
 		this.options = options;
 		this.domUtils = domUtils;
@@ -10,7 +10,7 @@ class Transition {
 		this.totaltransitions = Array.isArray(options.properties) ? options.properties.length : 1;
 		this.transitionendCount = 0;
 
-		return new promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
 			this.resolve = resolve;
 			this.reject = reject;
 			this.animationFrame = requestAnimationFrame(this.startTransition.bind(this));      
