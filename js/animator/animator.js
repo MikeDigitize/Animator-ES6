@@ -48,11 +48,11 @@ class animator {
 	}
 
 	transition(options) {
-		return new Transition(options, new DomUtils(), new Prefix(), new CssUtils(), promise);
+		return new Transition(options, new DomUtils(), new Prefix(), new CssUtils(), promise, "transition");
 	}
 
 	animation(options) {
-		return new Animation(options, new DomUtils(), new Prefix(), promise);
+		return new Animation(options, new DomUtils(), new Prefix(), new CssUtils(), promise, "animation");
 	}
 
 	combo(animations) {

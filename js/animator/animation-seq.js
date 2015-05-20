@@ -1,6 +1,6 @@
 class Animation {
 
-	constructor(options, domUtils, prefix, promise) {
+	constructor(options, domUtils, prefix, cssutils, promise) {
 
 		this.options = options;
 		this.domUtils = domUtils;

@@ -8,6 +8,8 @@
 	var p1 = document.querySelector(".one");
 	var p2 = document.querySelector(".two");
 
+	var pTags = document.querySelectorAll("p");
+
 	Animator.createTransition({
 		elements : p1,
 	    properties : ["font-size", "color"],
@@ -44,7 +46,6 @@
 			}
 		})
 	]);
-
 	sequence
 		.then(function(elements) {
 			Animator.addClass(elements[0], "test");
