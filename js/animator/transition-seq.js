@@ -1,11 +1,13 @@
 class Transition {
 
-	constructor(options, domUtils, prefix, cssutils, Promise) {
+	constructor(options, DomUtils, Prefix, CssUtils, Promise) {
+
+		console.log("element", options.element);
 
 		this.options = options;
-		this.domUtils = domUtils;
-		this.prefix = prefix.getPrefix("transitionend");
-		this.cssUtils = cssutils;
+		this.domUtils = new DomUtils();
+		this.prefix = new Prefix().getPrefix("transitionend");
+		this.cssUtils = new CssUtils();
 		this.onTransitionEnd = this.callback.bind(this);
 		this.totaltransitions = Array.isArray(options.properties) ? options.properties.length : 1;
 		this.transitionendCount = 0;
@@ -21,6 +23,7 @@ class Transition {
 	startTransition() {
 
 		let opts = this.options;
+
 		opts.element.addEventListener(this.prefix, this.onTransitionEnd, false);
 
 		if(opts.removeClass && opts.removeClass.before) {

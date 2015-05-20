@@ -1,1 +1,59 @@
-!function(){var e=io();e.on("userid",function(e){console.log("socket id",e)});var o=document.querySelector(".one"),t=document.querySelector(".two"),n=document.querySelectorAll("p");Animator.createTransition({elements:o,properties:["font-size","color"],duration:["1000ms","1000ms"],easing:"ease",delay:["500ms","50ms"]}),Animator.createTransition({elements:t,properties:["font-size","color"],duration:["500ms","1000ms"],easing:"ease",delay:"0ms"}),Animator.createClass("test",{"font-family":"Georgia","font-weight":"bold",color:"blue"});var s=Animator.transition({element:n,properties:["font-size","color"],addClass:{before:"transition"}});s.then(function(e){Animator.addClass(e[0],"test"),setTimeout(function(){Animator.deleteClass("test")},1e3),console.log("done!",e)})}();
+(function(){
+
+	var socket = io();
+	socket.on("userid", function(data) {
+	    console.log("socket id", data);
+	});
+
+	var p1 = document.querySelector(".one");
+	var p2 = document.querySelector(".two");
+
+	var pTags = document.querySelectorAll("p");
+
+	Animator.createTransition({
+		elements : p1,
+	    properties : ["font-size", "color"],
+	    duration : ["1000ms", "1000ms"],
+	    easing : "ease",
+	    delay : ["500ms", "50ms"]
+	});
+
+	Animator.createTransition({
+		elements : p2,
+	    properties : ["font-size", "color"],
+	    duration : ["500ms", "1000ms"],
+	    easing : "ease",
+	    delay : "0ms" 
+	});
+
+	Animator.createClass("test", { "font-family" : "Georgia", "font-weight" : "bold", "color" : "blue" });
+
+	var sequence = Animator.combo([
+		Animator.transition({
+			element : p1,
+			properties : ["font-size", "color"],
+			addClass : {
+				before : "transition" 
+			}
+		}),
+		Animator.transition({
+			element : p2,
+			properties : "font-size",
+			setStyles : {
+				before : {
+					"font-size" : "40px"
+				}
+			}
+		})
+	]);
+
+	sequence
+		.then(function(elements) {
+			Animator.addClass(elements[0], "test");
+			setTimeout(function(){
+				Animator.deleteClass("test");
+			}, 1000);
+			console.log("done!", elements);
+		});
+
+})();

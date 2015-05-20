@@ -1,25 +1,22 @@
 class SequenceWrapper {
 	
-	constructor(options, domUtils, prefix, cssutils, promise, sequenceType, Combo) {
+	constructor(options, DomUtils, Prefix, CssUtils, Promise, Sequence, Combo) {
 
 		if(options.element.length) {
-			this.createSequenceWrapper(options, domUtils, prefix, cssutils, promise, sequenceType, Combo);
+			let sequences = Array.from(options.element).map(element => {
+				let optionsCopy = options;
+				optionsCopy.element = element;
+				return Sequence(optionsCopy, DomUtils, Prefix, CssUtils, Promise);
+			});
+
+			console.log(sequences);
+
+			return new Combo(sequences, Promise);
 		}
 		else {
-			return new sequenceType(options, domUtils, prefix, cssutils, promise);
+			return new Sequence(options, DomUtils, Prefix, CssUtils, Promise);
 		}
 
-	}
-
-	createSequenceWrapper(options, domUtils, prefix, cssutils, promise, sequenceType, Combo) {
-
-		let sequences = [];
-		Array.from(options.element).forEach(element => {
-			let optionsCopy = options;
-			optionsCopy.element = element;
-			sequences.push(new this.sequenceType(optionsCopy, domUtils, prefix. cssutils, promise));
-		});
-		return new Combo(sequences);
 	}
 
 }

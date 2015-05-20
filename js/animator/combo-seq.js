@@ -1,7 +1,7 @@
 class Combo {
-	constructor(sequences, promise) {
+	constructor(sequences, Promise) {
 
-		return new promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
 
 			let watcher = this.sequenceWatcher();
 			this.resolve = resolve;

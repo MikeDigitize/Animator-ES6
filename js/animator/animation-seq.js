@@ -1,10 +1,11 @@
 class Animation {
 
-	constructor(options, domUtils, prefix, cssutils, Promise) {
+	constructor(options, DomUtils, Prefix, CssUtils, Promise) {
 
 		this.options = options;
-		this.domUtils = domUtils;
-		this.prefix = prefix.getPrefix("animationend");
+		this.domUtils = new DomUtils();
+		this.cssUtils = new CssUtils();
+		this.prefix = new Prefix().getPrefix("animationend");
 		this.onAnimationEnd = this.callback.bind(this);
 
 		return new Promise((resolve, reject) => {

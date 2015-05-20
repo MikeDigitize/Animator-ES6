@@ -49,12 +49,12 @@ class animator {
 	}
 
 	transition(options) {
-		//return new Transition(options, new DomUtils(), new Prefix(), new CssUtils(), Promise, Transition, Combo);
-		return new SequenceWrapper(options, new DomUtils(), new Prefix(), new CssUtils(), Promise, Transition, Combo);
+		return new Transition(options, DomUtils, Prefix, CssUtils, Promise);
+		//return new SequenceWrapper(options, DomUtils, Prefix, CssUtils, Promise, Transition, Combo);
 	}
 
 	animation(options) {
-		return new Animation(options, new DomUtils(), new Prefix(), new CssUtils(), Promise, Animation, Combo);
+		return new Animation(options, DomUtils, Prefix, CssUtils, Promise);
 	}
 
 	combo(animations) {
