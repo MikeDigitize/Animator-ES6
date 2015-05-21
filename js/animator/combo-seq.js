@@ -1,4 +1,5 @@
 class Combo {
+	
 	constructor(sequences, Promise) {
 
 		return new Promise((resolve, reject) => {

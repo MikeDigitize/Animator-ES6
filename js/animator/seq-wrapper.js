@@ -9,7 +9,6 @@ class SequenceWrapper {
 					opts[key] = options[key];
 				});
 				opts.element = element;
-				console.log("booyah!")
 				return new Sequence(opts, DomUtils, Prefix, CssUtils, Promise);
 			});
 			return new Combo(transitions, Promise);
