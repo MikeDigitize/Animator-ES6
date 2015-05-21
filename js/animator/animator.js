@@ -29,7 +29,7 @@ class animator {
 	}
 
 	createTransition(transitions) {
-		return new CssUtils().createTransition(transitions, new Prefix());
+		return new CssUtils().createTransition(transitions, Prefix);
 	}
 
 	createClass(className, rules) {
@@ -53,7 +53,7 @@ class animator {
 	}
 
 	animation(options) {
-		return new Animation(options, DomUtils, Prefix, CssUtils, Promise);
+		return new SequenceWrapper(options, DomUtils, Prefix, CssUtils, Promise, Animation, Combo);
 	}
 
 	combo(animations) {

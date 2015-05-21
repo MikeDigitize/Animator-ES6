@@ -27,7 +27,11 @@ class Animation {
 
 		if(opts.addClass && opts.addClass.before) {
 			this.domUtils.setClass(opts.element, opts.addClass.before, true);	
-		}			
+		}	
+
+		if(opts.setStyles && opts.setStyles.before) {
+			this.cssUtils.setStyles(opts.element, opts.setStyles.before);
+		}		
 
 	}
 
@@ -44,6 +48,10 @@ class Animation {
 		if(opts.addClass && opts.addClass.after) {
 			this.domUtils.setClass(options.element, opts.addClass.after, true);	
 		}	
+
+		if(opts.setStyles && opts.setStyles.after) {
+			this.cssUtils.setStyles(opts.element, opts.setStyles.after);
+		}
 
 		this.resolve(opts.element);
 

@@ -1,5 +1,3 @@
-import Prefix from "./prefixes";
-
 class CssUtils {
 	
 	constructor() {
@@ -48,9 +46,9 @@ class CssUtils {
 
     }
 
-    createTransition(transitions, prefix) {
+    createTransition(transitions, Prefix) {
 
-        let transitionPrefix = prefix.getPrefix("transition");
+        let transitionPrefix = new Prefix().getPrefix("transition");
         let elements = transitions.elements.length ? Array.from(transitions.elements) : [transitions.elements];
         let properties = Array.isArray(transitions.properties) ? [...transitions.properties] : [transitions.properties];
         let duration = Array.isArray(transitions.duration) ? [...transitions.duration] : [transitions.duration];
@@ -72,7 +70,6 @@ class CssUtils {
 
             });
 
-            // remove trailing comma
             transitionString = transitionString.substr(0, transitionString.length - 1);
             rules[transitionPrefix] = transitionString;
             this.setStyles(element, rules);
