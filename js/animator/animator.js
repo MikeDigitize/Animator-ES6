@@ -49,24 +49,7 @@ class animator {
 	}
 
 	transition(options) {
-
-		if(options.element.length) {
-			let transitions = [];
-			Array.from(options.element).forEach((element) => {
-				let opts = {};
-				Object.keys(options).forEach((key) => {
-					opts[key] = options[key];
-				});
-				opts.element = element;
-				transitions.push(new Transition(opts, DomUtils, Prefix, CssUtils, Promise));
-			});
-			console.log(transitions);
-			return new Combo(transitions, Promise);
-		}
-		else {
-			return new Transition(options, DomUtils, Prefix, CssUtils, Promise);
-		}
-
+		return new SequenceWrapper(options, DomUtils, Prefix, CssUtils, Promise, Transition, Combo);
 	}
 
 	animation(options) {

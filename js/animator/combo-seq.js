@@ -1,8 +1,6 @@
 class Combo {
 	constructor(sequences, Promise) {
 
-		console.log("in!");
-
 		return new Promise((resolve, reject) => {
 
 			let watcher = this.sequenceWatcher();

@@ -9,12 +9,11 @@ class Transition {
 		this.onTransitionEnd = this.callback.bind(this);
 		this.totaltransitions = Array.isArray(options.properties) ? options.properties.length : 1;
 		this.transitionendCount = 0;
-		this.start = this.startTransition.bind(this);
 
 		return new Promise((resolve, reject) => {
 			this.resolve = resolve;
 			this.reject = reject;
-			this.animationFrame = requestAnimationFrame(this.start);      
+			this.animationFrame = requestAnimationFrame(this.startTransition.bind(this));      
 		});
 
 	}
