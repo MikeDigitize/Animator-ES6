@@ -2,8 +2,6 @@ class Transition {
 
 	constructor(options, DomUtils, Prefix, CssUtils, Promise) {
 
-		console.log("element", options.element);
-
 		this.options = options;
 		this.domUtils = new DomUtils();
 		this.prefix = new Prefix().getPrefix("transitionend");
@@ -11,11 +9,12 @@ class Transition {
 		this.onTransitionEnd = this.callback.bind(this);
 		this.totaltransitions = Array.isArray(options.properties) ? options.properties.length : 1;
 		this.transitionendCount = 0;
+		this.start = this.startTransition.bind(this);
 
 		return new Promise((resolve, reject) => {
 			this.resolve = resolve;
 			this.reject = reject;
-			this.animationFrame = requestAnimationFrame(this.startTransition.bind(this));      
+			this.animationFrame = requestAnimationFrame(this.start);      
 		});
 
 	}
@@ -23,7 +22,6 @@ class Transition {
 	startTransition() {
 
 		let opts = this.options;
-
 		opts.element.addEventListener(this.prefix, this.onTransitionEnd, false);
 
 		if(opts.removeClass && opts.removeClass.before) {

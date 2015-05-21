@@ -28,24 +28,32 @@
 
 	Animator.createClass("test", { "font-family" : "Georgia", "font-weight" : "bold", "color" : "blue" });
 
-	var sequence = Animator.combo([
-		Animator.transition({
-			element : p1,
-			properties : ["font-size", "color"],
-			addClass : {
-				before : "transition" 
-			}
-		}),
-		Animator.transition({
-			element : p2,
-			properties : "font-size",
-			setStyles : {
-				before : {
-					"font-size" : "40px"
-				}
-			}
-		})
-	]);
+	// var sequence = Animator.combo([
+	// 	Animator.transition({
+	// 		element : p1,
+	// 		properties : ["font-size", "color"],
+	// 		addClass : {
+	// 			before : "transition" 
+	// 		}
+	// 	}),
+	// 	Animator.transition({
+	// 		element : p2,
+	// 		properties : "font-size",
+	// 		setStyles : {
+	// 			before : {
+	// 				"font-size" : "40px"
+	// 			}
+	// 		}
+	// 	})
+	// ]);
+
+	var sequence = Animator.transition({
+		element : pTags,
+		properties : ["font-size", "color"],
+		addClass : {
+			before : "transition" 
+		}
+	});
 
 	sequence
 		.then(function(elements) {

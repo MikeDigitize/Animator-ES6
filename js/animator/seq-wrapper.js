@@ -6,11 +6,8 @@ class SequenceWrapper {
 			let sequences = Array.from(options.element).map(element => {
 				let optionsCopy = options;
 				optionsCopy.element = element;
-				return Sequence(optionsCopy, DomUtils, Prefix, CssUtils, Promise);
+				return new Sequence(optionsCopy, DomUtils, Prefix, CssUtils, Promise);
 			});
-
-			console.log(sequences);
-
 			return new Combo(sequences, Promise);
 		}
 		else {
