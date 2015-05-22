@@ -42,11 +42,11 @@ class Animation {
 		cancelAnimationFrame(this.animationFrame);
 
 		if(opts.removeClass && opts.removeClass.after) {
-			this.domUtils.setClass(options.element, opts.removeClass.after, false);
+			this.domUtils.setClass(opts.element, opts.removeClass.after, false);
 		}
 
 		if(opts.addClass && opts.addClass.after) {
-			this.domUtils.setClass(options.element, opts.addClass.after, true);	
+			this.domUtils.setClass(opts.element, opts.addClass.after, true);	
 		}	
 
 		if(opts.setStyles && opts.setStyles.after) {

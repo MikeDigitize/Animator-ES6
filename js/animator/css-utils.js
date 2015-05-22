@@ -23,7 +23,13 @@ class CssUtils {
 
     }
 
-
+    createStyleSheet(title = "") {
+        let style = document.createElement("style");
+        style.setAttribute("title", title);
+        style.appendChild(document.createTextNode(""));
+        document.head.appendChild(style);
+        return style.sheet;
+    }
 
     setStyles(element, styles) {
 

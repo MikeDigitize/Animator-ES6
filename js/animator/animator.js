@@ -7,13 +7,10 @@ import Combo from "./combo-seq";
 import SequenceWrapper from "./seq-wrapper";
 import { Promise as Promise } from "./es6-promise";
 
-class animator { 
+class Animator { 
 	
 	constructor() {
-		let style = document.createElement("style");
-        style.appendChild(document.createTextNode(""));
-        document.head.appendChild(style);
-        this.stylesheet = style.sheet;
+		this.stylesheet = new CssUtils().createStyleSheet();
 	}
 
 	getPrefix(prefix) {
@@ -62,4 +59,4 @@ class animator {
 
 }
 
-window.Animator = new animator(); 
+window.Animator = new Animator(); 
