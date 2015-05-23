@@ -5,12 +5,14 @@ import Animation from "./animation-seq";
 import Transition from "./transition-seq";
 import Combo from "./combo-seq";
 import SequenceWrapper from "./seq-wrapper";
+import Tracker from "./tracker";
 import { Promise as Promise } from "./es6-promise";
 
 class Animator { 
 	
 	constructor() {
 		this.stylesheet = new CssUtils().createStyleSheet();
+		this.tracker = new Tracker(DomUtils, Prefix, CssUtils, Transition);
 	}
 
 	getPrefix(prefix) {
@@ -46,15 +48,15 @@ class Animator {
 	}
 
 	transition(options) {
-		return new SequenceWrapper(options, DomUtils, Prefix, CssUtils, Promise, Transition, Combo);
+		return new SequenceWrapper(options, DomUtils, Prefix, CssUtils, Promise, Transition, Combo, this.tracker);
 	}
 
 	animation(options) {
-		return new SequenceWrapper(options, DomUtils, Prefix, CssUtils, Promise, Animation, Combo);
+		return new SequenceWrapper(options, DomUtils, Prefix, CssUtils, Promise, Animation, Combo, this.tracker);
 	}
 
 	combo(animations) {
-		return new Combo(animations, Promise);
+		return new Combo(animations, Promise, this.tracker, Transition);
 	}
 
 }

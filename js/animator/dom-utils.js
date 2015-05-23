@@ -11,7 +11,9 @@ class DomUtils {
 		classes.forEach(c => {
 			element.classList[action](c);
 		});
+
 	}
+	
 }
 
 export default DomUtils;

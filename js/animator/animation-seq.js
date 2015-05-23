@@ -2,6 +2,7 @@ class Animation {
 
 	constructor(options, DomUtils, Prefix, CssUtils, Promise) {
 
+		this.className = "Animation";
 		this.options = options;
 		this.domUtils = new DomUtils();
 		this.cssUtils = new CssUtils();
@@ -59,4 +60,5 @@ class Animation {
 
 }
 
+//Animation.className = "Animation";
 export default Animation;

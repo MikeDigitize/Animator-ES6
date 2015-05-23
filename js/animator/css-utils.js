@@ -24,11 +24,13 @@ class CssUtils {
     }
 
     createStyleSheet(title = "") {
+
         let style = document.createElement("style");
-        style.setAttribute("title", title);
         style.appendChild(document.createTextNode(""));
         document.head.appendChild(style);
+        style.setAttribute("title", title);
         return style.sheet;
+        
     }
 
     setStyles(element, styles) {
@@ -100,7 +102,7 @@ class CssUtils {
 
     deleteClass(className, stylesheet) {
 
-        let rules = stylesheet.rules;
+        let rules = stylesheet.rules || stylesheet.cssRules;
         let name = "." + className;
         Object.keys(rules).forEach(rule => {
             if (rules[rule] instanceof CSSStyleRule && rules[rule].selectorText === name) {
