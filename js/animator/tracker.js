@@ -15,7 +15,13 @@ class Tracker {
 	track(options, Sequence) {
 
 		if(Sequence.prototype === this.transition) {
-			this.trackTransition(options);
+			if(!this.tracker.get("Transitions").get(options.element)) {
+				this.trackTransition(options);
+			}
+			else {
+				// add to existing 
+				console.log("already present!");
+			}			
 		}
 		else {
 			this.trackAnimation(options);
@@ -23,9 +29,8 @@ class Tracker {
 
 	}
 
-	storeReject(element, reject, type) {
+	store(element, reject, type) {
 		this.tracker.get(type).get(element).reject.push(reject);
-		console.log(this.tracker.get(type).get(element));
 	}
 
 	trackTransition(options) {

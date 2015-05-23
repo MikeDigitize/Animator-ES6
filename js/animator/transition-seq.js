@@ -13,7 +13,7 @@ class Transition {
 		return new Promise((resolve, reject) => {
 			this.resolve = resolve;
 			this.reject = reject;
-			Tracker.storeReject(options.element, reject, "Transitions");
+			Tracker.store(options.element, reject, "Transitions");
 			this.animationFrame = requestAnimationFrame(this.startTransition.bind(this));      
 		});
 

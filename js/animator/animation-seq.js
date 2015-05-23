@@ -11,7 +11,7 @@ class Animation {
 		return new Promise((resolve, reject) => {
 			this.resolve = resolve;
 			this.reject = reject;
-			Tracker.storeReject(options.element, reject, "Animations");
+			Tracker.store(options.element, reject, "Animations");
 			this.animationFrame = requestAnimationFrame(this.startAnimation.bind(this));      
 		});
 
