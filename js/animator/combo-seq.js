@@ -1,6 +1,6 @@
 class Combo {
 	
-	constructor(sequences, Promise, Tracker, Transition) {
+	constructor(sequences, Promise) {
 
 		return new Promise((resolve, reject) => {
 
@@ -10,14 +10,6 @@ class Combo {
 			this.amount = sequences.length;
 
 			sequences.forEach(sequence => {
-
-				if(sequence.prototype === Transition.prototype) {
-					Tracker.track(options, sequence);
-				}
-				else {
-					Tracker.track(options, sequence);
-				}
-
 				sequence.then(element => {
 					watcher(element);
 				});
@@ -39,7 +31,7 @@ class Combo {
 			if(count === this.amount) {
 				this.resolve(returnData);
 			}
-			
+
 		}
 
 	}

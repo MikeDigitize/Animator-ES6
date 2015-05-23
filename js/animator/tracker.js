@@ -24,42 +24,37 @@ class Tracker {
 	}
 
 	storeReject(element, reject, type) {
-
-		let data = this.tracker.get(type).get(element);
-		data.reject.push(reject);
-
+		this.tracker.get(type).get(element).reject.push(reject);
+		console.log(this.tracker.get(type).get(element));
 	}
 
 	trackTransition(options) {
 
-		console.log(options);
-
-		let transitions = this.tracker.get("Transitions");
-		let data = {};
-		
+		let data = {};	
+		let transitions = this.tracker.get("Transitions");	
 		data.options = options;
-		data.properties = options.properties;
+		data.properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
 		data.initialValues = {};
 
 		data.properties.forEach(property => {
 			let styleRule = this.cssUtils.getStyles(options.element, property);
 			Object.keys(styleRule).forEach(property => {
 				data.initialValues[property] = styleRule[property];
-			});
+			}); 
 		});
 
 		data.reject = [];
-
 		transitions.set(options.element, data);
-		console.log(transitions.get(options.element));
 
 	}
 
 	trackAnimation(options) {
 
+		let data = {};	
 		let animations = this.tracker.get("Animations");
-		animations.set(options.element, { options : options });
-		console.log("animation", this.tracker.get("Animations"));
+		data.options = options;
+		data.reject = [];
+		animations.set(options.element, data);
 
 	}
 

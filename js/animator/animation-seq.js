@@ -1,8 +1,7 @@
 class Animation {
 
-	constructor(options, DomUtils, Prefix, CssUtils, Promise) {
+	constructor(options, DomUtils, Prefix, CssUtils, Promise, Tracker) {
 
-		this.className = "Animation";
 		this.options = options;
 		this.domUtils = new DomUtils();
 		this.cssUtils = new CssUtils();
@@ -12,6 +11,7 @@ class Animation {
 		return new Promise((resolve, reject) => {
 			this.resolve = resolve;
 			this.reject = reject;
+			Tracker.storeReject(options.element, reject, "Animations");
 			this.animationFrame = requestAnimationFrame(this.startAnimation.bind(this));      
 		});
 
@@ -60,5 +60,4 @@ class Animation {
 
 }
 
-//Animation.className = "Animation";
 export default Animation;
