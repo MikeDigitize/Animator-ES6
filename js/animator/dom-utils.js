@@ -7,9 +7,12 @@ class DomUtils {
 	setClass(element, classList, add) {
 
 		let classes = Array.isArray(classList) ? [...classList] : [classList];
+		let elements = element.length ? Array.from(element) : [element];
 		let action = add ? "add" : "remove";
-		classes.forEach(c => {
-			element.classList[action](c);
+		classes.forEach(cls => {
+			elements.forEach(el => {
+				el.classList[action](cls);
+			});			
 		});
 
 	}

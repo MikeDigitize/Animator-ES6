@@ -26,28 +26,30 @@
 	    delay : "0ms" 
 	});
 
+	Animator.addClass(pTags, ["someClass", "animated"]);
+
 	Animator.createClass("test", { "font-family" : "Georgia", "font-weight" : "bold", "color" : "blue" });
 
-	var sequence = Animator.combo([
-		Animator.transition({
-			element : pTags,
-			properties : "color",
-			setStyles : {
-				before : {
-					"color" : "red"
-				}
-			}
-		}),
-		Animator.transition({
-			element : pTags,
-			properties : "font-size",
-			setStyles : {
-				before : {
-					"font-size" : "40px"
-				}
-			}
-		})
-	]);
+	// var sequence = Animator.combo([
+	// 	Animator.transition({
+	// 		element : pTags,
+	// 		properties : "color",
+	// 		setStyles : {
+	// 			before : {
+	// 				"color" : "red"
+	// 			}
+	// 		}
+	// 	}),
+	// 	Animator.transition({
+	// 		element : pTags,
+	// 		properties : "font-size",
+	// 		setStyles : {
+	// 			before : {
+	// 				"font-size" : "40px"
+	// 			}
+	// 		}
+	// 	})
+	// ]);
 
 	// var sequence = Animator.transition({
 	// 	element : p1,
@@ -58,15 +60,19 @@
 	// });
 
 	// var sequence = Animator.animation({
-	// 	element : p1,
+	// 	element : pTags,
 	// 	addClass : {
 	// 		before : ["animated", "jello"] 
+	// 	},
+	// 	removeClass : {
+	// 		before : "someClass",
+	// 		after : "jello"
 	// 	}
 	// });
 
 	// var sequence = Animator.combo([
 	// 	Animator.animation({
-	// 		element : p1,
+	// 		element : pTags,
 	// 		addClass : {
 	// 			before : ["animated", "jello"] 
 	// 		}
@@ -81,12 +87,50 @@
 	// 	})
 	// ]);
 
+	var sequence = Animator.combo([
+		Animator.animation({
+			element : pTags,
+			addClass : {
+				before : "jello"
+			},
+			removeClass : {
+				after : "jello"
+			}
+		}),
+		Animator.animation({
+			element : pTags,
+			addClass : {
+				before : "flipOutY"
+			},
+			removeClass : {
+				after : "flipOutY"
+			}
+		})
+	]);
+
 	sequence
+		.then(function() {
+			return Animator.transition({
+				element : p1,
+				properties : ["font-size", "color"],
+				addClass : {
+					before : "transition",
+					after : "test" 
+				}
+			})
+		})
 		.then(function(elements) {
-			Animator.addClass(elements[0], "test");
-			setTimeout(function(){
-				Animator.deleteClass("test");
-			}, 1000);
+			return Animator.animation({
+				element : pTags,
+				addClass : {
+					before : "flipInY"
+				},
+				removeClass : {
+					after : "flipInY"
+				}
+			})			
+		})
+		.then(function(elements) {
 			console.log("done!", elements);
 		});
 

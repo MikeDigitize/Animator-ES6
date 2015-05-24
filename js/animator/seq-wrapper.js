@@ -2,8 +2,6 @@ class SequenceWrapper {
 	
 	constructor(options, DomUtils, Prefix, CssUtils, Promise, Sequence, Combo, Tracker) {
 
-		console.log(options.element);
-
 		if(options.element.length) {
 			let transitions = Array.from(options.element).map((element) => {
 				let opts = {};

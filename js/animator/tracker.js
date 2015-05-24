@@ -14,13 +14,14 @@ class Tracker {
 
 	track(options, Sequence) {
 
+		let transition = this.tracker.get("Transitions").get(options.element);
+
 		if(Sequence.prototype === this.transition) {
-			if(!this.tracker.get("Transitions").get(options.element)) {
+			if(!transition) {
 				this.trackTransition(options);
 			}
 			else {
-				// add to existing 
-				console.log("already present!");
+				this.update(transition, options); 
 			}			
 		}
 		else {
@@ -33,11 +34,25 @@ class Tracker {
 		this.tracker.get(type).get(element).reject.push(reject);
 	}
 
+	update(record, options) {
+
+		let properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
+		record.properties = [...record.properties, ...properties];
+
+		properties.forEach(property => {
+			let styleRule = this.cssUtils.getStyles(options.element, property);
+			Object.keys(styleRule).forEach(property => {
+				record.initialValues[property] = styleRule[property];
+			}); 
+		});
+
+		console.log("after: ", record);
+	}
+
 	trackTransition(options) {
 
 		let data = {};	
 		let transitions = this.tracker.get("Transitions");	
-		data.options = options;
 		data.properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
 		data.initialValues = {};
 
