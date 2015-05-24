@@ -24,6 +24,14 @@ class Prefix {
 		this.prefixes.set("transition-timing-function", ["-webkit-transition-timing-function", "transition-timing-function"]);
 
 		/*
+			Animations
+		*/
+
+		this.prefixes.set("animation-play-state", ["-webkit-animation-play-state", "animation-play-state"]);
+		this.prefixes.set("animation-duration", ["-webkit-animation-duration", "animation-duration"]);
+		this.prefixes.set("animation-delay", ["-webkit-animation-delay", "animation-delay"]);
+		
+		/*
 			Transition / Animation end
 		*/
 

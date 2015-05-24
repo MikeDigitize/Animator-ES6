@@ -15,6 +15,7 @@ class Tracker {
 	track(options, Sequence) {
 
 		let transition = this.tracker.get("Transitions").get(options.element);
+		let animation = this.tracker.get("Animations").get(options.element);
 
 		if(Sequence.prototype === this.transition) {
 			if(!transition) {
@@ -25,7 +26,9 @@ class Tracker {
 			}			
 		}
 		else {
-			this.trackAnimation(options);
+			if(!animation) {
+				this.trackAnimation(options);
+			}				
 		}
 
 	}
@@ -46,7 +49,63 @@ class Tracker {
 			}); 
 		});
 
-		console.log("after: ", record);
+	}
+
+	stop() {
+
+		let transitions = this.tracker.get("Transitions");
+		let transitionElements = transitions.keys();
+		let animations = this.tracker.get("Animations");
+		let animationElements = animations.keys();
+
+		let reject;
+
+		while(true) {
+	        
+	        let element = animationElements.next(), rule = {};
+	        if (element.done) {
+	            break;
+	        }
+
+        	rule[this.prefix.getPrefix("animation-play-state")] = "paused";
+        	this.cssUtils.setStyles(element.value, rule);
+        	reject = animations.get(element.value).reject[0];
+
+	    }
+
+		while(true) {
+	        
+	        let element = transitionElements.next(), record;
+	        if (element.done) {
+	            break;
+	        }
+
+	        record = transitions.get(element.value);
+	        record.properties.forEach(property => {
+	        	let rule = {};
+	        	rule[property] = this.cssUtils.getStyles(property);
+	        	this.cssUtils.setStyles(element.value, rule);
+	        });	        
+	        record.reject.forEach(rejected => {
+	        	rejected();
+	        });
+
+	    }
+
+	    console.log(reject);
+
+	    return reject("error!");
+
+		// console.log(transitions.entries());
+
+		// transitions.keys().forEach(transition => {
+		// 	console.log(transition);
+		// });
+
+		// run through transition properties and store and then set them to stop the transition
+		// run through animation elements and set animation play state to paused
+		// fire all rejects
+
 	}
 
 	trackTransition(options) {

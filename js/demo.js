@@ -7,8 +7,12 @@
 
 	var p1 = document.querySelector(".one");
 	var p2 = document.querySelector(".two");
-
 	var pTags = document.querySelectorAll("p");
+	var btn = document.querySelector(".stop");
+
+	btn.addEventListener("click", function() {
+		Animator.stop();
+	}, false);
 
 	Animator.createTransition({
 		elements : p1,
@@ -87,51 +91,77 @@
 	// 	})
 	// ]);
 
+	var rules1 = {};
+	var rules2 = {};
+
+	rules1[Animator.getPrefix("animation-duration")] = rules2[Animator.getPrefix("animation-duration")] = "4s";
+	rules1[Animator.getPrefix("animation-delay")] = "0.5s";
+
+	console.log()
+
 	var sequence = Animator.combo([
 		Animator.animation({
-			element : pTags,
+			element : p1,
 			addClass : {
 				before : "jello"
 			},
 			removeClass : {
 				after : "jello"
+			},
+			setStyles : {
+				before : rules1
 			}
 		}),
 		Animator.animation({
-			element : pTags,
+			element : p2,
 			addClass : {
 				before : "flipOutY"
 			},
 			removeClass : {
 				after : "flipOutY"
+			},
+			setStyles : {
+				before : rules2
 			}
 		})
 	]);
 
 	sequence
 		.then(function() {
-			return Animator.transition({
-				element : p1,
-				properties : ["font-size", "color"],
-				addClass : {
-					before : "transition",
-					after : "test" 
-				}
-			})
+			console.log("done!");
 		})
-		.then(function(elements) {
-			return Animator.animation({
-				element : pTags,
-				addClass : {
-					before : "flipInY"
-				},
-				removeClass : {
-					after : "flipInY"
-				}
-			})			
+		.catch(function() {
+			console.log("stop!");
 		})
-		.then(function(elements) {
-			console.log("done!", elements);
-		});
+
+	// sequence
+	// 	.then(function() {
+	// 		return Animator.transition({
+	// 			element : p1,
+	// 			properties : ["font-size", "color"],
+	// 			addClass : {
+	// 				before : "transition",
+	// 				after : "test" 
+	// 			}
+	// 		})
+	// 	})
+	// 	.then(function(elements) {
+	// 		return Animator.animation({
+	// 			element : pTags,
+	// 			addClass : {
+	// 				before : "flipInY"
+	// 			},
+	// 			removeClass : {
+	// 				after : "flipInY"
+	// 			}
+	// 		})			
+	// 	})
+	// 	.then(function(elements) {
+	// 		//Animator.stop();
+	// 		console.log("done!", elements);
+	// 	})
+	// 	.catch(function() {
+	// 		console.log("STOP!!!");
+	// 	});
 
 })();

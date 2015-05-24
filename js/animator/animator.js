@@ -59,6 +59,10 @@ class Animator {
 		return new Combo(animations, Promise, this.tracker, Transition);
 	}
 
+	stop() {
+		return this.tracker.stop();
+	}
+
 }
 
 window.Animator = new Animator(); 
