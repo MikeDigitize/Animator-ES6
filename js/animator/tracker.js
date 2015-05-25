@@ -5,6 +5,7 @@ class Tracker {
 		this.tracker = new Map();
 		this.tracker.set("Transitions", new Map());
 		this.tracker.set("Animations", new Map());
+		this.tracker.set("Combos", { reject : [] });
 		this.domUtils = new DomUtils();
 		this.prefix = new Prefix();
 		this.cssUtils = new CssUtils();
@@ -33,8 +34,9 @@ class Tracker {
 
 	}
 
-	store(element, reject, type) {
-		this.tracker.get(type).get(element).reject.push(reject);
+	store(type, reject, element) {
+		let record = element ? this.tracker.get(type).get(element) : this.tracker.get(type);
+		record.reject.push(reject);
 	}
 
 	update(record, options) {
@@ -58,8 +60,6 @@ class Tracker {
 		let animations = this.tracker.get("Animations");
 		let animationElements = animations.keys();
 
-		let reject;
-
 		while(true) {
 	        
 	        let element = animationElements.next(), rule = {};
@@ -69,7 +69,10 @@ class Tracker {
 
         	rule[this.prefix.getPrefix("animation-play-state")] = "paused";
         	this.cssUtils.setStyles(element.value, rule);
-        	reject = animations.get(element.value).reject[0];
+        	console.log(rule, element.value);
+        	animations.get(element.value).reject.forEach(rejected => {
+        		rejected();
+        	});
 
 	    }
 
@@ -92,19 +95,9 @@ class Tracker {
 
 	    }
 
-	    console.log(reject);
-
-	    return reject("error!");
-
-		// console.log(transitions.entries());
-
-		// transitions.keys().forEach(transition => {
-		// 	console.log(transition);
-		// });
-
-		// run through transition properties and store and then set them to stop the transition
-		// run through animation elements and set animation play state to paused
-		// fire all rejects
+	    this.tracker.get("Combos").reject.forEach(reject => {
+	    	reject();
+	    });
 
 	}
 

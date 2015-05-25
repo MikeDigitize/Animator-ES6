@@ -34,26 +34,7 @@
 
 	Animator.createClass("test", { "font-family" : "Georgia", "font-weight" : "bold", "color" : "blue" });
 
-	// var sequence = Animator.combo([
-	// 	Animator.transition({
-	// 		element : pTags,
-	// 		properties : "color",
-	// 		setStyles : {
-	// 			before : {
-	// 				"color" : "red"
-	// 			}
-	// 		}
-	// 	}),
-	// 	Animator.transition({
-	// 		element : pTags,
-	// 		properties : "font-size",
-	// 		setStyles : {
-	// 			before : {
-	// 				"font-size" : "40px"
-	// 			}
-	// 		}
-	// 	})
-	// ]);
+	
 
 	// var sequence = Animator.transition({
 	// 	element : p1,
@@ -97,8 +78,6 @@
 	rules1[Animator.getPrefix("animation-duration")] = rules2[Animator.getPrefix("animation-duration")] = "4s";
 	rules1[Animator.getPrefix("animation-delay")] = "0.5s";
 
-	console.log()
-
 	var sequence = Animator.combo([
 		Animator.animation({
 			element : p1,
@@ -127,24 +106,35 @@
 	]);
 
 	sequence
-		.then(function() {
-			console.log("done!");
+		.then(function(elements) {
+			console.log("done!", elements);
 		})
 		.catch(function() {
 			console.log("stop!");
 		})
 
-	// sequence
-	// 	.then(function() {
-	// 		return Animator.transition({
-	// 			element : p1,
-	// 			properties : ["font-size", "color"],
-	// 			addClass : {
-	// 				before : "transition",
-	// 				after : "test" 
+	// var sequence = Animator.combo([
+	// 	Animator.transition({
+	// 		element : pTags,
+	// 		properties : "color",
+	// 		setStyles : {
+	// 			before : {
+	// 				"color" : "red"
 	// 			}
-	// 		})
+	// 		}
+	// 	}),
+	// 	Animator.transition({
+	// 		element : pTags,
+	// 		properties : "font-size",
+	// 		setStyles : {
+	// 			before : {
+	// 				"font-size" : "40px"
+	// 			}
+	// 		}
 	// 	})
+	// ]);
+
+	// sequence
 	// 	.then(function(elements) {
 	// 		return Animator.animation({
 	// 			element : pTags,
@@ -154,10 +144,9 @@
 	// 			removeClass : {
 	// 				after : "flipInY"
 	// 			}
-	// 		})			
+	// 		});			
 	// 	})
 	// 	.then(function(elements) {
-	// 		//Animator.stop();
 	// 		console.log("done!", elements);
 	// 	})
 	// 	.catch(function() {
