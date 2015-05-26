@@ -31,46 +31,7 @@
 	});
 
 	Animator.addClass(pTags, ["someClass", "animated"]);
-
 	Animator.createClass("test", { "font-family" : "Georgia", "font-weight" : "bold", "color" : "blue" });
-
-	
-
-	// var sequence = Animator.transition({
-	// 	element : p1,
-	// 	properties : ["font-size", "color"],
-	// 	addClass : {
-	// 		before : "transition" 
-	// 	}
-	// });
-
-	// var sequence = Animator.animation({
-	// 	element : pTags,
-	// 	addClass : {
-	// 		before : ["animated", "jello"] 
-	// 	},
-	// 	removeClass : {
-	// 		before : "someClass",
-	// 		after : "jello"
-	// 	}
-	// });
-
-	// var sequence = Animator.combo([
-	// 	Animator.animation({
-	// 		element : pTags,
-	// 		addClass : {
-	// 			before : ["animated", "jello"] 
-	// 		}
-	// 	}),
-	// 	Animator.transition({
-	// 		element : pTags,
-	// 		properties : ["font-size", "color"],
-	// 		addClass : {
-	// 			before : "transition",
-	// 			after : "test" 
-	// 		}
-	// 	})
-	// ]);
 
 	var rules1 = {};
 	var rules2 = {};
@@ -79,78 +40,60 @@
 	rules1[Animator.getPrefix("animation-delay")] = "0.5s";
 
 	var sequence = Animator.combo([
-		Animator.animation({
+		Animator.transition({
 			element : p1,
-			addClass : {
-				before : "jello"
-			},
-			removeClass : {
-				after : "jello"
-			},
+			properties : "color",
 			setStyles : {
-				before : rules1
+				before : {
+					"color" : "red"
+				}
 			}
 		}),
-		Animator.animation({
+		Animator.transition({
 			element : p2,
-			addClass : {
-				before : "flipOutY"
-			},
-			removeClass : {
-				after : "flipOutY"
-			},
+			properties : "font-size",
 			setStyles : {
-				before : rules2
+				before : {
+					"font-size" : "40px"
+				}
 			}
 		})
 	]);
 
 	sequence
 		.then(function(elements) {
+			return Animator.combo([
+				Animator.animation({
+					element : p1,
+					addClass : {
+						before : "jello"
+					},
+					removeClass : {
+						after : "jello"
+					},
+					setStyles : {
+						before : rules1
+					}
+				}),
+				Animator.animation({
+					element : p2,
+					addClass : {
+						before : "flipOutY"
+					},
+					removeClass : {
+						after : "flipOutY"
+					},
+					setStyles : {
+						before : rules2
+					}
+				})
+			])	
+		})
+		.then(function(elements) {
 			console.log("done!", elements);
 		})
 		.catch(function() {
-			console.log("stop!");
-		})
-
-	// var sequence = Animator.combo([
-	// 	Animator.transition({
-	// 		element : pTags,
-	// 		properties : "color",
-	// 		setStyles : {
-	// 			before : {
-	// 				"color" : "red"
-	// 			}
-	// 		}
-	// 	}),
-	// 	Animator.transition({
-	// 		element : pTags,
-	// 		properties : "font-size",
-	// 		setStyles : {
-	// 			before : {
-	// 				"font-size" : "40px"
-	// 			}
-	// 		}
-	// 	})
-	// ]);
-
-	// sequence
-	// 	.then(function(elements) {
-	// 		return Animator.animation({
-	// 			element : pTags,
-	// 			addClass : {
-	// 				before : "flipInY"
-	// 			},
-	// 			removeClass : {
-	// 				after : "flipInY"
-	// 			}
-	// 		});			
-	// 	})
-	// 	.then(function(elements) {
-	// 		console.log("done!", elements);
-	// 	})
-	// 	.catch(function() {
-	// 		console.log("STOP!!!");
-	// 	});
+			console.log("STOP!!!");
+		});
 
 })();

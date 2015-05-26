@@ -8,7 +8,7 @@ class Combo {
 			this.resolve = resolve;
 			this.reject = reject;
 			this.amount = sequences.length;
-			//Tracker.store("Combos", reject);
+			Tracker.store("Combos", reject);
 
 			sequences.forEach(sequence => {
 				sequence.then(element => {

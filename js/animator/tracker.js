@@ -51,6 +51,8 @@ class Tracker {
 			}); 
 		});
 
+		console.log("Update", this.tracker);
+
 	}
 
 	stop() {
@@ -69,10 +71,13 @@ class Tracker {
 
         	rule[this.prefix.getPrefix("animation-play-state")] = "paused";
         	this.cssUtils.setStyles(element.value, rule);
-        	console.log(rule, element.value);
-        	animations.get(element.value).reject.forEach(rejected => {
-        		rejected();
-        	});
+
+        	// if(this.tracker.get("Combos").reject.length) {
+        	// 	this.end(this.tracker.get("Combos").reject);
+        	// }
+        	// else {
+        	// 	this.end(animations.get(element.value).reject);
+        	// }
 
 	    }
 
@@ -86,22 +91,36 @@ class Tracker {
 	        record = transitions.get(element.value);
 	        record.properties.forEach(property => {
 	        	let rule = {};
-	        	rule[property] = this.cssUtils.getStyles(property);
+	        	rule[property] = this.cssUtils.getStyles(element.value, property);
+	        	console.log("tr: ", element.value, rule);
 	        	this.cssUtils.setStyles(element.value, rule);
-	        });	        
-	        record.reject.forEach(rejected => {
-	        	rejected();
-	        });
+	        });	
+
+	        // if(this.tracker.get("Combos").reject.length) {
+        	// 	this.end(this.tracker.get("Combos").reject);
+        	// }
+        	// else {
+        	// 	this.end(record.reject);
+        	// }
 
 	    }
 
-	    this.tracker.get("Combos").reject.forEach(reject => {
-	    	reject();
-	    });
+	}
+
+	end(rejections) {
+
+		rejections.forEach(rejected => {
+    		rejected();
+    	});
 
 	}
 
 	trackTransition(options) {
+
+		// if no transition data exists for an element create a new record
+		// store the transitioned properties
+		// store the initial values of those transitioned properties
+		// store the reject functions for that element
 
 		let data = {};	
 		let transitions = this.tracker.get("Transitions");	
@@ -118,16 +137,24 @@ class Tracker {
 		data.reject = [];
 		transitions.set(options.element, data);
 
+		console.log("Transition:", this.tracker);
+
 	}
 
 	trackAnimation(options) {
 
 		let data = {};	
 		let animations = this.tracker.get("Animations");
-		data.options = options;
 		data.reject = [];
 		animations.set(options.element, data);
 
+		console.log("Animation:", this.tracker);
+
+	}
+
+	remove(type, element) {
+		this.tracker.get(type).delete(element);
+		console.log("Remove!", this.tracker);
 	}
 
 }
