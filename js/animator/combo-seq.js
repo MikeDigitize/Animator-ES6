@@ -9,7 +9,7 @@ class Combo {
 			this.reject = reject;
 			this.amount = sequences.length;
 			this.tracker = Tracker;
-			Tracker.store("Combos", reject);
+			//Tracker.store("Combos", reject);
 
 			sequences.forEach(sequence => {
 				sequence.then(element => {
@@ -34,7 +34,7 @@ class Combo {
 			count++;
 			returnData.push(element);
 			if(count === this.amount) {
-				this.tracker.removeCombo();
+				//this.tracker.removeCombo();
 				this.resolve(returnData);
 			}
 

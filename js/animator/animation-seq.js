@@ -12,7 +12,7 @@ class Animation {
 		return new Promise((resolve, reject) => {
 			this.resolve = resolve;
 			this.reject = reject;
-			Tracker.store("Animations", reject, options.element);
+			//Tracker.store("Animations", reject, options.element);
 			this.animationFrame = requestAnimationFrame(this.startAnimation.bind(this));      
 		});
 
@@ -55,7 +55,7 @@ class Animation {
 			this.cssUtils.setStyles(opts.element, opts.setStyles.after);
 		}
 
-		this.tracker.remove("Animations", opts.element);
+		//this.tracker.remove("Animations", opts.element);
 		this.resolve(opts.element);
 
 	}

@@ -45,7 +45,8 @@
 			properties : "color",
 			setStyles : {
 				before : {
-					"color" : "red"
+					"color" : "red",
+					"font-size" : "50px"
 				}
 			}
 		}),
@@ -54,7 +55,8 @@
 			properties : "font-size",
 			setStyles : {
 				before : {
-					"font-size" : "40px"
+					"font-size" : "40px",
+					"color" : "blue"
 				}
 			}
 		})
@@ -90,7 +92,26 @@
 			])	
 		})
 		.then(function(elements) {
-			console.log("done!", elements);
+			return Animator.transition({
+				element : pTags,
+				properties : ["color", "font-size"],
+				setStyles : {
+					before : {
+						"color" : "black",
+						"font-size" : "20px"
+					}
+				}
+			});
+		})
+		.then(function(elements) {
+			console.log("finished!", elements);
+			return Animator.transition({
+				element : pTags,
+				properties : ["color", "font-size"],
+				addClass : {
+					before : "transition"
+				}
+			});
 		})
 		.catch(function() {
 			console.log("STOP!!!");

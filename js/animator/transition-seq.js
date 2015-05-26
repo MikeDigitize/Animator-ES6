@@ -14,7 +14,7 @@ class Transition {
 		return new Promise((resolve, reject) => {
 			this.resolve = resolve;
 			this.reject = reject;
-			Tracker.store("Transitions", reject, options.element);
+			//Tracker.store("Transitions", reject, options.element);
 			this.animationFrame = requestAnimationFrame(this.startTransition.bind(this));      
 		});
 
@@ -61,7 +61,7 @@ class Transition {
 				this.cssUtils.setStyles(opts.element, opts.setStyles.after);
 			}
 
-			this.tracker.remove("Transitions", opts.element);
+			//this.tracker.remove("Transitions", opts.element);
 			this.resolve(opts.element);
 
 		}
