@@ -157,6 +157,11 @@ class Tracker {
 		console.log("Remove!", this.tracker);
 	}
 
+	removeCombo() {
+		this.tracker.get("Combos").reject = [];
+		console.log("Remove combos!", this.tracker);
+	}
+
 }
 
 export default Tracker;
