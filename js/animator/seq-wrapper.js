@@ -9,13 +9,13 @@ class SequenceWrapper {
 					opts[key] = options[key];
 				});
 				opts.element = element;	 
-				//Tracker.track(opts, Sequence);
+				Tracker.track(opts, Sequence);
 				return new Sequence(opts, DomUtils, Prefix, CssUtils, Promise, Tracker);
 			});
 			return new Combo(transitions, Promise);
 		}
 		else {
-			//Tracker.track(options, Sequence);
+			Tracker.track(options, Sequence);
 			return new Sequence(options, DomUtils, Prefix, CssUtils, Promise, Tracker);
 		}		
 

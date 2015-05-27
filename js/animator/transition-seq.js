@@ -14,7 +14,7 @@ class Transition {
 		return new Promise((resolve, reject) => {
 			this.resolve = resolve;
 			this.reject = reject;
-			//Tracker.store("Transitions", reject, options.element);
+			Tracker.store("Transitions", reject, options.element);
 			this.animationFrame = requestAnimationFrame(this.startTransition.bind(this));      
 		});
 
@@ -25,6 +25,10 @@ class Transition {
 		let opts = this.options;
 		opts.element.addEventListener(this.prefix, this.onTransitionEnd, false);
 
+		if(opts.setStyles && opts.setStyles.before) {
+			this.cssUtils.setStyles(opts.element, opts.setStyles.before);
+		}
+
 		if(opts.removeClass && opts.removeClass.before) {
 			this.domUtils.setClass(opts.element, opts.removeClass.before, false);
 		}
@@ -33,13 +37,9 @@ class Transition {
 			this.domUtils.setClass(opts.element, opts.addClass.before, true);	
 		}	
 
-		if(opts.setStyles && opts.setStyles.before) {
-			this.cssUtils.setStyles(opts.element, opts.setStyles.before);
-		}
-
 	}
 
-	callback() {
+	callback(evt) {
 
 		let opts = this.options;
 		this.transitionendCount++;
@@ -49,6 +49,10 @@ class Transition {
 			opts.element.removeEventListener(this.prefix, this.onTransitionEnd, false);
 			cancelAnimationFrame(this.animationFrame);
 
+			if(opts.setStyles && opts.setStyles.after) {
+				this.cssUtils.setStyles(opts.element, opts.setStyles.after);
+			}
+
 			if(opts.removeClass && opts.removeClass.after) {
 				this.domUtils.setClass(opts.element, opts.removeClass.after, false);
 			}
@@ -56,10 +60,6 @@ class Transition {
 			if(opts.addClass && opts.addClass.after) {
 				this.domUtils.setClass(opts.element, opts.addClass.after, true);	
 			}	
-
-			if(opts.setStyles && opts.setStyles.after) {
-				this.cssUtils.setStyles(opts.element, opts.setStyles.after);
-			}
 
 			//this.tracker.remove("Transitions", opts.element);
 			this.resolve(opts.element);

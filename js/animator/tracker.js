@@ -51,8 +51,6 @@ class Tracker {
 			}); 
 		});
 
-		console.log("Update", this.tracker);
-
 	}
 
 	stop() {
@@ -137,7 +135,7 @@ class Tracker {
 		data.reject = [];
 		transitions.set(options.element, data);
 
-		console.log("Transition:", this.tracker);
+		//console.log("Transition:");
 
 	}
 
@@ -148,7 +146,7 @@ class Tracker {
 		data.reject = [];
 		animations.set(options.element, data);
 
-		console.log("Animation:", this.tracker);
+		//console.log("Animation:", this.tracker);
 
 	}
 
@@ -160,6 +158,10 @@ class Tracker {
 	removeCombo() {
 		this.tracker.get("Combos").reject = [];
 		console.log("Remove combos!", this.tracker);
+	}
+
+	getTracker() {
+		return this.tracker;
 	}
 
 }

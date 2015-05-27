@@ -12,7 +12,7 @@ class Animation {
 		return new Promise((resolve, reject) => {
 			this.resolve = resolve;
 			this.reject = reject;
-			//Tracker.store("Animations", reject, options.element);
+			Tracker.store("Animations", reject, options.element);
 			this.animationFrame = requestAnimationFrame(this.startAnimation.bind(this));      
 		});
 
@@ -23,16 +23,16 @@ class Animation {
 		let opts = this.options;
 		opts.element.addEventListener(this.prefix, this.onAnimationEnd, false);
 
+		if(opts.setStyles && opts.setStyles.before) {
+			this.cssUtils.setStyles(opts.element, opts.setStyles.before);
+		}	
+
 		if(opts.removeClass && opts.removeClass.before) {
 			this.domUtils.setClass(opts.element, opts.removeClass.before, false);
 		}
 
 		if(opts.addClass && opts.addClass.before) {
 			this.domUtils.setClass(opts.element, opts.addClass.before, true);	
-		}	
-
-		if(opts.setStyles && opts.setStyles.before) {
-			this.cssUtils.setStyles(opts.element, opts.setStyles.before);
 		}		
 
 	}
@@ -43,6 +43,10 @@ class Animation {
 		opts.element.removeEventListener(this.prefix, this.onAnimationEnd, false);
 		cancelAnimationFrame(this.animationFrame);
 
+		if(opts.setStyles && opts.setStyles.after) {
+			this.cssUtils.setStyles(opts.element, opts.setStyles.after);
+		}
+
 		if(opts.removeClass && opts.removeClass.after) {
 			this.domUtils.setClass(opts.element, opts.removeClass.after, false);
 		}
@@ -50,10 +54,6 @@ class Animation {
 		if(opts.addClass && opts.addClass.after) {
 			this.domUtils.setClass(opts.element, opts.addClass.after, true);	
 		}	
-
-		if(opts.setStyles && opts.setStyles.after) {
-			this.cssUtils.setStyles(opts.element, opts.setStyles.after);
-		}
 
 		//this.tracker.remove("Animations", opts.element);
 		this.resolve(opts.element);
