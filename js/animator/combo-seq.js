@@ -1,6 +1,6 @@
 class Combo {
 	
-	constructor(sequences, Promise, Tracker) {
+	constructor(sequences, Promise) {
 
 		return new Promise((resolve, reject) => {
 
@@ -8,10 +8,9 @@ class Combo {
 			this.resolve = resolve;
 			this.reject = reject;
 			this.amount = sequences.length;
-			this.tracker = Tracker;
-			//Tracker.store("Combos", reject);
 
 			sequences.forEach(sequence => {
+				
 				sequence.then(element => {
 					watcher(element);
 				})
@@ -34,7 +33,6 @@ class Combo {
 			count++;
 			returnData.push(element);
 			if(count === this.amount) {
-				//this.tracker.removeCombo();
 				this.resolve(returnData);
 			}
 

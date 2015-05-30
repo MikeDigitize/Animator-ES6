@@ -5,7 +5,6 @@ class Tracker {
 		this.tracker = new Map();
 		this.tracker.set("Transitions", new Map());
 		this.tracker.set("Animations", new Map());
-		this.tracker.set("Combos", { reject : [] });
 		this.domUtils = new DomUtils();
 		this.prefix = new Prefix();
 		this.cssUtils = new CssUtils();
@@ -34,23 +33,44 @@ class Tracker {
 
 	}
 
-	store(type, reject, element) {
-		let record = element ? this.tracker.get(type).get(element) : this.tracker.get(type);
-		record.reject.push(reject);
+	trackTransition(options) {
+
+		let data = {};	
+		let transitions = this.tracker.get("Transitions");	
+		data.properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
+		data.initialValues = {};
+		this.storeInitialTransitionedPropertyValues(options.element, data.initialValues, data.properties);
+		transitions.set(options.element, data);
+
+	}
+
+	trackAnimation(options) {
+
+		let data = {};	
+		let animations = this.tracker.get("Animations");
+		animations.set(options.element, data);
+
 	}
 
 	update(record, options) {
 
 		let properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
+		properties = properties.filter(property => {
+			return record.properties.indexOf(property) === -1;
+		});
+		
 		record.properties = [...record.properties, ...properties];
+		this.storeInitialTransitionedPropertyValues(options.element, record.initialValues, properties);
 
+	}
+
+	storeInitialTransitionedPropertyValues(element, initialValues, properties) {
 		properties.forEach(property => {
-			let styleRule = this.cssUtils.getStyles(options.element, property);
+			let styleRule = this.cssUtils.getStyles(element, property);
 			Object.keys(styleRule).forEach(property => {
-				record.initialValues[property] = styleRule[property];
+				initialValues[property] = styleRule[property];
 			}); 
 		});
-
 	}
 
 	stop() {
@@ -70,13 +90,6 @@ class Tracker {
         	rule[this.prefix.getPrefix("animation-play-state")] = "paused";
         	this.cssUtils.setStyles(element.value, rule);
 
-        	// if(this.tracker.get("Combos").reject.length) {
-        	// 	this.end(this.tracker.get("Combos").reject);
-        	// }
-        	// else {
-        	// 	this.end(animations.get(element.value).reject);
-        	// }
-
 	    }
 
 		while(true) {
@@ -90,74 +103,16 @@ class Tracker {
 	        record.properties.forEach(property => {
 	        	let rule = {};
 	        	rule[property] = this.cssUtils.getStyles(element.value, property);
-	        	console.log("tr: ", element.value, rule);
 	        	this.cssUtils.setStyles(element.value, rule);
 	        });	
-
-	        // if(this.tracker.get("Combos").reject.length) {
-        	// 	this.end(this.tracker.get("Combos").reject);
-        	// }
-        	// else {
-        	// 	this.end(record.reject);
-        	// }
 
 	    }
 
 	}
 
-	end(rejections) {
-
-		rejections.forEach(rejected => {
-    		rejected();
-    	});
-
-	}
-
-	trackTransition(options) {
-
-		// if no transition data exists for an element create a new record
-		// store the transitioned properties
-		// store the initial values of those transitioned properties
-		// store the reject functions for that element
-
-		let data = {};	
-		let transitions = this.tracker.get("Transitions");	
-		data.properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
-		data.initialValues = {};
-
-		data.properties.forEach(property => {
-			let styleRule = this.cssUtils.getStyles(options.element, property);
-			Object.keys(styleRule).forEach(property => {
-				data.initialValues[property] = styleRule[property];
-			}); 
-		});
-
-		data.reject = [];
-		transitions.set(options.element, data);
-
-		//console.log("Transition:");
-
-	}
-
-	trackAnimation(options) {
-
-		let data = {};	
-		let animations = this.tracker.get("Animations");
-		data.reject = [];
-		animations.set(options.element, data);
-
-		//console.log("Animation:", this.tracker);
-
-	}
-
 	remove(type, element) {
 		this.tracker.get(type).delete(element);
-		console.log("Remove!", this.tracker);
-	}
-
-	removeCombo() {
-		this.tracker.get("Combos").reject = [];
-		console.log("Remove combos!", this.tracker);
+		console.log("Remove!");
 	}
 
 	getTracker() {

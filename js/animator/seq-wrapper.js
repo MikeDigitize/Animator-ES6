@@ -23,4 +23,4 @@ class SequenceWrapper {
 
 }
 
-export default SequenceWrapper;
+export default SequenceWrapper; 

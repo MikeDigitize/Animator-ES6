@@ -56,7 +56,7 @@ class Animator {
 	}
 
 	combo(animations) {
-		return new Combo(animations, Promise, this.tracker, Transition);
+		return new Combo(animations, Promise);
 	}
 
 	getTracker() {

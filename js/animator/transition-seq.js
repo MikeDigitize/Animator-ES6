@@ -14,7 +14,6 @@ class Transition {
 		return new Promise((resolve, reject) => {
 			this.resolve = resolve;
 			this.reject = reject;
-			Tracker.store("Transitions", reject, options.element);
 			this.animationFrame = requestAnimationFrame(this.startTransition.bind(this));      
 		});
 
@@ -61,7 +60,7 @@ class Transition {
 				this.domUtils.setClass(opts.element, opts.addClass.after, true);	
 			}	
 
-			//this.tracker.remove("Transitions", opts.element);
+			this.tracker.remove("Transitions", opts.element);
 			this.resolve(opts.element);
 
 		}
