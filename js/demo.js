@@ -17,7 +17,7 @@
 	Animator.createTransition({
 		elements : p1,
 	    properties : ["font-size", "color"],
-	    duration : ["1000ms", "1000ms"],
+	    duration : ["2000ms", "1000ms"],
 	    easing : "ease",
 	    delay : ["500ms", "50ms"]
 	});
@@ -25,7 +25,7 @@
 	Animator.createTransition({
 		elements : p2,
 	    properties : ["font-size", "color"],
-	    duration : ["500ms", "1000ms"],
+	    duration : ["500ms", "2000ms"],
 	    easing : "ease",
 	    delay : "0ms" 
 	});
@@ -42,7 +42,7 @@
 	var sequence = Animator.combo([
 		Animator.transition({
 			element : p1,
-			properties : "color",
+			properties : ["color", "font-size"],
 			setStyles : {
 				before : {
 					"color" : "red",
@@ -52,7 +52,7 @@
 		}),
 		Animator.transition({
 			element : p2,
-			properties : "font-size",
+			properties : ["color", "font-size"],
 			setStyles : {
 				before : {
 					"font-size" : "40px",
@@ -63,71 +63,71 @@
 	]);
 
 	sequence
-		// .then(function(elements) {
-		// 	return Animator.combo([
-		// 		Animator.animation({
-		// 			element : p1,
-		// 			addClass : {
-		// 				before : "jello"
-		// 			},
-		// 			removeClass : {
-		// 				after : "jello"
-		// 			},
-		// 			setStyles : {
-		// 				before : rules1
-		// 			}
-		// 		}),
-		// 		Animator.animation({
-		// 			element : p2,
-		// 			addClass : {
-		// 				before : "flipOutY"
-		// 			},
-		// 			removeClass : {
-		// 				after : "flipOutY"
-		// 			},
-		// 			setStyles : {
-		// 				before : rules2
-		// 			}
-		// 		})
-		// 	])	
-		// })
-		// .then(function(elements) {
-		// 	return Animator.transition({
-		// 		element : pTags,
-		// 		properties : ["color", "font-size"],
-		// 		setStyles : {
-		// 			before : {
-		// 				"color" : "black",
-		// 				"font-size" : "20px"
-		// 			}
-		// 		}
-		// 	});
-		// })
-		// .then(function(elements) {
-		// 	return Animator.transition({
-		// 		element : pTags,
-		// 		properties : ["color", "font-size"],
-		// 		addClass : {
-		// 			before : "transition"
-		// 		}
-		// 	});
-		// })
-		// .then(function(elements) {
-		// 	rules1[Animator.getPrefix("animation-duration")] = "";
-		// 	rules1[Animator.getPrefix("animation-delay")] = "";
-		// 	return Animator.animation({
-		// 		element : pTags,
-		// 		addClass : {
-		// 			before : "tada"
-		// 		},
-		// 		removeClass : {
-		// 			after : "tada"
-		// 		},
-		// 		setStyles : {
-		// 			before : rules1
-		// 		}
-		// 	});
-		// })
+		.then(function(elements) {
+			return Animator.combo([
+				Animator.animation({
+					element : p1,
+					addClass : {
+						before : "jello"
+					},
+					removeClass : {
+						after : "jello"
+					},
+					setStyles : {
+						before : rules1
+					}
+				}),
+				Animator.animation({
+					element : p2,
+					addClass : {
+						before : "flipOutY"
+					},
+					removeClass : {
+						after : "flipOutY"
+					},
+					setStyles : {
+						before : rules2
+					}
+				})
+			])	
+		})
+		.then(function(elements) {
+			return Animator.transition({
+				element : pTags,
+				properties : ["color", "font-size"],
+				setStyles : {
+					before : {
+						"color" : "black",
+						"font-size" : "20px"
+					}
+				}
+			});
+		})
+		.then(function(elements) {
+			return Animator.transition({
+				element : pTags,
+				properties : ["color", "font-size"],
+				addClass : {
+					before : "transition"
+				}
+			});
+		})
+		.then(function(elements) {
+			rules1[Animator.getPrefix("animation-duration")] = "";
+			rules1[Animator.getPrefix("animation-delay")] = "";
+			return Animator.animation({
+				element : pTags,
+				addClass : {
+					before : "tada"
+				},
+				removeClass : {
+					after : "tada"
+				},
+				setStyles : {
+					before : rules1
+				}
+			});
+		})
 		.then(function() {
 			console.log(Animator.getTracker());
 		})
