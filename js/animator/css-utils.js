@@ -54,14 +54,14 @@ class CssUtils {
 
     }
 
-    createTransition(transitions, Prefix) {
+    createTransition(transition, Prefix) {
 
         let transitionPrefix = new Prefix().getPrefix("transition");
-        let elements = transitions.elements.length ? Array.from(transitions.elements) : [transitions.elements];
-        let properties = Array.isArray(transitions.properties) ? [...transitions.properties] : [transitions.properties];
-        let duration = Array.isArray(transitions.duration) ? [...transitions.duration] : [transitions.duration];
-        let easing = Array.isArray(transitions.easing) ? [...transitions.easing] : [transitions.easing];
-        let delay = Array.isArray(transitions.delay) ? [...transitions.delay] : [transitions.delay];
+        let elements = transition.elements.length ? Array.from(transition.elements) : [transition.elements];
+        let properties = Array.isArray(transition.properties) ? [...transition.properties] : [transition.properties];
+        let duration = Array.isArray(transition.duration) ? [...transition.duration] : [transition.duration];
+        let easing = Array.isArray(transition.easing) ? [...transition.easing] : [transition.easing];
+        let delay = Array.isArray(transition.delay) ? [...transition.delay] : [transition.delay];
 
         elements.forEach(element => {
 
@@ -83,6 +83,15 @@ class CssUtils {
             this.setStyles(element, rules);
 
         });
+
+    }
+
+    createAnimation(animation, Prefix) {
+
+        let animationString = "";
+        let prefix = new Prefix();
+        let keyFrame = prefix.getPrefix("keyframes");
+        console.log(keyFrame);
 
     }
 

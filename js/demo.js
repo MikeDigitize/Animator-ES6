@@ -44,6 +44,10 @@
 	rules1[Animator.getPrefix("animation-duration")] = rules2[Animator.getPrefix("animation-duration")] = "4s";
 	rules1[Animator.getPrefix("animation-delay")] = "0.5s";
 
+	Animator.createAnimation({
+		element : pTags
+	})
+
 	// var sequence = Animator.combo([
 	// 	Animator.transition({
 	// 		element : p1,

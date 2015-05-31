@@ -27,9 +27,10 @@ class Prefix {
 			Animations
 		*/
 
-		this.prefixes.set("animation-play-state", ["-webkit-animation-play-state", "animation-play-state"]);
-		this.prefixes.set("animation-duration", ["-webkit-animation-duration", "animation-duration"]);
-		this.prefixes.set("animation-delay", ["-webkit-animation-delay", "animation-delay"]);
+		this.prefixes.set("keyframes", ["-webkit-", "-ms-", "-moz-", ""]);
+		this.prefixes.set("animation-play-state", ["-webkit-animation-play-state", "-ms-animation-play-state", "-moz-animation-play-state", "animation-play-state"]);
+		this.prefixes.set("animation-duration", ["-webkit-animation-duration", "-ms-animation-duration", "-moz-animation-duration", "animation-duration"]);
+		this.prefixes.set("animation-delay", ["-webkit-animation-delay", "-ms-animation-delay", "-moz-animation-delay", "animation-delay"]);
 		
 		/*
 			Transition / Animation end
@@ -55,6 +56,10 @@ class Prefix {
 		}
 		else if(prefix === "transitionend" || prefix === "animationend") {
 			return this.getEventName(prefix);
+		}
+		else if(prefix === "keyframes") {
+			let keyframePrefix = this.prefixes.get(prefix).filter(f => this.testElement.style[f + "animation-name"] !== undefined)[0];
+			return "@" + keyframePrefix + "keyframes";
 		}
 		else {
 			return this.prefixes

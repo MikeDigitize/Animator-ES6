@@ -27,8 +27,12 @@ class Animator {
 		return new CssUtils().getStyles(element, properties);
 	}
 
-	createTransition(transitions) {
-		return new CssUtils().createTransition(transitions, Prefix);
+	createTransition(transition) {
+		return new CssUtils().createTransition(transition, Prefix);
+	}
+
+	createAnimation(animation) {
+		return new CssUtils().createAnimation(animation, Prefix);
 	}
 
 	createClass(className, rules) {
