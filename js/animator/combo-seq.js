@@ -16,7 +16,7 @@ class Combo {
 				})
 				.catch(e => {
 					this.reject(e);
-				})
+				});
 
 			});
 			

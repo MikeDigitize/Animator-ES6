@@ -38,7 +38,7 @@ class Transition {
 
 	}
 
-	callback(evt) {
+	callback() {
 
 		let opts = this.options;
 		this.transitionendCount++;

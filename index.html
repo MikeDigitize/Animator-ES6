@@ -6,15 +6,20 @@
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
 	<style type="text/css">
 	.transition {
-		font-size: 25px !important;
-		color: red !important;
+		font-size: 25px;
+		color: red;
 	}
-	.stop {
+	button {
 		width: 200px;
 		height: 50px;
 		position: absolute;
-		bottom: 0;
 		left: 0;
+	}
+	.pause {
+		bottom: 0;
+	}
+	.play {
+		bottom: 51px;
 	}
 	</style>
 </head>
@@ -23,7 +28,8 @@
 <p class="tr one">Animator</p>
 <p class="tr two">is Awesome</p>
 
-<button class="stop">Stop!!</button>
+<button class="pause">Pause!!</button>
+<button class="play">Play!!</button>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/animator.min.js"></script>

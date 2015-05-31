@@ -33,10 +33,10 @@ class CssUtils {
         
     }
 
-    setStyles(element, styles) {
+    setStyles(element, styles, important) {
 
     	Object.keys(styles).forEach(property => {            
-            let important = styles[property].includes("important") ? "important" : null;
+            let important = important || styles[property].includes("important") ? "important" : null;
             let rules = styles[property].replace(/!?important/, "").trim();
             element.style.setProperty(property, rules, important);
     	});

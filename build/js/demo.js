@@ -8,10 +8,15 @@
 	var p1 = document.querySelector(".one");
 	var p2 = document.querySelector(".two");
 	var pTags = document.querySelectorAll("p");
-	var btn = document.querySelector(".stop");
+	var pauseBtn = document.querySelector(".pause");
+	var playBtn = document.querySelector(".play");
 
-	btn.addEventListener("click", function() {
-		Animator.stop();
+	pauseBtn.addEventListener("click", function() {
+		Animator.pause();
+	}, false);
+
+	playBtn.addEventListener("click", function() {
+		Animator.play();
 	}, false);
 
 	Animator.createTransition({
@@ -107,8 +112,11 @@
 			return Animator.transition({
 				element : pTags,
 				properties : ["color", "font-size"],
-				addClass : {
-					before : "transition"
+				setStyles : {
+					before : {
+						"color" : "grey",
+						"font-size" : "50px"
+					}
 				}
 			});
 		})
@@ -129,10 +137,45 @@
 			});
 		})
 		.then(function() {
-			console.log(Animator.getTracker());
+			console.log("finished!");
 		})
 		.catch(function() {
 			console.log("STOP!!!");
 		});
+
+	// var sequence = Animator.combo([
+	// 	Animator.animation({
+	// 		element : p1,
+	// 		addClass : {
+	// 			before : "jello"
+	// 		},
+	// 		removeClass : {
+	// 			after : "jello"
+	// 		},
+	// 		setStyles : {
+	// 			before : rules1
+	// 		}
+	// 	}),
+	// 	Animator.animation({
+	// 		element : p2,
+	// 		addClass : {
+	// 			before : "flipOutY"
+	// 		},
+	// 		removeClass : {
+	// 			after : "flipOutY"
+	// 		},
+	// 		setStyles : {
+	// 			before : rules2
+	// 		}
+	// 	})
+	// ]);
+
+	// sequence
+	// 	.then(function() {
+	// 		console.log("Done!");
+	// 	})	
+	// 	.catch(function() {
+	// 		console.log("STOP");
+	// 	});
 
 })();

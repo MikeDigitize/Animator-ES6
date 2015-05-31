@@ -59,12 +59,12 @@ class Animator {
 		return new Combo(animations, Promise);
 	}
 
-	getTracker() {
-		return this.tracker.getTracker();
+	pause() {
+		this.tracker.pause();
 	}
 
-	stop() {
-		return this.tracker.stop();
+	play() {
+		this.tracker.play();
 	}
 
 }

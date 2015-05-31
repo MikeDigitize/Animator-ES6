@@ -37,6 +37,9 @@ class Tracker {
 
 		let data = {};	
 		let transitions = this.tracker.get("Transitions");	
+		if(options.setStyles && options.setStyles.before) {
+			data.styles = options.setStyles.before;
+		}
 		data.properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
 		data.initialValues = {};
 		this.storeInitialValues(options.element, data.initialValues, data.properties);
@@ -60,6 +63,16 @@ class Tracker {
 		});
 		
 		record.properties = [...record.properties, ...properties];
+
+		if(options.setStyles && options.setStyles.before) {
+			if(!record.styles) {
+				record.styles = {};
+			}
+			Object.keys(options.setStyles.before).forEach(property => {
+				record.styles[property] = options.setStyles.before[property];
+			});
+		}
+
 		this.storeInitialValues(options.element, record.initialValues, properties);
 
 	}
@@ -75,7 +88,7 @@ class Tracker {
 
 	}
 
-	stop() {
+	pause() {
 
 		let transitions = this.tracker.get("Transitions");
 		let transitionElements = transitions.keys();
@@ -104,9 +117,45 @@ class Tracker {
 	        record = transitions.get(element.value);
 	        record.properties.forEach(property => {
 	        	let rule = this.cssUtils.getStyles(element.value, property);
-	        	console.log(rule, element.value);
-	        	this.cssUtils.setStyles(element.value, rule);
+	        	this.cssUtils.setStyles(element.value, rule, true);
 	        });	
+
+	    }
+
+	}
+
+	play() {
+
+		let transitions = this.tracker.get("Transitions");
+		let transitionElements = transitions.keys();
+		let animations = this.tracker.get("Animations");
+		let animationElements = animations.keys();
+
+		while(true) {
+	        
+	        let element = animationElements.next(), rule = {};
+	        if (element.done) {
+	            break;
+	        }
+
+        	rule[this.prefix.getPrefix("animation-play-state")] = "running";
+        	this.cssUtils.setStyles(element.value, rule);
+
+	    }
+
+	    while(true) {
+	        
+	        let element = transitionElements.next();
+	        if (element.done) {
+	            break;
+	        }
+
+	        let record = transitions.get(element.value);
+	        record.properties.forEach(property => {
+	        	element.value.style.removeProperty(property);
+	        });
+
+	        this.cssUtils.setStyles(element.value, record.styles);
 
 	    }
 
@@ -114,10 +163,6 @@ class Tracker {
 
 	remove(type, element) {
 		this.tracker.get(type).delete(element);
-	}
-
-	getTracker() {
-		return this.tracker;
 	}
 
 }
