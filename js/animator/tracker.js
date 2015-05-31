@@ -8,7 +8,7 @@ class Tracker {
 		this.domUtils = new DomUtils();
 		this.prefix = new Prefix();
 		this.cssUtils = new CssUtils();
-		this.transition = Transition.prototype;
+		this.transitionPrototype = Transition.prototype;
 
 	}
 
@@ -17,7 +17,7 @@ class Tracker {
 		let transition = this.tracker.get("Transitions").get(options.element);
 		let animation = this.tracker.get("Animations").get(options.element);
 
-		if(Sequence.prototype === this.transition) {
+		if(Sequence.prototype === this.transitionPrototype) {
 			if(!transition) {
 				this.trackTransition(options);
 			}
@@ -42,7 +42,7 @@ class Tracker {
 		}
 		data.properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
 		data.initialValues = {};
-		this.storeInitialValues(options.element, data.initialValues, data.properties);
+		this.storeInitialCssValues(options.element, data.initialValues, data.properties);
 		transitions.set(options.element, data);
 
 	}
@@ -73,11 +73,11 @@ class Tracker {
 			});
 		}
 
-		this.storeInitialValues(options.element, record.initialValues, properties);
+		this.storeInitialCssValues(options.element, record.initialValues, properties);
 
 	}
 
-	storeInitialValues(element, initialValues, properties) {
+	storeInitialCssValues(element, initialValues, properties) {
 
 		properties.forEach(property => {
 			let styleRule = this.cssUtils.getStyles(element, property);
@@ -155,7 +155,9 @@ class Tracker {
 	        	element.value.style.removeProperty(property);
 	        });
 
-	        this.cssUtils.setStyles(element.value, record.styles);
+	        if(record.styles) {
+	        	this.cssUtils.setStyles(element.value, record.styles);
+	        }
 
 	    }
 
