@@ -1,48 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Animator ES6</title>
+	<title>Animator ES6 Demo</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
-	<style type="text/css">
-	.transition {
-		font-size: 25px;
-		color: red;
-	}
-	.transition2 {
-		font-size: 50px;
-		color: grey;
-	}
-	.transition3 {
-		font-size: 3px;
-	}
-	.transition4 {
-		font-size: 150px;
-	}
-	button {
-		width: 200px;
-		height: 50px;
-		position: absolute;
-		left: 0;
-	}
-	.pause {
-		bottom: 0;
-	}
-	.play {
-		bottom: 51px;
-	}
-	</style>
 </head>
 <body>
 
-<p class="tr one">Animator</p>
-<p class="tr two">is Awesome</p>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<h1>Animator</h1>
+			</div>	
+		</div>
+	</div>
 
-<button class="pause">Pause!!</button>
-<button class="play">Play!!</button>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 gallery">
+				<div class="inner">
+					<img src="images/coolingHome.jpg" alt="cooling image" class="gallery-image" /><img src="images/summerHome.jpg" alt="summer image" class="gallery-image" />
+				</div>
+			</div>	
+		</div>
+	</div>
 
-<script src="/socket.io/socket.io.js"></script>
-<script src="js/animator.min.js"></script>
-<script src="js/demo.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="js/animator.min.js"></script>
+	<script src="js/demo.js"></script>
+
 </body>
 </html>

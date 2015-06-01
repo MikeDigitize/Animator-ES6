@@ -63,16 +63,16 @@ class Animator {
 		return new Combo(animations, Promise);
 	}
 
+	isSupported() {
+		return new DomUtils().support(Prefix, CssUtils, this.stylesheet);
+	}
+
 	pause() {
 		this.tracker.pause();
 	}
 
 	play() {
 		this.tracker.play();
-	}
-
-	isSupported() {
-		return new DomUtils().support(Prefix, CssUtils, this.stylesheet);
 	}
 
 }

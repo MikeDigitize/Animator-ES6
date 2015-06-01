@@ -12,6 +12,7 @@ var del = require('del');
 
 var buildPath = './build';
 var compiledPath = './js/temp';
+var tests = './js/tests.js';
 var demo = './js/demo.js';
 var shim = './js/es6-shim.min.js';
 var js = './js/animator/*.js';
@@ -56,6 +57,12 @@ gulp.task('minify', ['compileJS'], function() {
         .pipe(gulp.dest(buildPath + '/js'));
 });
 
+gulp.task('tests', function() {
+    return gulp.src(tests)
+        .pipe(uglify())
+        .pipe(gulp.dest(buildPath + '/js'))
+});
+
 gulp.task('demo', function() {
     return gulp.src(demo)
         .pipe(uglify())
@@ -69,8 +76,9 @@ gulp.task('cleanup', ['minify'], function() {
 gulp.task('watch', function () {
     gulp.watch(styles, ['styles']);
     gulp.watch(js, ['es6', 'compileJS', 'minify']);
+    gulp.watch(tests, ['tests']);
     gulp.watch(demo, ['demo']);
     gulp.watch(html, ['html']);
 });
 
-gulp.task('default', ['html', 'styles', 'es6', 'compileJS', 'minify', 'demo', 'watch']);
+gulp.task('default', ['html', 'styles', 'es6', 'compileJS', 'minify', 'tests', 'demo', 'watch']);

@@ -163,31 +163,6 @@ class Tracker {
 
 	}
 
-	restart() {
-
-		let transitions = this.tracker.get("Transitions");
-		let transitionElements = transitions.keys();
-		let animations = this.tracker.get("Animations");
-		let animationElements = animations.keys();
-
-		while(true) {
-	        
-	        let element = animationElements.next(), rule = {};
-	        if (element.done) {
-	            break;
-	        }
-
-        	rule[this.prefix.getPrefix("animation-play-state")] = "running";
-        	this.cssUtils.setStyles(element.value, rule);
-
-	    }
-
-		// set the transition rule of an element to null
-		// reset the original css properties
-		// remove the before class
-
-	}
-
 	remove(type, element) {
 		this.tracker.get(type).delete(element);
 	}
