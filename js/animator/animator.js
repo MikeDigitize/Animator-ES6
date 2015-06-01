@@ -71,6 +71,10 @@ class Animator {
 		this.tracker.play();
 	}
 
+	isSupported() {
+		return new DomUtils().support(Prefix, CssUtils, this.stylesheet);
+	}
+
 }
 
 window.Animator = new Animator(); 

@@ -5,6 +5,11 @@
 	    console.log("socket id", data);
 	});
 
+	if(!Animator.isSupported()){
+		alert("no support for you!");
+		return;
+	}
+
 	var p1 = document.querySelector(".one");
 	var p2 = document.querySelector(".two");
 	var pTags = document.querySelectorAll("p");
@@ -38,8 +43,13 @@
 	Animator.addClass(pTags, ["someClass", "animated"]);
 	Animator.createClass("test", { "font-family" : "Georgia", "font-weight" : "bold", "color" : "blue" });
 
+	var rules = {};
 	var rules1 = {};
 	var rules2 = {};
+
+	rules[Animator.getPrefix("animation-name")] = "myAnimation";
+	rules[Animator.getPrefix("animation-duration")] = "2s";
+	rules[Animator.getPrefix("animation-iteration-count")] = 5;
 
 	rules1[Animator.getPrefix("animation-duration")] = rules2[Animator.getPrefix("animation-duration")] = "4s";
 	rules1[Animator.getPrefix("animation-delay")] = "0.5s";
@@ -53,11 +63,7 @@
 		},
 		animationClass : {
 			name : "myAnimation",
-			rules : {
-				"animation-name": "myAnimation",
-				"animation-duration" : "2s",
-				"animation-iteration-count" : 5
-			}
+			rules : rules
 		}
 	});
 

@@ -110,7 +110,7 @@ class CssUtils {
 
     }
 
-    createClass(className, rules = {}, stylesheet) {
+    createClass(className, rules, stylesheet) {
 
         let name = "." + className;
         let cssString = "{ ";

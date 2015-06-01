@@ -16,6 +16,27 @@ class DomUtils {
 		});
 
 	}
+
+	support(Prefix, CssUtils, stylesheet) {
+
+		let prefix = new Prefix();
+		let cssUtils = new CssUtils();
+		let cssomSupport = false;
+		let transitionSupport = prefix.getPrefix("transition");
+		let animationSupport = prefix.getPrefix("animation");
+
+		try {
+			cssUtils.createClass("AnimatorTestClass", {}, stylesheet);
+			cssUtils.deleteClass("AnimatorTestClass", stylesheet);
+			cssomSupport = true;
+		}
+		catch(e) {
+			cssomSupport = false;
+		}
+
+		return transitionSupport && animationSupport && cssomSupport;
+
+	}
 	
 }
 
