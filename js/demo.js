@@ -16,9 +16,9 @@
 		Animator.play();
 	}, false);
 
-	galleryRules[Animator.getPrefix("animation-name")] = "galleryAnimation";
+	//galleryRules[Animator.getPrefix("animation-name")] = "galleryAnimation";
 	galleryRules[Animator.getPrefix("animation-duration")] = "8s";
-	galleryRules[Animator.getPrefix("animation-iteration-count")] = 5;
+	galleryRules[Animator.getPrefix("animation-iteration-count")] = "5";
 
 	Animator.createAnimation({
 		name : "galleryAnimation",
@@ -35,10 +35,15 @@
 		}
 	});
 
+	console.log(galleryRules);
+
+	Animator.addClass(gallery, "animated");
+	Animator.setStyles(gallery, galleryRules);
+
 	sequence = Animator.animation({
 		element : gallery,
 		addClass : {
-			before : "galleryAnimation"
+			before : "tada"
 		}
 	});
 

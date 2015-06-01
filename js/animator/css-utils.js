@@ -35,9 +35,9 @@ class CssUtils {
 
     setStyles(element, styles, important) {
 
-    	Object.keys(styles).forEach(property => {            
+    	Object.keys(styles).forEach(property => {        
             let important = important || styles[property].includes("important") ? "important" : null;
-            let rules = styles[property].replace(/!?important/, "").trim();
+            let rules = styles[property].replace(/!?important/, "").trim(); 
             element.style.setProperty(property, rules, important);
     	});
 
@@ -50,7 +50,7 @@ class CssUtils {
     	properties.forEach(property => {
     		styles[property] = window.getComputedStyle(element).getPropertyValue(property);
     	});
-    	return styles; 
+    	return styles;  
 
     }
 
