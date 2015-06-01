@@ -86,12 +86,27 @@ class CssUtils {
 
     }
 
-    createAnimation(animation, Prefix) {
+    createKeyframeAnimation(animation, Prefix, stylesheet) {
 
         let animationString = "";
         let prefix = new Prefix();
-        let keyFrame = prefix.getPrefix("keyframes");
-        console.log(keyFrame);
+        let keyFrame = prefix.getPrefix("keyframes");        
+        keyFrame += " " + animation.name + " {\n"
+
+        Object.keys(animation.animation).forEach(anim => {
+            animationString += anim + " {";
+            Object.keys(animation.animation[anim]).forEach(property => {
+                animationString += "\n" + property + " : " + animation.animation[anim][property] + ";";
+            });
+            animationString += "\n }\n";
+        });
+
+        animationString += "}";
+
+        stylesheet.insertRule(keyFrame + animationString, stylesheet.cssRules.length);
+        if(animation.animationClass) {
+            this.createClass(animation.animationClass.name, animation.animationClass.rules, stylesheet);
+        }
 
     }
 

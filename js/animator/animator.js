@@ -32,7 +32,7 @@ class Animator {
 	}
 
 	createAnimation(animation) {
-		return new CssUtils().createAnimation(animation, Prefix);
+		return new CssUtils().createKeyframeAnimation(animation, Prefix, this.stylesheet);
 	}
 
 	createClass(className, rules) {

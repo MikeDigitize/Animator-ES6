@@ -45,8 +45,21 @@
 	rules1[Animator.getPrefix("animation-delay")] = "0.5s";
 
 	Animator.createAnimation({
-		element : pTags
-	})
+		name : "myAnimation",
+		animation : { 
+			"0%" : { "font-size" : "100px", "color" : "red" }, 
+			"50%" : { "font-size" : "50px", "color" : "blue" },
+			"100%" : { "font-size" : "10px", "color" : "green" }
+		},
+		animationClass : {
+			name : "myAnimation",
+			rules : {
+				"animation-name": "myAnimation",
+				"animation-duration" : "2s",
+				"animation-iteration-count" : 5
+			}
+		}
+	});
 
 	// var sequence = Animator.combo([
 	// 	Animator.transition({
@@ -206,7 +219,15 @@
 			]);
 		})
 		.then(function() {
-			console.log("done!")
+			return Animator.animation({
+				element : pTags,
+				addClass : {
+					before : "myAnimation"
+				}
+			})
 		})
+		.then(function() {
+			console.log("done!");
+		});
 
 })();
