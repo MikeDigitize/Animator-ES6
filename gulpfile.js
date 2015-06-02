@@ -53,7 +53,7 @@ gulp.task('compileJS', ['es6'], function() {
 gulp.task('minify', ['compileJS'], function() {
     return gulp.src([shim, compiledPath + '/temp.js'])
         .pipe(concat('animator.min.js'))
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest(buildPath + '/js'));
 });
 
@@ -65,7 +65,7 @@ gulp.task('tests', function() {
 
 gulp.task('demo', function() {
     return gulp.src(demo)
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest(buildPath + '/js'))
 });
 

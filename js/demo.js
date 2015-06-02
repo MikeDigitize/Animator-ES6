@@ -5,17 +5,46 @@
 		return;
 	}
 
-	var gallery = document.querySelector(".gallery .inner");
+	var galleryHolder = document.querySelector(".galleryExample");
+	var gallery = galleryHolder.querySelector(".gallery .inner");
+	var galleryImage = gallery.querySelector(".gallery-image");
+	var controls = galleryHolder.querySelectorAll(".galleryExample .controls button");
+	var status = galleryHolder.querySelector(".status");
 
-	gallery.addEventListener("mouseover", function() {
+	function setGalleryHeight() {
+		Animator.setStyles(gallery.parentNode, { "min-height" : galleryImage.offsetHeight + "px" });
+	}	
+
+	window.addEventListener("resize", function() {
+		setGalleryHeight();
+	}, false);
+
+	controls[0].addEventListener("click", function() {
+		galleryStart();
+		this.setAttribute("disabled", "disabled");
+		controls[1].removeAttribute("disabled");
+		status.innerHTML = "playing";
+	}, false);
+
+	controls[1].setAttribute("disabled", "disabled");
+	controls[1].addEventListener("click", function() {
+		this.setAttribute("disabled", "disabled");
+		controls[2].removeAttribute("disabled");
 		Animator.pause();
+		status.innerHTML = "paused";
 	}, false);
 
-	gallery.addEventListener("mouseout", function() {
+	controls[2].setAttribute("disabled", "disabled");
+	controls[2].addEventListener("click", function() {
+		this.setAttribute("disabled", "disabled");
+		controls[1].removeAttribute("disabled");
 		Animator.play();
+		status.innerHTML = "playing";
 	}, false);
 
-	(function galleryStart() {
+	setGalleryHeight();
+
+	function galleryStart() {
 		var galleryRules = {}, sequence;
 		galleryRules[Animator.getPrefix("animation")] = "bounce 3s 6, galleryAnimation 9s 2";
 
@@ -57,12 +86,14 @@
 				});
 			})
 			.then(function() {
-				console.log("all done!");
-				//galleryStart();
+				status.innerHTML = "finished";
+				controls[0].removeAttribute("disabled");
+				controls[1].setAttribute("disabled", "disabled");
+				controls[2].setAttribute("disabled", "disabled");
 			})
 			.catch(function() {
 				console.log("error!")
 			});
-	})();	
+	}	
 
 })();

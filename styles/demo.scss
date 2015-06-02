@@ -3,9 +3,12 @@ h1 {
 	font-weight: bold;
 }
 
+.controls {
+	margin-top: 15px;
+}
+
 .gallery {
 	overflow: hidden;
-	min-height: 350px;
 	padding: 0;
 
 	.inner {

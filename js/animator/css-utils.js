@@ -1,9 +1,9 @@
 /**
- * @CssUtils Class
- *
- * @description CSS utility belt for Animator using the CSSOM (file:/// protocol not supported in Chrome) 
- * @returns {Object}
- */
+  * @CssUtils Class
+  *
+  * @description CSS utility belt for Animator using the CSSOM (file:/// protocol not supported in Chrome) 
+  * @returns {Object}
+  */
 
 class CssUtils {
 	
@@ -11,7 +11,7 @@ class CssUtils {
         
 	}
 
-    /**
+   /**
      * @createStyleSheet function
      *
      * @description Creates a stylesheet for any transition / animation / style classes created in Animator.
@@ -28,7 +28,7 @@ class CssUtils {
         
     }
 
-    /**
+   /**
      * @setStyles function
      *
      * @params {HTMLElement, Object, Boolean}
@@ -50,7 +50,7 @@ class CssUtils {
 
     }
 
-    /**
+   /**
      * @getStyles function
      *
      * @params {HTMLElement, String / Array}
@@ -73,7 +73,7 @@ class CssUtils {
 
     }
 
-    /**
+   /**
      * @createTransition function
      *
      * @params {Object, Class}
@@ -85,7 +85,7 @@ class CssUtils {
             - duration {String / Array} Ms or S transition duration value(s).
             - easing {String / Array} (Optional) Transition timing function value(s).
             - delay {String / Array} (Optional) Transition delay value(s).
-        - prefix : {Class} Prefix class.
+        - Prefix : {Class} Prefix class.
      * @global yes
      */
 
@@ -121,7 +121,7 @@ class CssUtils {
 
     }
 
-    /**
+   /**
      * @createKeyframeAnimation function
      *
      * @params {Object, Class, CSSStyleSheet}
@@ -133,7 +133,7 @@ class CssUtils {
             - animationClass {Object} (Optional) A CSS class to trigger the animation.
                 - name {String} The classname.
                 - rules {Object} Object of CSS property / value pairs.
-        - prefix : {Class} Prefix class.
+        - Prefix : {Class} Prefix class.
         - stylesheet : {CSSStyleSheet} Animator's stylesheet.
      * @global yes
      */
@@ -162,7 +162,7 @@ class CssUtils {
 
     }
 
-    /**
+   /**
      * @createClass function
      *
      * @params {String, CSSStyleSheet, Object (Optional)}
@@ -188,7 +188,7 @@ class CssUtils {
 
     }
 
-    /**
+   /**
      * @deleteClass function
      *
      * @params {String, CSSStyleSheet}

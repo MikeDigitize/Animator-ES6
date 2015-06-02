@@ -1,4 +1,28 @@
+/**
+  * @SequenceWrapper Class
+  *
+  * @description Intercepts all sequences and returns a single or combo sequence depending on whether a single HTMLElement or Nodelist is used.
+  * @returns {Promise}
+  */
+
 class SequenceWrapper {
+
+   /**
+     * @constructor function
+     *
+     * @params {Object, Class, Class, Class, Class, Class, Class, Object}     
+     * @description A wrapper that organises all sequences before they are launched. 
+	 * @params description
+	 	- options {Object} Object of sequence options.
+	 	- DomUtils {Class} DOM utilities class.
+	 	- Prefix {Class} Prefix class.
+	 	- CssUtils {Class} CSS Utilities class.
+	 	- Promise {Class} Promise class.
+	 	- Sequence {Class} The sequence type (Transition / Animation).
+	 	- Combo {Class} Wrapper for multiple sequences.
+	 	- Tracker {Object} Object to store and track sequences through.
+	 * @returns {Promise}
+     */
 	
 	constructor(options, DomUtils, Prefix, CssUtils, Promise, Sequence, Combo, Tracker) {
 

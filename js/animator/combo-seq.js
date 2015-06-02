@@ -1,4 +1,22 @@
+/**
+  * @Combo Class
+  *
+  * @description Wraps a Promise around x amount of sequences and resolves when all sequences have resolved.
+  * @returns {Resolved Promise}
+  */
+
 class Combo {
+
+   /**
+     * @constructor function
+     *
+     * @params {Array, Class}  
+     * @description Wraps x amount of sequences in a Promise.    
+	 * @params description
+	 	- sequences {Array} An array of sequences.
+	 	- Promise {Class} Promise class.
+	 * @returns {Promise}
+     */
 	
 	constructor(sequences, Promise) {
 
@@ -23,6 +41,14 @@ class Combo {
 		});
 
 	}
+
+   /**
+     * @sequenceWatcher function
+     *
+     * @description Captures resolved sequences and resolves when all have been resolved.   
+	 * @returns {Resolved Promise}
+     * @global no
+     */
 
 	sequenceWatcher() {
 

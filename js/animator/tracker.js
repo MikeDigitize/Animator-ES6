@@ -1,4 +1,23 @@
+/**
+  * @Tracker Class
+  *
+  * @description Track all sequenced elements to allow sequences to be played / paused.
+  * @returns {Object}
+  */
+
 class Tracker {
+
+   /**
+     * @constructor function
+     *
+     * @params {Class, Class, Class, Class}    
+     * @description Initialise a single Map object to store sequenced elements. Only one instance per Animator is created.  
+	 * @params description
+	 	- DomUtils {Class} DOM utilities class.
+	 	- Prefix {Class} Prefix class.
+	 	- CssUtils {Class} CSS Utilities class.
+	 	- Transition {Class} Store the Transition protoype to compare against new sequence types passed in to the Tracker.
+     */
 
 	constructor(DomUtils, Prefix, CssUtils, Transition) {
 
@@ -12,6 +31,17 @@ class Tracker {
 
 	}
 
+   /**
+     * @track function
+     *
+     * @params {Object, Class}
+     * @description Searches the Map for the element passed in and either updates it if found or creates a new entry in the Map for it.
+     * @params description      
+     *  - options: {Object} The sequence options.
+        - Sequence : {Class} Either a Transition or Animation class.
+     * @global no
+     */
+
 	track(options, Sequence) {
 
 		let transition = this.tracker.get("Transitions").get(options.element);
@@ -22,16 +52,29 @@ class Tracker {
 				this.trackTransition(options);
 			}
 			else {
-				this.update(transition, options); 
+				this.updateTransitionRecord(transition, options); 
 			}			
 		}
 		else {
+
+			// A reference to the element will suffice if the sequence type is an Animation.
+			// CSS properties are not stored for Animations therefore don't need updating.
 			if(!animation) {
 				this.trackAnimation(options);
 			}				
 		}
 
 	}
+
+   /**
+     * @trackTransition function
+     *
+     * @params {Object}
+     * @description Stores the element under Transitions in the Tracker Map and the transitioned properties / style rules set against the element.
+     * @params description      
+     *  - options: {Object} The transition sequence options.
+     * @global no
+     */
 
 	trackTransition(options) {
 
@@ -41,11 +84,19 @@ class Tracker {
 			data.styles = options.setStyles.before;
 		}
 		data.properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
-		//data.initialValues = {};
-		//this.storeInitialCssValues(options.element, data.initialValues, data.properties);
 		transitions.set(options.element, data);
 
 	}
+
+   /**
+     * @trackAnimation function
+     *
+     * @params {Object}
+     * @description Stores the element under Animations in the Tracker Map.
+     * @params description      
+     *  - options: {Object} The animation sequence options.
+     * @global no
+     */
 
 	trackAnimation(options) {
 
@@ -55,15 +106,24 @@ class Tracker {
 
 	}
 
-	update(record, options) {
+   /**
+     * @updateTransitionRecord function
+     *
+     * @params {Object, Object}
+     * @description Inserts additional transitioned properties / style rules set into an element's record.
+     * @params description      
+     *  - record: {Object} The transition record from the Tracker Map.
+     *  - options: {Object} The transition sequence options.
+     * @global no
+     */
+
+	updateTransitionRecord(record, options) {
 
 		let properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
 		properties = properties.filter(property => {
 			return record.properties.indexOf(property) === -1;
-		});
-		
+		});		
 		record.properties = [...record.properties, ...properties];
-
 		if(options.setStyles && options.setStyles.before) {
 			if(!record.styles) {
 				record.styles = {};
@@ -73,20 +133,14 @@ class Tracker {
 			});
 		}
 
-		//this.storeInitialCssValues(options.element, record.initialValues, properties);
-
 	}
 
-	// storeInitialCssValues(element, initialValues, properties) {
-
-	// 	properties.forEach(property => {
-	// 		let styleRule = this.cssUtils.getStyles(element, property);
-	// 		Object.keys(styleRule).forEach(property => {
-	// 			initialValues[property] = styleRule[property];
-	// 		}); 
-	// 	});
-
-	// }
+   /**
+     * @pause function
+     *
+     * @description Iterates through every stored element in the Tracker and sets its CSS appropriately to effectively pause a sequence.
+     * @global no
+     */
 
 	pause() {
 
@@ -123,6 +177,13 @@ class Tracker {
 	    }
 
 	}
+
+   /**
+     * @play function
+     *
+     * @description Iterates through every stored element in the Tracker and sets CSS style rules to continue a paused sequence.
+     * @global no
+     */
 
 	play() {
 
@@ -162,6 +223,17 @@ class Tracker {
 	    }
 
 	}
+
+   /**
+     * @remove function
+     *
+     * @params {String, HTMLElement}
+     * @description Removes a stored element from the Tracker once a sequence is complete.
+     * @params description      
+     *  - type: {String} Map key, either Transitions or Animations.
+     *  - element: {HTMLElement} The element to remove from the Tracker.
+     * @global no
+     */
 
 	remove(type, element) {
 		this.tracker.get(type).delete(element);
