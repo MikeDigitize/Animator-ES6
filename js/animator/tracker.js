@@ -83,6 +83,8 @@ class Tracker {
 		if(options.setStyles && options.setStyles.before) {
 			data.styles = options.setStyles.before;
 		}
+		
+		data.transition = this.cssUtils.getStyles(options.element, this.prefix.getPrefix("transition"));
 		data.properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
 		transitions.set(options.element, data);
 
@@ -163,11 +165,13 @@ class Tracker {
 
 		while(true) {
 	        
-	        let element = transitionElements.next(), record;
+	        let element = transitionElements.next(), record, rule = {};
 	        if (element.done) {
 	            break;
 	        }
 
+	        rule[this.prefix.getPrefix("transition")] = "none";
+	        this.cssUtils.setStyles(element.value, rule);
 	        record = transitions.get(element.value);
 	        record.properties.forEach(property => {
 	        	let rule = this.cssUtils.getStyles(element.value, property);
@@ -211,6 +215,8 @@ class Tracker {
 	            break;
 	        }
 
+	        this.cssUtils.setStyles(element.value, transitions.get(element.value).transition);
+	        window.tester = window.getComputedStyle(element.value);
 	        let record = transitions.get(element.value);
 	        record.properties.forEach(property => {
 	        	element.value.style.removeProperty(property);

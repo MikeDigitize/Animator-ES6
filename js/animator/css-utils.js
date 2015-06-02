@@ -29,6 +29,35 @@ class CssUtils {
     }
 
    /**
+     * @cssTextToJs function
+     *
+     * @params {String}
+     * @description Converts a hyphen delimted CSS property to a camel cased JavaScript property.
+     * @returns {String}
+     * @global no
+     */
+
+    cssTextToJs(cssText) {
+
+        let jsText = "";
+
+        if(/\-/g.test(cssText)) {
+            cssText.replace(/\-/g, " ").replace(/\w\S*/g, function(txt) {
+                txt = txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                if(txt){
+                    jsText += txt;
+                }
+            });
+            return jsText.charAt(0).toLowerCase() + jsText.substr(1);
+        }
+        else {
+            return cssText;
+        }
+
+    }
+
+
+   /**
      * @setStyles function
      *
      * @params {HTMLElement, Object, Boolean}

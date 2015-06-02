@@ -247,6 +247,8 @@
 	var controls = textHolder.querySelectorAll(".controls button");
 	var status = textHolder.querySelector(".status");
 
+	controls[0].removeAttribute("disabled");
+
 	function animateLetter() {
 
 		var count = -1, total = text.length, seq;

@@ -78,6 +78,10 @@ h1 {
 
 
 .textExample {
+
+	.testicles {
+		font-size: 25px;
+	}
 	
 	h2 {
 		font-size: 100px;
@@ -101,5 +105,15 @@ h1 {
 		}
 
 	}
+
+}
+
+.no-transition {
+	
+	-webkit-transition: none !important;
+	-moz-transition: none !important;
+	-o-transition: none !important;
+	-ms-transition: none !important;
+	transition: none !important;
 
 }
