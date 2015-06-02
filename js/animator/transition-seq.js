@@ -65,6 +65,7 @@ class Transition {
 		opts.element.addEventListener(this.prefix, this.onTransitionEnd, false);
 
 		if(opts.setStyles && opts.setStyles.before) {
+			console.log(opts.setStyles, opts.setStyles.before);
 			this.cssUtils.setStyles(opts.element, opts.setStyles.before);
 		}
 
