@@ -1,5 +1,8 @@
-h1 {
+h1, h2 {
 	text-align: center;
+}
+
+h1 {
 	font-weight: bold;
 }
 
@@ -7,32 +10,68 @@ h1 {
 	margin-top: 15px;
 }
 
-.gallery {
-	overflow: hidden;
-	padding: 0;
+.bannerExample {
 
-	.inner {
-		width: 100%;
-		position: relative;
-		transform: translate3d(0%, 0, 1px);
+	.banner {
+		overflow: hidden;
+		padding: 0;
 
-		.gallery-image {
+		.inner {
 			width: 100%;
-			position: absolute;
+			position: relative;
+			transform: translate3d(0%, 0, 1px);
 
-			&:first-child {
-				left: 0;
+			.banner-image {
+				width: 100%;
+				position: absolute;
+
+				&:first-child {
+					left: 0;
+				}
+
+				&:nth-child(2) {
+					left: 100%;
+				}
+
+				&:nth-child(3) {
+					left: 200%;
+				}
 			}
 
-			&:nth-child(2) {
-				left: 100%;
-			}
-
-			&:nth-child(3) {
-				left: 200%;
-			}
 		}
 
 	}
+	
+}
 
+
+.spriteAnimationExample {
+
+	.ninja-background {
+		background: url(../images/ninja-background.jpg) no-repeat;
+		background-position: 0% -350px;
+		overflow: hidden;
+		position: relative;
+
+		.ninja-bush {
+			background: url(../images/ninja-bush.png) no-repeat;
+			background-position: 0%;
+			position: absolute;
+			bottom: -25px;
+			left: 0;
+			height: 120px;
+  			width: 100%;
+		}
+
+		.ninja {
+			width: 249px;
+			height: 300px;
+			margin: auto;
+			background: url(../images/ninja-sprite.png) no-repeat;
+			background-position: 0 0;
+			overflow: hidden;
+		}
+
+	}
+	
 }

@@ -65,7 +65,7 @@ gulp.task('tests', function() {
 
 gulp.task('demo', function() {
     return gulp.src(demo)
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest(buildPath + '/js'))
 });
 
