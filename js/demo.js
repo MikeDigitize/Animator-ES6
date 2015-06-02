@@ -6,7 +6,6 @@
 	}
 
 	var gallery = document.querySelector(".gallery .inner");
-	var galleryRules = {}, sequence;
 
 	gallery.addEventListener("mouseover", function() {
 		Animator.pause();
@@ -16,43 +15,54 @@
 		Animator.play();
 	}, false);
 
-	//galleryRules[Animator.getPrefix("animation-name")] = "galleryAnimation";
-	galleryRules[Animator.getPrefix("animation-duration")] = "8s";
-	galleryRules[Animator.getPrefix("animation-iteration-count")] = "5";
+	(function galleryStart() {
+		var galleryRules = {}, sequence;
+		galleryRules[Animator.getPrefix("animation")] = "bounce 3s 6, galleryAnimation 9s 2";
 
-	Animator.createAnimation({
-		name : "galleryAnimation",
-		animation : { 
-			"0%" : { "transform" : "translate3d(0%, 0, 1px)" }, 
-			"30%" : { "transform" : "translate3d(0%, 0, 1px)"},
-			"50%" : { "transform" : "translate3d(-100%, 0, 1px)" },
-			"80%" : { "transform" : "translate3d(-100%, 0, 1px)" },
-			"100%" : { "transform" : "translate3d(0%, 0, 1px)" }
-		},
-		animationClass : {
+		Animator.createAnimation({
 			name : "galleryAnimation",
-			rules : galleryRules
-		}
-	});
+			animation : { 
+				"0%" : { "left" : "0%" }, 
+				"25%" : { "left" : "0%"},
+				"33%" : { "left" : "-100%"},
+				"58%" : { "left" : "-100%" },
+				"66%" : { "left" : "-200%" },
+				"92%" : { "left" : "-200%" },
+				"100%" : { "left" : "0%" }
+			},
+			animationClass : {
+				name : "galleryAnimation",
+				rules : galleryRules
+			}
+		});	
 
-	console.log(galleryRules);
-
-	Animator.addClass(gallery, "animated");
-	Animator.setStyles(gallery, galleryRules);
-
-	sequence = Animator.animation({
-		element : gallery,
-		addClass : {
-			before : "tada"
-		}
-	});
-
-	sequence
-		.then(function() {
-			console.log("all done!");
-		})
-		.catch(function() {
-			console.log("error!")
+		sequence = Animator.animation({
+			element : gallery,
+			addClass : {
+				before : "galleryAnimation"
+			}
 		});
+
+		sequence
+			.then(function(element) {
+				Animator.removeClass(element, "galleryAnimation");
+				Animator.deleteClass("galleryAnimation");
+				galleryRules[Animator.getPrefix("animation")] = "tada 1s 1";
+				Animator.createClass("galleryAnimation", galleryRules);
+				return Animator.animation({
+					element : gallery,
+					addClass : {
+						before : "galleryAnimation"
+					}
+				});
+			})
+			.then(function() {
+				console.log("all done!");
+				//galleryStart();
+			})
+			.catch(function() {
+				console.log("error!")
+			});
+	})();	
 
 })();

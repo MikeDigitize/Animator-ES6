@@ -26,7 +26,7 @@ class DomUtils {
 		let animationSupport = prefix.getPrefix("animation");
 
 		try {
-			cssUtils.createClass("AnimatorTestClass", {}, stylesheet);
+			cssUtils.createClass("AnimatorTestClass", stylesheet);
 			cssUtils.deleteClass("AnimatorTestClass", stylesheet);
 			cssomSupport = true;
 		}

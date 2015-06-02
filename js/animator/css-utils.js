@@ -1,37 +1,44 @@
+/**
+ * @CssUtils Class
+ *
+ * @description CSS utility belt for Animator using the CSSOM (file:/// protocol not supported in Chrome) 
+ * @returns {Object}
+ */
+
 class CssUtils {
 	
 	constructor() {
         
 	}
 
-	cssTextToJs(cssText) {
+    /**
+     * @createStyleSheet function
+     *
+     * @description Creates a stylesheet for any transition / animation / style classes created in Animator.
+     * @returns {CSSStyleSheet} stylesheet
+     * @global no
+     */
 
-        let jsText = "";
-
-        if(/\-/g.test(cssText)) {
-            cssText.replace(/\-/g, " ").replace(/\w\S*/g, function(txt) {
-                txt = txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                if(txt){
-                    jsText += txt;
-                }
-            });
-            return jsText.charAt(0).toLowerCase() + jsText.substr(1);
-        }
-        else {
-            return cssText;
-        }
-
-    }
-
-    createStyleSheet(title = "") {
+    createStyleSheet() {
 
         let style = document.createElement("style");
         style.appendChild(document.createTextNode(""));
         document.head.appendChild(style);
-        style.setAttribute("title", title);
         return style.sheet;
         
     }
+
+    /**
+     * @setStyles function
+     *
+     * @params {HTMLElement, Object, Boolean}
+     * @description Sets properties on an element's CSSStyleDeclaration.
+     * @params description      
+     *  - element: {HTMLElement} HTML element to set styles properties on.
+        - styles : {Object} Object containing CSS property / value pairs.
+        - important : Boolean specifiying if the CSS value is to be set as important. 
+     * @global yes
+     */
 
     setStyles(element, styles, important) {
 
@@ -43,6 +50,18 @@ class CssUtils {
 
     }
 
+    /**
+     * @getStyles function
+     *
+     * @params {HTMLElement, String / Array}
+     * @description Queries properties set on an element's CSSStyleDeclaration.
+     * @params description      
+     *  - element: {HTMLElement} HTML element to query againts its style properties.
+        - props : {String / Array} String or Array of strings of CSS properties to query.
+     * @returns {Object} Object of CSS property / value pairs
+     * @global yes
+     */
+
     getStyles(element, props) {
 
     	let properties = Array.isArray(props) ? [...props] : [props];
@@ -53,6 +72,22 @@ class CssUtils {
     	return styles;  
 
     }
+
+    /**
+     * @createTransition function
+     *
+     * @params {Object, Class}
+     * @description Creates a string defining an element's CSS transition values and sets it on the element's CSSStyleDeclaration. 
+     * @params description      
+     *  - transition: {Object} An object of transition properties.
+            - elements {HTMLElement / Nodelist} HTMLElement(s) to set transition on.
+            - properties {String / Array} CSS properties to transition.
+            - duration {String / Array} Ms or S transition duration value(s).
+            - easing {String / Array} (Optional) Transition timing function value(s).
+            - delay {String / Array} (Optional) Transition delay value(s).
+        - prefix : {Class} Prefix class.
+     * @global yes
+     */
 
     createTransition(transition, Prefix) {
 
@@ -86,6 +121,23 @@ class CssUtils {
 
     }
 
+    /**
+     * @createKeyframeAnimation function
+     *
+     * @params {Object, Class, CSSStyleSheet}
+     * @description Creates a CSS keyframe animation, and optional associated style class, and inserts it/them into Animator's stylesheet. 
+     * @params description      
+     *  - animation: {Object} An object of animation properties.
+            - name {HTMLElement / Nodelist} HTMLElement(s) to set transition on.
+            - animation {Object} Either from / to or % based keyframes and CSS properties / values.
+            - animationClass {Object} (Optional) A CSS class to trigger the animation.
+                - name {String} The classname.
+                - rules {Object} Object of CSS property / value pairs.
+        - prefix : {Class} Prefix class.
+        - stylesheet : {CSSStyleSheet} Animator's stylesheet.
+     * @global yes
+     */
+
     createKeyframeAnimation(animation, Prefix, stylesheet) {
 
         let animationString = "";
@@ -105,12 +157,24 @@ class CssUtils {
 
         stylesheet.insertRule(keyFrame + animationString, stylesheet.cssRules.length);
         if(animation.animationClass) {
-            this.createClass(animation.animationClass.name, animation.animationClass.rules, stylesheet);
+            this.createClass(animation.animationClass.name, stylesheet, animation.animationClass.rules);
         }
 
     }
 
-    createClass(className, rules, stylesheet) {
+    /**
+     * @createClass function
+     *
+     * @params {String, CSSStyleSheet, Object (Optional)}
+     * @description Defines a CSS class and inserts it into Animator's stylesheet. 
+     * @params description      
+     *  - className: {String} The name of the class.
+        - stylesheet : {CSSStyleSheet} Animator's stylesheet.
+        - rules : {Object} (Optional) Object of CSS property / value pairs.
+     * @global yes
+     */
+
+    createClass(className, stylesheet, rules = {}) {
 
         let name = "." + className;
         let cssString = "{ ";
@@ -123,6 +187,17 @@ class CssUtils {
         stylesheet.insertRule(name + cssString, stylesheet.cssRules.length);
 
     }
+
+    /**
+     * @deleteClass function
+     *
+     * @params {String, CSSStyleSheet}
+     * @description Removes a CSS class from Animator's stylesheet. 
+     * @params description      
+     *  - className: {String} The name of the class to remove.
+        - stylesheet : {CSSStyleSheet} Animator's stylesheet.
+     * @global yes
+     */
 
     deleteClass(className, stylesheet) {
 

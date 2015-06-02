@@ -36,7 +36,7 @@ class Animator {
 	}
 
 	createClass(className, rules) {
-		return new CssUtils().createClass(className, rules, this.stylesheet);
+		return new CssUtils().createClass(className, this.stylesheet, rules);
 	}
 
 	deleteClass(className) {

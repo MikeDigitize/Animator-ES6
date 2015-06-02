@@ -41,8 +41,8 @@ class Tracker {
 			data.styles = options.setStyles.before;
 		}
 		data.properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
-		data.initialValues = {};
-		this.storeInitialCssValues(options.element, data.initialValues, data.properties);
+		//data.initialValues = {};
+		//this.storeInitialCssValues(options.element, data.initialValues, data.properties);
 		transitions.set(options.element, data);
 
 	}
@@ -73,20 +73,20 @@ class Tracker {
 			});
 		}
 
-		this.storeInitialCssValues(options.element, record.initialValues, properties);
+		//this.storeInitialCssValues(options.element, record.initialValues, properties);
 
 	}
 
-	storeInitialCssValues(element, initialValues, properties) {
+	// storeInitialCssValues(element, initialValues, properties) {
 
-		properties.forEach(property => {
-			let styleRule = this.cssUtils.getStyles(element, property);
-			Object.keys(styleRule).forEach(property => {
-				initialValues[property] = styleRule[property];
-			}); 
-		});
+	// 	properties.forEach(property => {
+	// 		let styleRule = this.cssUtils.getStyles(element, property);
+	// 		Object.keys(styleRule).forEach(property => {
+	// 			initialValues[property] = styleRule[property];
+	// 		}); 
+	// 	});
 
-	}
+	// }
 
 	pause() {
 
