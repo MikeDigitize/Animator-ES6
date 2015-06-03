@@ -38,7 +38,9 @@ class Prefix {
 		this.prefixes.set("animation-play-state", ["-webkit-animation-play-state", "-ms-animation-play-state", "-moz-animation-play-state", "animation-play-state"]);
 		this.prefixes.set("animation-duration", ["-webkit-animation-duration", "-ms-animation-duration", "-moz-animation-duration", "animation-duration"]);
 		this.prefixes.set("animation-delay", ["-webkit-animation-delay", "-ms-animation-delay", "-moz-animation-delay", "animation-delay"]);
-		
+		this.prefixes.set("animation-direction", ["-webkit-animation-direction", "-ms-animation-direction", "-moz-animation-direction", "animation-direction"]);
+		this.prefixes.set("animation-fill-mode", ["-webkit-animation-fill-mode", "-ms-animation-fill-mode", "-moz-animation-fill-mode", "animation-fill-mode"]);
+
 		// Transition / Animation end
 		let WebkitTransition = "webkitTransitionEnd";
 		let transition = "transitionend";

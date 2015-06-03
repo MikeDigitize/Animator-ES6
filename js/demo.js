@@ -153,15 +153,10 @@
 		Animator.createAnimation({
 			name : "ninjaAnimation",
 			animation : { 
-				"0%" : { "background-position" : "0px" }, 
-				"24.9%" : { "background-position" : "0px" },
-				"25%" : { "background-position" : "-250px" },
-				"49.9%" : { "background-position" : "-250px" },
-				"50%" : { "background-position" : "-500px" },
-				"74.9%" : { "background-position" : "-500px" },
-				"75%" : { "background-position" : "-750px" },
-				"99.9%" : { "background-position" : "-750px" },
-				"100%" : { "background-position" : "0px" }
+				"0%, 24.9%, 100%" : { "background-position" : "0px" }, 
+				"25%, 49.9%" : { "background-position" : "-250px" },
+				"50%, 74.9%" : { "background-position" : "-500px" },
+				"75%, 99%" : { "background-position" : "-750px" }
 			},
 			animationClass : {
 				name : "ninjaAnimation",
@@ -360,8 +355,99 @@
 	rules.opacity = "0 !important";
 	Animator.createClass("textStep2", rules);
 
-	rules[Animator.getPrefix("transform")] = "scale(100)";
+	rules[Animator.getPrefix("transform")] = "scale(200)";
+	rules[Animator.getPrefix("transition-duration")] = "750ms !important";
 	rules.opacity = "1";
 	Animator.createClass("textStep3", rules);
+
+})();
+
+
+/**
+  *	Loading Example
+  */
+
+(function() {
+
+	var loadingHolder = document.querySelector(".loadingExample");
+	var core = loadingHolder.querySelector(".cupcakeCore");
+	var inner = loadingHolder.querySelector(".cupcakeInner");
+	var controls = loadingHolder.querySelectorAll(".controls button");
+	var status = loadingHolder.querySelector(".status");
+	var coreRules = {}, innerRules = {}, animation = Animator.getPrefix("animation"), sequence;
+
+	var adir = Animator.getPrefix("animation-direction"),
+		atf = Animator.getPrefix("animation-timing-function"),
+		adur = Animator.getPrefix("animation-duration"),
+		an = Animator.getPrefix("animation-name"),
+		aic = Animator.getPrefix("animation-iteration-count");
+
+	coreRules[adur] = "500ms";
+	innerRules[adur] = "1000ms";
+	coreRules[adir] = innerRules[adir] = "alternate";
+	coreRules[atf] = innerRules[atf] = "ease-in-out";
+	coreRules[aic] = "10";
+	innerRules[aic] = "5";
+	coreRules[an] = innerRules[an] = "coreAnimate";
+
+	Animator.createAnimation({
+		name : "coreAnimate",
+		animation : { 
+			"to": { "height" : "90%", "width" : "90%" }
+		}
+	});	
+
+	function playLoader() {
+
+		sequence = Animator.combo([
+			Animator.animation({
+				element : core,
+				setStyles : {
+					before : coreRules
+				}
+			}),
+			Animator.animation({
+				element : inner,
+				setStyles : {
+					before : innerRules
+				}
+			})
+		]);
+
+		sequence
+			.then(function() {
+				controls[0].removeAttribute("disabled");
+				controls[1].setAttribute("disabled", "disabled");
+				controls[2].setAttribute("disabled", "disabled");
+			})
+			.catch(function() {
+				console.log("whoops!");
+			});
+
+	}
+
+
+	controls[0].addEventListener("click", function() {
+		this.setAttribute("disabled", "disabled");
+		controls[1].removeAttribute("disabled");
+		playLoader();
+		status.innerHTML = "playing";
+	}, false);
+
+	controls[1].setAttribute("disabled", "disabled");
+	controls[1].addEventListener("click", function() {
+		this.setAttribute("disabled", "disabled");
+		controls[2].removeAttribute("disabled");
+		Animator.pause();
+		status.innerHTML = "paused";
+	}, false);
+
+	controls[2].setAttribute("disabled", "disabled");
+	controls[2].addEventListener("click", function() {
+		this.setAttribute("disabled", "disabled");
+		controls[1].removeAttribute("disabled");
+		Animator.play();
+		status.innerHTML = "playing";
+	}, false);	
 
 })();
