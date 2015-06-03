@@ -78,13 +78,23 @@ class Tracker {
 
 	trackTransition(options) {
 
-		let data = {};	
-		let transitions = this.tracker.get("Transitions");	
+		let data = {}, 
+			transitionStyles = {},
+			tp = Animator.getPrefix("transition-property"),
+			tdur = Animator.getPrefix("transition-duration"),
+			ttf = Animator.getPrefix("transition-timing-function"),
+			tdel = Animator.getPrefix("transition-delay"),
+			transitions = this.tracker.get("Transitions");	
+ 
 		if(options.setStyles && options.setStyles.before) {
 			data.styles = options.setStyles.before;
 		}
 		
-		data.transition = this.cssUtils.getStyles(options.element, this.prefix.getPrefix("transition"));
+		transitionStyles[tp] = this.cssUtils.getStyles(options.element, tp)[tp];
+		transitionStyles[tdur] = this.cssUtils.getStyles(options.element, tdur)[tdur];
+		transitionStyles[ttf] = this.cssUtils.getStyles(options.element, ttf)[ttf];
+		transitionStyles[tdel] = this.cssUtils.getStyles(options.element, tdel)[tdel];
+		data.transitionStyles = transitionStyles;
 		data.properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
 		transitions.set(options.element, data);
 
@@ -215,8 +225,7 @@ class Tracker {
 	            break;
 	        }
 
-	        this.cssUtils.setStyles(element.value, transitions.get(element.value).transition);
-	        window.tester = window.getComputedStyle(element.value);
+	        this.cssUtils.setStyles(element.value, transitions.get(element.value).transitionStyles);
 	        let record = transitions.get(element.value);
 	        record.properties.forEach(property => {
 	        	element.value.style.removeProperty(property);

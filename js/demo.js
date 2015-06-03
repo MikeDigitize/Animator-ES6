@@ -146,7 +146,7 @@
 	function ninjaStart() {
 		
 		var ninjaRules = {}, ninjaBackgroundRules = {}, ninjaBushRules = {}, sequence;
-		ninjaRules[Animator.getPrefix("animation")] = "ninjaAnimation 0.3s 7";
+		ninjaRules[Animator.getPrefix("animation")] = "ninjaAnimation 0.3s 6";
 		ninjaBackgroundRules[Animator.getPrefix("animation")] = "ninjaBackgroundAnimation 6s 1";
 		ninjaBushRules[Animator.getPrefix("animation")] = "ninjaBushAnimation 3s 1";
 
@@ -240,12 +240,11 @@
 (function() {
 
 	var textHolder = document.querySelector(".textExample");
-	var text = textHolder.querySelectorAll("h2 span");
-	var title = textHolder.querySelector("h2");
-	var rules = {}, sequence;
-
+	var title = textHolder.querySelector(".title");
+	var text = title.querySelectorAll("span");
 	var controls = textHolder.querySelectorAll(".controls button");
 	var status = textHolder.querySelector(".status");
+	var rules = {}, sequence;
 
 	controls[0].removeAttribute("disabled");
 
@@ -344,7 +343,7 @@
 	Animator.createTransition({
 		elements : text,
 	    properties : [Animator.getPrefix("transform"), "opacity"],
-	    duration : ["100ms", "300ms"]
+	    duration : ["75ms", "100ms"]
 	});
 
 	Animator.createTransition({
@@ -357,7 +356,7 @@
 	rules[Animator.getPrefix("transform")] = "scale(2)";
 	Animator.createClass("textStep1", rules);
 
-	rules[Animator.getPrefix("transform")] = "scale(0)";
+	rules[Animator.getPrefix("transform")] = "scale(0.75)";
 	rules.opacity = "0 !important";
 	Animator.createClass("textStep2", rules);
 
