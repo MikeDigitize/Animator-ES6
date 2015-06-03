@@ -336,13 +336,13 @@
 	}, false);
 
 	Animator.createTransition({
-		elements : text,
+		element : text,
 	    properties : [Animator.getPrefix("transform"), "opacity"],
 	    duration : ["75ms", "100ms"]
 	});
 
 	Animator.createTransition({
-		elements : title,
+		element : title,
 	    properties : Animator.getPrefix("transform"),
 	    easing : ["ease-in"],
 	    duration : "250ms"
@@ -355,8 +355,8 @@
 	rules.opacity = "0 !important";
 	Animator.createClass("textStep2", rules);
 
-	rules[Animator.getPrefix("transform")] = "scale(200)";
-	rules[Animator.getPrefix("transition-duration")] = "750ms !important";
+	rules[Animator.getPrefix("transform")] = "scale(500)";
+	rules[Animator.getPrefix("transition-duration")] = "500ms !important";
 	rules.opacity = "1";
 	Animator.createClass("textStep3", rules);
 
@@ -374,21 +374,15 @@
 	var inner = loadingHolder.querySelector(".cupcakeInner");
 	var controls = loadingHolder.querySelectorAll(".controls button");
 	var status = loadingHolder.querySelector(".status");
+	var cupcake = loadingHolder.querySelector("#cupcake");
 	var coreRules = {}, innerRules = {}, animation = Animator.getPrefix("animation"), sequence;
 
-	var adir = Animator.getPrefix("animation-direction"),
-		atf = Animator.getPrefix("animation-timing-function"),
-		adur = Animator.getPrefix("animation-duration"),
-		an = Animator.getPrefix("animation-name"),
-		aic = Animator.getPrefix("animation-iteration-count");
-
-	coreRules[adur] = "500ms";
-	innerRules[adur] = "1000ms";
-	coreRules[adir] = innerRules[adir] = "alternate";
-	coreRules[atf] = innerRules[atf] = "ease-in-out";
-	coreRules[aic] = "10";
-	innerRules[aic] = "5";
-	coreRules[an] = innerRules[an] = "coreAnimate";
+	Animator.createTransition({
+		element : cupcake,
+		properties : Animator.getPrefix("transform"),
+	    easing : ["ease-in"],
+	    duration : "250ms"
+	});
 
 	Animator.createAnimation({
 		name : "coreAnimate",
@@ -398,6 +392,9 @@
 	});	
 
 	function playLoader() {
+
+		coreRules[animation] = "coreAnimate 500ms 10 alternate ease-in-out";
+		innerRules[animation] = "coreAnimate 1000ms 5 alternate ease-in-out";
 
 		sequence = Animator.combo([
 			Animator.animation({
@@ -416,6 +413,31 @@
 
 		sequence
 			.then(function() {
+				coreRules[animation] = "none";
+				innerRules[animation] = "none";
+				Animator.setStyles(core, coreRules);
+				Animator.setStyles(inner, innerRules);
+				Animator.addClass(cupcake, "animated");
+				return Animator.animation({
+					element : cupcake,
+					addClass : {
+						before : "fadeOutDownBig"
+					}
+				});
+			})
+			.then(function(element) {
+				return Animator.animation({
+					element : cupcake,
+					addClass : {
+						before : "fadeInDownBig"
+					},
+					removeClass : {
+						before : "fadeOutDownBig"
+					}
+				});
+			})
+			.then(function() {
+				Animator.removeClass(cupcake, "fadeInDownBig");
 				controls[0].removeAttribute("disabled");
 				controls[1].setAttribute("disabled", "disabled");
 				controls[2].setAttribute("disabled", "disabled");
@@ -425,7 +447,6 @@
 			});
 
 	}
-
 
 	controls[0].addEventListener("click", function() {
 		this.setAttribute("disabled", "disabled");

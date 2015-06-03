@@ -25,7 +25,7 @@
 	}, false);
 
 	Animator.createTransition({
-		elements : p1,
+		element : p1,
 	    properties : ["font-size", "color"],
 	    duration : ["2000ms", "1000ms"],
 	    easing : "ease",
@@ -33,7 +33,7 @@
 	});
 
 	Animator.createTransition({
-		elements : p2,
+		element : p2,
 	    properties : ["font-size", "color"],
 	    duration : ["500ms", "2000ms"],
 	    easing : "ease",

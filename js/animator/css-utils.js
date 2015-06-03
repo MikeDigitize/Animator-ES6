@@ -121,7 +121,7 @@ class CssUtils {
     createTransition(transition, Prefix) {
 
         let transitionPrefix = new Prefix().getPrefix("transition");
-        let elements = transition.elements.length ? Array.from(transition.elements) : [transition.elements];
+        let elements = transition.element.length ? Array.from(transition.element) : [transition.element];
         let properties = Array.isArray(transition.properties) ? [...transition.properties] : [transition.properties];
         let duration = Array.isArray(transition.duration) ? [...transition.duration] : [transition.duration];
         let easing = Array.isArray(transition.easing) ? [...transition.easing] : [transition.easing];
