@@ -185,6 +185,7 @@ class Tracker {
 	        record = transitions.get(element.value);
 	        record.properties.forEach(property => {
 	        	let rule = this.cssUtils.getStyles(element.value, property);
+	        	console.log(rule);
 	        	this.cssUtils.setStyles(element.value, rule, true);
 	        });	
 

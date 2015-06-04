@@ -4,15 +4,47 @@
 	<title>Animator ES6 Tests</title>
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link rel="stylesheet" type="text/css" href="css/animate.css">
+	<style type="text/css">
+		.text {
+			transition: font-size 4s ease-out;
+			font-size: 40px;
+			text-align: center;
+		}
+		.tran { font-size: 80px; }
+		.tran2 { font-size: 40px; }
+		.anim { animation : blink 2s 2 }
+
+		@keyframes blink {
+		    0% {
+		    	opacity: 1
+		    }
+		    25% {
+		    	opacity: 0
+		    }
+		    50% {
+		    	opacity: 1
+		    }
+		    75% {
+		    	opacity: 0
+		    }
+		    100% {
+		    	opacity: 1
+		    }
+		}
+	</style>
 </head>
 <body class="animator-tests">
 
-	<p class="tr one">Animator</p>
-	<p class="tr two">is Awesome</p>
+	<p class="text">Title</p>
 
 	<button class="pause">Pause!!</button>
 	<button class="play">Play!!</button>
 
+    <!--<p class="tr one">Animator</p>
+	<p class="tr two">is Awesome</p>
+
+	<button class="pause">Pause!!</button>
+	<button class="play">Play!!</button>-->
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="js/animator.min.js"></script>
 	<script src="js/tests.js"></script>
