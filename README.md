@@ -127,6 +127,10 @@ var sequence = Animator.combo([
 
 sequence
     .then(function() {
+    
+    /**
+      * Return a transition / animation / sequencer to continue the chain
+      */
     	return Animator.transition({
 		    element : p,
 		    properties : Animator.getPrefix("transform"),
