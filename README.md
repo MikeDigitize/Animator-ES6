@@ -24,7 +24,7 @@ and go to <code>http://localhost:1337</code> to see the demo. To use Animator in
 ```
 
 ## Browser Support
-Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator polyfills Promise and Map if the browser does not suppor them so these are available to use globally too.
+Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator polyfills ES6's Promise and Map if the browser does not support them so these are available to use globally too.
 ```javascript
 if(!Animator.isSupported) {
     // handle fallbacks here
@@ -75,5 +75,53 @@ Animator.animation(description);
 Animator.combo(description);
 ```
 
+### Example Usage
+```css
+/**
+ *  Some basic CSS setup, omitting prefixes for brevity
+ */
 
+.title { transition: transform 1s ease-out }
+.tran { transform: scale(2) }
+.anim { animation : shrink 2s 1 }
+
+@keyframes shrink {
+    to : { 
+        transform : scale(0)
+    }
+}
+``` 
+
+```javascript
+var p = document.querySelector(".text");
+
+/**
+  * Assign the transition to a variable so we can chain 
+  */
+ 
+var sequence = Animator.transition({
+    element : p,
+    properties : Animator.getPrefix("transform"),
+    addClass : {
+        before : "tran"
+    }
+});    
+
+sequence
+    .then(function() {
+        return Animator.animation({
+            element : p,
+            addClass : {
+                before : "anim"
+            }
+        });  
+    })
+    .then(function(){
+        // done!
+    })
+    .catch(function() {
+        // handle errors here!
+    });
+
+```
 
