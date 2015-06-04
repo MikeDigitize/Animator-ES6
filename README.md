@@ -39,7 +39,7 @@ Animator has three methods to use to create a sequence - <code>animation</code>,
 /**
  * ...
  * @param {Object} options. An object containing all transition details.
- * @param {Number} options.element. A HTMLElement / Nodelist to transition.
+ * @param {HTMLElement / Nodelist} options.element. A HTMLElement / Nodelist to transition.
  * @param {String / Array} options.properties. The CSS properties to be transitioned.
  * @param [Object] options.setStyles (optional). 
  *  - An object containing CSS property / values to apply before / after the transition.
@@ -68,9 +68,7 @@ Animator.animation(description);
 <code>Combo</code> aggregates Animator sequences and runs them concurrently.
 ```javascript
 /**
- * ...
  * @param {Array} An array of Transition and / or Animation sequences.
- * ...
  */
 Animator.combo(description);
 ```
@@ -81,13 +79,25 @@ Animator.combo(description);
  *  Some basic CSS setup, omitting prefixes for brevity
  */
 
-.title { transition: transform 1s ease-out }
+.text { transition: transform 4s ease-out; }
 .tran { transform: scale(2) }
-.anim { animation : shrink 2s 1 }
+.anim { animation : shrink 2s 2 }
 
-@keyframes shrink {
-    to : { 
-        transform : scale(0)
+@keyframes blink {
+    0% {
+    	opacity: 1
+    }
+    25% {
+    	opacity: 0
+    }
+    50% {
+    	opacity: 1
+    }
+    75% {
+    	opacity: 0
+    }
+    100% {
+    	opacity: 1
     }
 }
 ``` 
@@ -99,25 +109,34 @@ var p = document.querySelector(".text");
   * Assign the transition to a variable so we can chain 
   */
  
-var sequence = Animator.transition({
-    element : p,
-    properties : Animator.getPrefix("transform"),
-    addClass : {
-        before : "tran"
-    }
-});    
+var sequence = Animator.combo([
+	Animator.transition({
+	    element : p,
+	    properties : Animator.getPrefix("transform"),
+	    addClass : {
+	        before : "tran"
+	    }
+	}),
+	Animator.animation({
+        element : p,
+        addClass : {
+            before : "anim"
+        }
+    })
+]);       
 
 sequence
     .then(function() {
-        return Animator.animation({
-            element : p,
-            addClass : {
-                before : "anim"
-            }
-        });  
+    	return Animator.transition({
+		    element : p,
+		    properties : Animator.getPrefix("transform"),
+		    removeClass : {
+		        before : "tran"
+		    }
+		})
     })
-    .then(function(){
-        // done!
+    .then(function() {
+    	// finished!
     })
     .catch(function() {
         // handle errors here!
