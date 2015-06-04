@@ -338,7 +338,7 @@
 	Animator.createTransition({
 		element : text,
 	    properties : [Animator.getPrefix("transform"), "opacity"],
-	    duration : ["75ms", "100ms"]
+	    duration : ["500ms", "100ms"]
 	});
 
 	Animator.createTransition({

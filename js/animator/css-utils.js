@@ -54,6 +54,10 @@ class CssUtils {
             return cssText;
         }
 
+        // styleProp = styleProp.replace(/\-(\w)/g, function(str, letter) {
+        //     return letter.toUpperCase();
+        // });
+
     }
 
 
@@ -74,6 +78,7 @@ class CssUtils {
     	Object.keys(styles).forEach(property => {        
             let important = important || styles[property].includes("important") ? "important" : null;
             let rules = styles[property].replace(/!?important/, "").trim(); 
+            console.log(property, rules);
             element.style.setProperty(property, rules, important);
     	});
 
@@ -94,9 +99,12 @@ class CssUtils {
     getStyles(element, props) {
 
     	let properties = Array.isArray(props) ? [...props] : [props];
-    	let styles = {};
+    	let styles = {}, temp = {};
     	properties.forEach(property => {
+            temp[property] = window.getComputedStyle(element).getPropertyValue(property);
+            element.style.removeProperty(property);
     		styles[property] = window.getComputedStyle(element).getPropertyValue(property);
+            this.setStyles(element, temp);
     	});
     	return styles;  
 

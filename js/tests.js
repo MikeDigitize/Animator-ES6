@@ -19,7 +19,7 @@
 
 	play.addEventListener("click", function() {
 		Animator.play();
-	}, false);
+	}, false);   
 
 	var p = document.querySelector(".text");
 

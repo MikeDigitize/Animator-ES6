@@ -89,6 +89,8 @@ class Tracker {
 		if(options.setStyles && options.setStyles.before) {
 			data.styles = options.setStyles.before;
 		}
+
+		console.log(this.cssUtils.getStyles(options.element, tp), tp);
 		
 		transitionStyles[tp] = this.cssUtils.getStyles(options.element, tp)[tp];
 		transitionStyles[tdur] = this.cssUtils.getStyles(options.element, tdur)[tdur];
@@ -180,14 +182,15 @@ class Tracker {
 	            break;
 	        }
 
-	        rule[this.prefix.getPrefix("transition")] = "none";
-	        this.cssUtils.setStyles(element.value, rule);
 	        record = transitions.get(element.value);
 	        record.properties.forEach(property => {
 	        	let rule = this.cssUtils.getStyles(element.value, property);
-	        	console.log(rule);
-	        	this.cssUtils.setStyles(element.value, rule, true);
+	        	console.log("pause", rule);
+	        	//this.cssUtils.setStyles(element.value, rule, true);
 	        });	
+
+	        rule[this.prefix.getPrefix("transition")] = "none";
+	        this.cssUtils.setStyles(element.value, rule);
 
 	    }
 
@@ -227,14 +230,15 @@ class Tracker {
 	        }
 
 	        this.cssUtils.setStyles(element.value, transitions.get(element.value).transitionStyles);
-	        let record = transitions.get(element.value);
-	        record.properties.forEach(property => {
-	        	element.value.style.removeProperty(property);
-	        });
+	        // let record = transitions.get(element.value);
+	        // record.properties.forEach(property => {
+	        // 	console.log("play", this.cssUtils.getStyles(element.value, property));
+	        // 	//element.value.style.removeProperty(property);
+	        // });
 
-	        if(record.styles) {
-	        	this.cssUtils.setStyles(element.value, record.styles);
-	        }
+	        // if(record.styles) {
+	        // 	this.cssUtils.setStyles(element.value, record.styles);
+	        // }
 
 	    }
 
