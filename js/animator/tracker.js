@@ -78,42 +78,25 @@ class Tracker {
 
 	trackTransition(options) {
 
-		let data = {}, transitions = this.tracker.get("Transitions");	
- 
+		let data = {}, 
+			transitions = this.tracker.get("Transitions"),
+			transitionStyles = {},
+			tp = Animator.getPrefix("transition-property"),
+			tdur = Animator.getPrefix("transition-duration"),
+			ttf = Animator.getPrefix("transition-timing-function"),
+			tdel = Animator.getPrefix("transition-delay");
+
+		transitionStyles[tp] = options.element.style[tp];
+		transitionStyles[tdur] = options.element.style[tdur]
+		transitionStyles[ttf] = options.element.style[ttf];
+		transitionStyles[tdel] = options.element.style[tdel];
+		data.transitionStyles = transitionStyles;
+
 		if(options.setStyles && options.setStyles.before) {
 			data.styles = options.setStyles.before;
 		}
-		
-		/**
-          *	Search through each stylesheet to find the class rule that's being applied
-          *	and save the styles being applied so if the sequence is paused we can resume
-          *	by re-applying the destination style.
-          */
 
 		if(options.addClass && options.addClass.before) {
-
-			// let classRules = [];
-			// let classes = Array.isArray(options.addClass.before) ? [...options.addClass.before] : [options.addClass.before];
-
-			// Array.from(document.styleSheets).forEach(ss => {
-			// 	Array.from(ss.cssRules).forEach(rule => {
-			// 		classes.forEach(cls => {
-			// 			if(rule.selectorText) {
-			// 				let reg = new RegExp("^." + cls + "$", "g");
-			// 				if(rule.selectorText.match(reg)){
-			// 					let rules = {};
-			// 					for(let i = 0; i < rule.style.length; i++) {
-			// 						let prop = this.cssUtils.cssTextToJs(rule.style[i]);
-			// 						rules[rule.style[i]] = rule.style[prop]
-			// 					}
-			// 					classRules.push(rules);
-			// 				}
-			// 			}
-			// 		});					
-			// 	});				
-			// });
-
-			//data.classRules = classRules;
 
 			data.className = {
 				before: options.element.className,
@@ -210,8 +193,12 @@ class Tracker {
 	        record = transitions.get(element.value);
 	        record.properties.forEach(property => {
 	        	let rule = this.cssUtils.getStyles(element.value, property);
-	        	this.cssUtils.setStyles(element.value, rule, true);
+	        	this.cssUtils.setStyles(element.value, rule);
 	        });	
+
+	        rule = {};
+	        rule[this.prefix.getPrefix("transition")] = "none";
+	        this.cssUtils.setStyles(element.value, rule);
 
 	    }
 
@@ -251,6 +238,7 @@ class Tracker {
 	        }
 
 	        let record = transitions.get(element.value);
+	        this.cssUtils.setStyles(element.value, record.transitionStyles);
 	        if(record.className) {
 				record.properties.forEach(prop => {
 					element.value.style.removeProperty(prop);

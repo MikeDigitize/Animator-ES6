@@ -254,7 +254,7 @@
 				if(count === total) {
 					seq = Animator.transition({
 						element : title,
-						properties : Animator.getPrefix("transform"),
+						properties : [Animator.getPrefix("transform"), "opacity"],
 						addClass : {
 							before : "textStep3"
 						},

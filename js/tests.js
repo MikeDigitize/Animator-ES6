@@ -47,7 +47,6 @@
 
 	sequence
 	    .then(function() {
-	    	console.log("awesome!!!");
 	    	return Animator.transition({
 			    element : p,
 			    properties : "font-size",
