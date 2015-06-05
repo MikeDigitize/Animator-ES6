@@ -261,7 +261,7 @@ class Tracker {
      * @params {String, HTMLElement}
      * @description Removes a stored element from the Tracker once a sequence is complete.
      * @params description      
-     *  - type: {String} Map key, either Transitions or Animations.
+     *  - type: {String} Tracker map key, either Transitions or Animations.
      *  - element: {HTMLElement} The element to remove from the Tracker.
      * @global no
      */
