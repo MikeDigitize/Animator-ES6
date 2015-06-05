@@ -34,10 +34,6 @@ if(!Animator.isSupported) {
 ## Creating Sequences
 Animator has three methods to use to create a sequence - <code>animation</code>, <code>transition</code> and <code>combo</code>. Combo is used to handle combinations of transition and / or animation sequences that need to run simultaneously. Each of these return a <code>Promise</code> that resolves when all transitions / animations are complete, so they can be easily chained together to create complex sequences.
 
-### Example Usage
-
-
-
 ```css
 /**
  *  Some basic CSS setup, omitting prefixes for brevity
@@ -67,7 +63,7 @@ Animator has three methods to use to create a sequence - <code>animation</code>,
 ``` 
 
 ```javascript
-var p = document.querySelector(".text");
+var p = document.querySelectorAll(".text");
 
 /**
   * Assign the transition to a variable so we can chain 
