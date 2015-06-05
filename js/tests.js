@@ -21,7 +21,7 @@
 		Animator.play();
 	}, false);   
 
-	var p = document.querySelector(".text");
+	var p = document.querySelectorAll(".text");
 
 
 
@@ -32,7 +32,7 @@
 	var sequence = Animator.combo([
 		Animator.transition({
 		    element : p,
-		    properties : "font-size",
+		    properties : Animator.getPrefix("transform"),
 		    addClass : {
 		        before : "tran"
 		    }
@@ -49,7 +49,7 @@
 	    .then(function() {
 	    	return Animator.transition({
 			    element : p,
-			    properties : "font-size",
+			    properties : Animator.getPrefix("transform"),
 			    addClass : {
 			        before : "tran2"
 			    }
@@ -287,5 +287,7 @@
 	// 	.then(function() {
 	// 		console.log("done!");
 	// 	});
+
+
 
 })();

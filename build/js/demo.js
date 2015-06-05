@@ -338,7 +338,7 @@
 	Animator.createTransition({
 		element : text,
 	    properties : [Animator.getPrefix("transform"), "opacity"],
-	    duration : ["500ms", "100ms"]
+	    duration : ["100ms", "200ms"]
 	});
 
 	Animator.createTransition({
@@ -413,31 +413,23 @@
 
 		sequence
 			.then(function() {
+				var rules = {};
+				rules[Animator.getPrefix("animation-duration")] = "0.5s";
 				coreRules[animation] = "none";
 				innerRules[animation] = "none";
 				Animator.setStyles(core, coreRules);
 				Animator.setStyles(inner, innerRules);
 				Animator.addClass(cupcake, "animated");
+				Animator.setStyles(cupcake, rules);
 				return Animator.animation({
 					element : cupcake,
 					addClass : {
-						before : "fadeOutDownBig"
-					}
-				});
-			})
-			.then(function(element) {
-				return Animator.animation({
-					element : cupcake,
-					addClass : {
-						before : "fadeInDownBig"
-					},
-					removeClass : {
-						before : "fadeOutDownBig"
+						before : "zoomOutUp"
 					}
 				});
 			})
 			.then(function() {
-				Animator.removeClass(cupcake, "fadeInDownBig");
+				Animator.removeClass(cupcake, "zoomOutUp");
 				controls[0].removeAttribute("disabled");
 				controls[1].setAttribute("disabled", "disabled");
 				controls[2].setAttribute("disabled", "disabled");

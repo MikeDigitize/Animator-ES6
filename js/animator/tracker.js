@@ -58,7 +58,7 @@ class Tracker {
 		else {
 
 			// A reference to the element will suffice if the sequence type is an Animation.
-			// CSS properties are not stored for Animations therefore don't need updating.
+			// CSS Animations can be paused and played easily unlike transitions which are a bit trickier.
 			if(!animation) {
 				this.trackAnimation(options);
 			}				
@@ -70,7 +70,8 @@ class Tracker {
      * @trackTransition function
      *
      * @params {Object}
-     * @description Stores the element under Transitions in the Tracker Map and the transitioned properties / values set against the element.
+     * @description Stores the element under the Transitions key in the Tracker Map 
+     * 		and the transitioned properties / values set against the element.
      * @params description      
      *  - options: {Object} The transition sequence options.
      * @global no
@@ -78,10 +79,10 @@ class Tracker {
 
 	trackTransition(options) {
 
-		let data = {}, 
-			transitions = this.tracker.get("Transitions"),
-			transitionStyles = {},
-			tp = Animator.getPrefix("transition-property"),
+		let data = {} 
+		let transitions = this.tracker.get("Transitions");
+		let	transitionStyles = {};
+		let	tp = Animator.getPrefix("transition-property"),
 			tdur = Animator.getPrefix("transition-duration"),
 			ttf = Animator.getPrefix("transition-timing-function"),
 			tdel = Animator.getPrefix("transition-delay");
@@ -114,7 +115,7 @@ class Tracker {
      * @trackAnimation function
      *
      * @params {Object}
-     * @description Stores the element under Animations in the Tracker Map.
+     * @description Stores an element under the Animations key in the Tracker Map.
      * @params description      
      *  - options: {Object} The animation sequence options.
      * @global no
@@ -146,6 +147,7 @@ class Tracker {
 			return record.properties.indexOf(property) === -1;
 		});		
 		record.properties = [...record.properties, ...properties];
+		
 		if(options.setStyles && options.setStyles.before) {
 			if(!record.styles) {
 				record.styles = {};
