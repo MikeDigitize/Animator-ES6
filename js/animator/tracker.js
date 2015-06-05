@@ -70,7 +70,7 @@ class Tracker {
      * @trackTransition function
      *
      * @params {Object}
-     * @description Stores the element under Transitions in the Tracker Map and the transitioned properties / style rules set against the element.
+     * @description Stores the element under Transitions in the Tracker Map and the transitioned properties / values set against the element.
      * @params description      
      *  - options: {Object} The transition sequence options.
      * @global no
@@ -78,25 +78,50 @@ class Tracker {
 
 	trackTransition(options) {
 
-		let data = {}, 
-			transitionStyles = {},
-			tp = Animator.getPrefix("transition-property"),
-			tdur = Animator.getPrefix("transition-duration"),
-			ttf = Animator.getPrefix("transition-timing-function"),
-			tdel = Animator.getPrefix("transition-delay"),
-			transitions = this.tracker.get("Transitions");	
+		let data = {}, transitions = this.tracker.get("Transitions");	
  
 		if(options.setStyles && options.setStyles.before) {
 			data.styles = options.setStyles.before;
 		}
-
-		console.log(this.cssUtils.getStyles(options.element, tp), tp);
 		
-		transitionStyles[tp] = this.cssUtils.getStyles(options.element, tp)[tp];
-		transitionStyles[tdur] = this.cssUtils.getStyles(options.element, tdur)[tdur];
-		transitionStyles[ttf] = this.cssUtils.getStyles(options.element, ttf)[ttf];
-		transitionStyles[tdel] = this.cssUtils.getStyles(options.element, tdel)[tdel];
-		data.transitionStyles = transitionStyles;
+		/**
+          *	Search through each stylesheet to find the class rule that's being applied
+          *	and save the styles being applied so if the sequence is paused we can resume
+          *	by re-applying the destination style.
+          */
+
+		if(options.addClass && options.addClass.before) {
+
+			// let classRules = [];
+			// let classes = Array.isArray(options.addClass.before) ? [...options.addClass.before] : [options.addClass.before];
+
+			// Array.from(document.styleSheets).forEach(ss => {
+			// 	Array.from(ss.cssRules).forEach(rule => {
+			// 		classes.forEach(cls => {
+			// 			if(rule.selectorText) {
+			// 				let reg = new RegExp("^." + cls + "$", "g");
+			// 				if(rule.selectorText.match(reg)){
+			// 					let rules = {};
+			// 					for(let i = 0; i < rule.style.length; i++) {
+			// 						let prop = this.cssUtils.cssTextToJs(rule.style[i]);
+			// 						rules[rule.style[i]] = rule.style[prop]
+			// 					}
+			// 					classRules.push(rules);
+			// 				}
+			// 			}
+			// 		});					
+			// 	});				
+			// });
+
+			//data.classRules = classRules;
+
+			data.className = {
+				before: options.element.className,
+				after : options.addClass.before
+			};
+
+		}
+
 		data.properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
 		transitions.set(options.element, data);
 
@@ -185,12 +210,8 @@ class Tracker {
 	        record = transitions.get(element.value);
 	        record.properties.forEach(property => {
 	        	let rule = this.cssUtils.getStyles(element.value, property);
-	        	console.log("pause", rule);
-	        	//this.cssUtils.setStyles(element.value, rule, true);
+	        	this.cssUtils.setStyles(element.value, rule, true);
 	        });	
-
-	        rule[this.prefix.getPrefix("transition")] = "none";
-	        this.cssUtils.setStyles(element.value, rule);
 
 	    }
 
@@ -229,16 +250,16 @@ class Tracker {
 	            break;
 	        }
 
-	        this.cssUtils.setStyles(element.value, transitions.get(element.value).transitionStyles);
-	        // let record = transitions.get(element.value);
-	        // record.properties.forEach(property => {
-	        // 	console.log("play", this.cssUtils.getStyles(element.value, property));
-	        // 	//element.value.style.removeProperty(property);
-	        // });
+	        let record = transitions.get(element.value);
+	        if(record.className) {
+				record.properties.forEach(prop => {
+					element.value.style.removeProperty(prop);
+				});				
+	        }
 
-	        // if(record.styles) {
-	        // 	this.cssUtils.setStyles(element.value, record.styles);
-	        // }
+	        if(record.styles){
+	        	this.cssUtils.setStyles(element.value, record.styles);
+	        }	       
 
 	    }
 

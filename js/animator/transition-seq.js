@@ -61,6 +61,8 @@ class Transition {
 
 	transitionStart() {
 
+		console.log("transition start!");
+
 		let opts = this.options;
 		opts.element.addEventListener(this.prefix, this.onTransitionEnd, false);
 
@@ -109,6 +111,7 @@ class Transition {
 			}	
 
 			this.tracker.remove("Transitions", opts.element);
+			console.log("resolved!", this.resolve);
 			this.resolve(opts.element);
 
 		}

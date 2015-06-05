@@ -78,7 +78,6 @@ class CssUtils {
     	Object.keys(styles).forEach(property => {        
             let important = important || styles[property].includes("important") ? "important" : null;
             let rules = styles[property].replace(/!?important/, "").trim(); 
-            console.log(property, rules);
             element.style.setProperty(property, rules, important);
     	});
 
