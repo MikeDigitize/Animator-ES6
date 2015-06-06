@@ -244,6 +244,17 @@ class CssUtils {
 
     }
 
+    /**
+     * @createCSSRule function
+     *
+     * @params {String / Array, String / Array}
+     * @description Returns an object of CSS property / values. 
+     * @params description      
+     *  - property: {String / Array} The CSS property(s).
+        - value : {String / Array} The CSS values(s).
+     * @global yes
+     */
+
     createCSSRule(property, value) {
 
         let properties = Array.isArray(property) ? [...property] : [property];
