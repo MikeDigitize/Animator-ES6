@@ -49,7 +49,7 @@
 	    .then(function(elements) {
 	    	console.log("1", elements);
 	    	return Animator.transition({
-			    element : p,
+			    element : elements[0],
 			    properties : Animator.getPrefix("transform"),
 			    removeClass : {
 			        before : "tran"
@@ -63,6 +63,7 @@
 	    .catch(function() {
 	        // handle errors here!
 	    });
+
 
 	// var p1 = document.querySelector(".one");
 	// var p2 = document.querySelector(".two");

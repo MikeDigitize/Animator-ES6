@@ -79,18 +79,17 @@ class Tracker {
 
 	trackTransition(options) {
 
-		let data = {} 
+		let data = {}, transitionStyles = {}; 
 		let transitions = this.tracker.get("Transitions");
-		let	transitionStyles = {};
 		let	tp = Animator.getPrefix("transition-property"),
 			tdur = Animator.getPrefix("transition-duration"),
 			ttf = Animator.getPrefix("transition-timing-function"),
 			tdel = Animator.getPrefix("transition-delay");
 
-		transitionStyles[tp] = options.element.style[tp];
-		transitionStyles[tdur] = options.element.style[tdur]
-		transitionStyles[ttf] = options.element.style[ttf];
-		transitionStyles[tdel] = options.element.style[tdel];
+		transitionStyles[tp] = this.cssUtils.getStyles(options.element, tp)[tp];
+		transitionStyles[tdur] = this.cssUtils.getStyles(options.element, tdur)[tdur];
+		transitionStyles[ttf] = this.cssUtils.getStyles(options.element, ttf)[ttf];
+		transitionStyles[tdel] = this.cssUtils.getStyles(options.element, tdel)[tdel];
 		data.transitionStyles = transitionStyles;
 
 		if(options.setStyles && options.setStyles.before) {

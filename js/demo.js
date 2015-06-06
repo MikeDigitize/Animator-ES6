@@ -49,8 +49,7 @@
 	setBannerHeight();
 
 	function bannerStart() {
-		var bannerRules = {}, sequence;
-		bannerRules[Animator.getPrefix("animation")] = "bounce 3s 6, bannerAnimation 9s 2";
+		var sequence;
 
 		Animator.createAnimation({
 			name : "bannerAnimation",
@@ -65,7 +64,7 @@
 			},
 			animationClass : {
 				name : "bannerAnimation",
-				rules : bannerRules
+				rules : Animator.createCSSRule(Animator.getPrefix("animation"), "bounce 3s 6, bannerAnimation 9s 2")
 			}
 		});	
 
@@ -80,8 +79,7 @@
 			.then(function(element) {
 				Animator.removeClass(element, "bannerAnimation");
 				Animator.deleteClass("bannerAnimation");
-				bannerRules[Animator.getPrefix("animation")] = "tada 1s 1";
-				Animator.createClass("bannerAnimation", bannerRules);
+				Animator.createClass("bannerAnimation", Animator.createCSSRule(Animator.getPrefix("animation"), "tada 1s 1"));
 				return Animator.animation({
 					element : gallery,
 					addClass : {
@@ -145,10 +143,7 @@
 
 	function ninjaStart() {
 		
-		var ninjaRules = {}, ninjaBackgroundRules = {}, ninjaBushRules = {}, sequence;
-		ninjaRules[Animator.getPrefix("animation")] = "ninjaAnimation 0.3s 6";
-		ninjaBackgroundRules[Animator.getPrefix("animation")] = "ninjaBackgroundAnimation 6s 1";
-		ninjaBushRules[Animator.getPrefix("animation")] = "ninjaBushAnimation 3s 1";
+		var sequence;
 
 		Animator.createAnimation({
 			name : "ninjaAnimation",
@@ -160,7 +155,7 @@
 			},
 			animationClass : {
 				name : "ninjaAnimation",
-				rules : ninjaRules
+				rules : Animator.createCSSRule(Animator.getPrefix("animation"), "ninjaAnimation 0.3s 6")
 			}
 		});	
 
@@ -173,7 +168,7 @@
 			},
 			animationClass : {
 				name : "ninjaBackgroundAnimation",
-				rules : ninjaBackgroundRules
+				rules : Animator.createCSSRule(Animator.getPrefix("animation"), "ninjaBackgroundAnimation 6s 1")
 			}
 		});	
 
@@ -186,7 +181,7 @@
 			},
 			animationClass : {
 				name : "ninjaBushAnimation",
-				rules : ninjaBushRules
+				rules : Animator.createCSSRule(Animator.getPrefix("animation"), "ninjaBushAnimation 3s 1")
 			}
 		});	
 

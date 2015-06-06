@@ -69,7 +69,7 @@ class CssUtils {
      * @params description      
      *  - element: {HTMLElement} HTML element to set styles properties on.
         - styles : {Object} Object containing CSS property / value pairs.
-        - important : Boolean specifiying if the CSS value is to be set as important. 
+        - important : Boolean specifying if the CSS value is to be set as important. 
      * @global yes
      */
 
@@ -100,10 +100,7 @@ class CssUtils {
     	let properties = Array.isArray(props) ? [...props] : [props];
     	let styles = {}, temp = {};
     	properties.forEach(property => {
-            temp[property] = window.getComputedStyle(element).getPropertyValue(property);
-            element.style.removeProperty(property);
     		styles[property] = window.getComputedStyle(element).getPropertyValue(property);
-            this.setStyles(element, temp);
     	});
     	return styles;  
 
@@ -119,8 +116,8 @@ class CssUtils {
             - elements {HTMLElement / Nodelist} HTMLElement(s) to set transition on.
             - properties {String / Array} CSS properties to transition.
             - duration {String / Array} Ms or S transition duration value(s).
-            - easing {String / Array} (Optional) Transition timing function value(s).
-            - delay {String / Array} (Optional) Transition delay value(s).
+            - easing [String / Array] (Optional) Transition timing function value(s).
+            - delay [String / Array] (Optional) Transition delay value(s).
         - Prefix : {Class} Prefix class.
      * @global yes
      */
@@ -244,6 +241,20 @@ class CssUtils {
                 stylesheet.deleteRule(rule);
             }
         });
+
+    }
+
+    createCSSRule(property, value) {
+
+        let properties = Array.isArray(property) ? [...property] : [property];
+        let values = Array.isArray(value) ? [...value] : [value];
+        let rule = {};
+
+        properties.forEach((prop, index) => {
+            rule[prop] = values[index];
+        });
+
+        return rule;
 
     }
 

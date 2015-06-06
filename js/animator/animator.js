@@ -109,6 +109,18 @@ class Animator {
 	}
 
    /**
+     * @createCSSRule function
+     *
+     * @params {String / Array, String / Array}
+     * @description Returns a CSS property / value pairs object.
+     * @returns {Object}
+     */
+
+  createCSSRule(property, value) {
+    return new CssUtils().createCSSRule(property, value);
+  }
+
+   /**
      * @addClass function
      *
      * @params {HTMLElement, String / Array}
