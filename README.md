@@ -24,7 +24,7 @@ and go to <code>http://localhost:1337</code> to see the demo. To use, just inclu
 ```
 
 ## Browser Support
-Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator uses Jake Archibald's excellent [ES6 Promise](https://github.com/jakearchibald/es6-promise) polyfill and Paul Miller's fantastic [ES6-shim](https://github.com/paulmillr/es6-shim/) for other ES6 features like Map and Array.from, so just by using Animator you'll have access to all these goodies.
+Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator uses Jake Archibald's excellent [ES6 Promise](https://github.com/jakearchibald/es6-promise) polyfill and Paul Miller's fantastic [ES6-shim](https://github.com/paulmillr/es6-shim/) for other ES6 features like Map and Array.from, so just by using Animator you'll have access these and other ES6 goodies.
 ```javascript
 if(!Animator.isSupported) {
     // handle fallbacks here
@@ -92,12 +92,12 @@ sequence
       * Return a transition / animation / sequencer to continue the chain
       */
     	return Animator.transition({
-	    element : p,
-	    properties : Animator.getPrefix("transform"),
-	    removeClass : {
-	        before : "tran"
-	    }
-	})
+		element : p,
+		properties : Animator.getPrefix("transform"),
+		removeClass : {
+	        	before : "tran"
+	    	}
+	});
     })
     .then(function() {
     	// continue or finish!
@@ -108,7 +108,7 @@ sequence
 
 ```
 
-## Pausing
+## Playing / Pausing Sequences
 
 Sequences can be paused at any point by calling
 ```javascript
@@ -174,9 +174,9 @@ Defining single or multiple CSS transitions against an element or Nodelist withi
 Animator.createTransition({
 	element : p,
 	properties : Animator.getPrefix("transform"),
-    	duration : "250ms",
-    	easing : "ease-in",
-    	delay : "50ms"
+	duration : "250ms",
+	easing : "ease-in",
+	delay : "50ms"
 });
 ```
 
