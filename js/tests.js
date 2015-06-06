@@ -47,7 +47,7 @@
 
 	sequence
 	    .then(function(elements) {
-	    	console.log(elements);
+	    	console.log("1", elements);
 	    	return Animator.transition({
 			    element : p,
 			    properties : Animator.getPrefix("transform"),
@@ -56,7 +56,8 @@
 			    }
 			})
 	    })
-	    .then(function() {
+	    .then(function(elements) {
+	    	console.log("2", elements);
 	    	console.log("done");
 	    })
 	    .catch(function() {

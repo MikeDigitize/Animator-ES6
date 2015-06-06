@@ -59,7 +59,18 @@ class Combo {
 			count++;
 			returnData.push(element);
 			if(count === this.amount) {
-				this.resolve(returnData);
+				let returnedElements = [];
+				returnData.forEach(seq => {
+					if(Array.isArray(seq)) {
+						returnedElements = [...returnedElements, ...seq];
+					}
+					else {
+						returnedElements.push(seq);
+					}
+					
+				})
+				//console.log(returnedElements);
+				this.resolve(returnedElements);
 			}
 
 		}
