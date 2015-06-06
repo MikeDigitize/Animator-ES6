@@ -46,7 +46,8 @@
 	]);    
 
 	sequence
-	    .then(function() {
+	    .then(function(elements) {
+	    	console.log(elements);
 	    	return Animator.transition({
 			    element : p,
 			    properties : Animator.getPrefix("transform"),
