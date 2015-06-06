@@ -1,5 +1,5 @@
 # Animator
-Animator is an ES6 animation utility belt that allows you to easily create and sequence CSS transitions and animations programatically. See the WIKI for the API guide.
+Animator is an ES6 animation utility belt that allows you to easily create and sequence CSS transitions and animations programatically. See the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki) for the API guide.
 
 ## Features
 * CSS transition / keyframe animation creator
@@ -32,7 +32,7 @@ if(!Animator.isSupported) {
 ```
 
 ## Creating Sequences
-Animator has three methods to use to create a sequence - <code>animation</code> for keyframe animations, <code>transition</code> for CSS transitions and <code>combo</code> for combinations of the two that need to run simultaneously. Each of these return a <code>Promise</code> that resolves when all transitions / animations are complete, so they can be easily chained together to create complex sequences. Transitions and animations can be triggered either by setting styles directly on the element or adding / removing classes.
+Animator has three methods to use to create a sequence - <code>animation</code> for keyframe animations, <code>transition</code> for CSS transitions and <code>combo</code> for combinations of the two that need to run simultaneously. Each of these return a <code>Promise</code> that resolves when all transitions / animations are complete, so they can be easily chained together to create complex sequences. Transitions and animations can be triggered either by setting styles directly on the element or adding / removing classes. See the [API guide](https://github.com/MikeDigitize/Animator-ES6/wiki) for more details.
 
 ```css
 /**
@@ -86,13 +86,14 @@ var sequence = Animator.combo([
 ]);       
 
 sequence
-    .then(function() {
+    .then(function(elements) {
     
     /**
-      * Return a transition / animation / sequencer to continue the chain
+      * Any sequenced elements are passed back into the callback.
+      *	Return a transition / animation / sequencer to continue the chain
       */
     	return Animator.transition({
-			element : p,
+			element : elements[0],
 			properties : Animator.getPrefix("transform"),
 			removeClass : {
 	        		before : "tran"
@@ -168,7 +169,7 @@ Animator.animation({
 
 ## Defining Transitions
 
-Defining single or multiple CSS transitions against an element or Nodelist within Animator is made quick and painless by the powerful <code>createTransition</code> method. See the API guide for an in depth description.
+Defining single or multiple CSS transitions against an element or Nodelist within Animator is made quick and painless by the powerful <code>createTransition</code> method. See the [API guide](https://github.com/MikeDigitize/Animator-ES6/wiki) for an in depth description.
 
 ```javascript
 Animator.createTransition({
@@ -188,7 +189,7 @@ Animator.createTransition({
 .text { transition : transform 250ms ease-in 50ms }  
 ```
 
-For a full list and description of each method and property within Animator take a look at the WIKI.
+For a full list and description of each method and property within Animator take a look at the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki).
 
 ## Licence
 
