@@ -50,8 +50,8 @@
 	    	return Animator.transition({
 			    element : p,
 			    properties : Animator.getPrefix("transform"),
-			    addClass : {
-			        before : "tran2"
+			    removeClass : {
+			        before : "tran"
 			    }
 			})
 	    })

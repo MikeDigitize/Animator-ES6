@@ -97,13 +97,8 @@ class Tracker {
 			data.styles = options.setStyles.before;
 		}
 
-		if(options.addClass && options.addClass.before) {
-
-			data.className = {
-				before: options.element.className,
-				after : options.addClass.before
-			};
-
+		if(options.addClass && options.addClass.before || options.removeClass && options.removeClass.before) {
+			data.classTriggered = true;
 		}
 
 		data.properties = Array.isArray(options.properties) ? [...options.properties] : [options.properties];
@@ -241,7 +236,7 @@ class Tracker {
 
 	        let record = transitions.get(element.value);
 	        this.cssUtils.setStyles(element.value, record.transitionStyles);
-	        if(record.className) {
+	        if(record.classTriggered) {
 				record.properties.forEach(prop => {
 					element.value.style.removeProperty(prop);
 				});				
