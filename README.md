@@ -92,12 +92,12 @@ sequence
       * Return a transition / animation / sequencer to continue the chain
       */
     	return Animator.transition({
-		element : p,
-		properties : Animator.getPrefix("transform"),
-		removeClass : {
-	        	before : "tran"
-	    	}
-	});
+			element : p,
+			properties : Animator.getPrefix("transform"),
+			removeClass : {
+	        		before : "tran"
+	    		}
+		});
     })
     .then(function() {
     	// continue or finish!
