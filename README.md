@@ -196,7 +196,7 @@ Animator.animation({
 
 ## Defining Transitions
 
-Defining single or multiple CSS transitions against an element or Nodelist within Animator is made quick and painless by the powerful <code>createTransition</code> method. See the [API guide](https://github.com/MikeDigitize/Animator-ES6/wiki) for an in depth description.
+Defining single or multiple CSS transitions against an element or Nodelist within Animator is made quick and painless by the <code>createTransition</code> method. See the [API guide](https://github.com/MikeDigitize/Animator-ES6/wiki) for an in depth description.
 
 ```javascript
 Animator.createTransition({
