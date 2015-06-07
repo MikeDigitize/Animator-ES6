@@ -67,7 +67,7 @@ var p = document.querySelectorAll(".text");
 
 /**
   * Combine an animation and transition together with the combo method.
-  * Assign the transition to a variable to allow chaining.
+  * Assign the combo to a variable to allow chaining.
   */
  
 var sequence = Animator.combo([
