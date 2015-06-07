@@ -1,5 +1,5 @@
 # Animator
-Animator is an ES6 animation utility belt that allows you to easily create and sequence CSS transitions and animations programatically. See the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki) for the API guide.
+Animator is an ES6 animation utility belt that allows you to easily create and sequence CSS transitions and animations programatically. Use it whenever there's a need to animate in the browser, whether it be for every day needs like creating rotating banners and giving visual feedback to user interactions, or for complex animation sequences whose values are calculated dynamically, with Animator all these things and more can be created quickly and easily. For a full API breakdown see the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki).
 
 ## Features
 * CSS transition / keyframe animation creator
@@ -24,7 +24,7 @@ and go to <code>http://localhost:1337</code> to see the demo. To use, just inclu
 ```
 
 ## Browser Support
-Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator uses Jake Archibald's excellent [ES6 Promise](https://github.com/jakearchibald/es6-promise) polyfill and Paul Miller's fantastic [ES6-shim](https://github.com/paulmillr/es6-shim/) for other ES6 features like Map and Array.from, so just by using Animator you'll have access these and other ES6 goodies.
+Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator uses Jake Archibald's [ES6 Promise](https://github.com/jakearchibald/es6-promise) polyfill and Paul Miller's [ES6-shim](https://github.com/paulmillr/es6-shim/) for other ES6 features like Map and Array.from, so just by using Animator you'll have access to these ES6 goodies.
 ```javascript
 if(!Animator.isSupported) {
     // handle fallbacks here
@@ -127,13 +127,15 @@ Quickly create keyframe animations with Animator's <code>createAnimation</code> 
 
 ```javascript
 /**
-  * Define the keyframe animation with any syntax e.g. from, to or % based
-  * and an optional class to use to trigger the animation.
+  * Create a CSS property / value object e.g. `{ "animation" : "ninjaAnimation 0.3s infinite" }
   */
 
-var ninjaRules = {};
-ninjaRules[Animator.getPrefix("animation")] = "ninjaAnimation 0.3s infinite";
+var ninjaRules = Animator.createCSSRule(Animator.getPrefix("animation"), "ninjaAnimation 0.3s infinite");
 
+/**
+  * Define the keyframe animation with any syntax e.g. from, to or % based
+  */
+  
 Animator.createAnimation({
 	name : "ninjaAnimation",
 	animation : { 
@@ -142,6 +144,11 @@ Animator.createAnimation({
 		"50%, 74.9%" : { "background-position" : "-500px" },
 		"75%, 99%" : { "background-position" : "-750px" }
 	},
+	
+	/**
+  	  * Define an (optional) class to use to trigger the animation.
+  	  */
+  	  
 	animationClass : {
 		name : "ninjaAnimation",
 		rules : ninjaRules
@@ -149,15 +156,28 @@ Animator.createAnimation({
 });	
 
 /**
-  * Trigger the animation directly or use it in a sequence
+  * Trigger the animation by adding a class directly to the element
   */
 
 Animator.addClass(p, "ninjaAnimation");
 
 /**
-  * OR, omit the `animationClass` property in the createAnimation param 
-  * and set the style rules directly as part of a sequence definition
+  * Or as part of a sequence
   */
+  
+Animator.animation({
+	element : p,
+	addClass : {
+		before : "ninjaAnimation"
+	}
+});
+
+/**
+  * OR, omit the `animationClass` property in the createAnimation options object 
+  * and set the style rules directly or as part of a sequence
+  */
+
+Animator.setStyles(p, ninjaRules);
 
 Animator.animation({
 	element : p,
@@ -174,9 +194,9 @@ Defining single or multiple CSS transitions against an element or Nodelist withi
 ```javascript
 Animator.createTransition({
 	element : p,
-	properties : Animator.getPrefix("transform"),
+	properties : [Animator.getPrefix("transform"), "opacity"],
 	duration : "250ms",
-	easing : "ease-in",
+	easing : ["ease-in", "linear"],
 	delay : "50ms"
 });
 ```
@@ -186,10 +206,10 @@ Animator.createTransition({
   * The above is the equivalent of this (prefixes handled automatically)
   */
 
-.text { transition : transform 250ms ease-in 50ms }  
+.text { transition : transform 250ms ease-in 50ms, opacity 250ms linear 50ms }  
 ```
 
-For a full list and description of each method and property within Animator take a look at the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki).
+For a full list and description of each method and property within Animator visit the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki) page.
 
 ## Licence
 
