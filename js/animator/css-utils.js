@@ -64,22 +64,25 @@ class CssUtils {
    /**
      * @setStyles function
      *
-     * @params {HTMLElement, Object, Boolean}
+     * @params {HTMLElement / Nodelist, Object, Boolean}
      * @description Sets properties on an element's CSSStyleDeclaration.
      * @params description      
-     *  - element: {HTMLElement} HTML element to set styles properties on.
+     *  - element: {HTMLElement / Nodelist} HTML element(s) to set styles properties on.
         - styles : {Object} Object containing CSS property / value pairs.
-        - important : Boolean specifying if the CSS value is to be set as important. 
+        - important : [Boolean] (Optional) Specifying if the CSS value is to be set as important. 
      * @global yes
      */
 
     setStyles(element, styles, important) {
 
-    	Object.keys(styles).forEach(property => {        
-            let important = important || styles[property].includes("important") ? "important" : null;
-            let rules = styles[property].replace(/!?important/, "").trim(); 
-            element.style.setProperty(property, rules, important);
-    	});
+        let elements = element.length ? element : [element];
+        elements.forEach(el => {
+            Object.keys(styles).forEach(property => {        
+                let important = important || styles[property].includes("important") ? "important" : null;
+                let rules = styles[property].replace(/!?important/, "").trim(); 
+                el.style.setProperty(property, rules, important);
+            });
+        });
 
     }
 
@@ -163,7 +166,7 @@ class CssUtils {
      *  - animation: {Object} An object of animation properties.
             - name {HTMLElement / Nodelist} HTMLElement(s) to set transition on.
             - animation {Object} Either from / to or % based keyframes and CSS properties / values.
-            - animationClass {Object} (Optional) A CSS class to trigger the animation.
+            - animationClass [Object] (Optional) A CSS class to trigger the animation.
                 - name {String} The classname.
                 - rules {Object} Object of CSS property / value pairs.
         - Prefix : {Class} Prefix class.
@@ -203,7 +206,7 @@ class CssUtils {
      * @params description      
      *  - className: {String} The name of the class.
         - stylesheet : {CSSStyleSheet} Animator's stylesheet.
-        - rules : {Object} (Optional) Object of CSS property / value pairs.
+        - rules : [Object] (Optional) Object of CSS property / value pairs.
      * @global yes
      */
 
@@ -252,6 +255,7 @@ class CssUtils {
      * @params description      
      *  - property: {String / Array} The CSS property(s).
         - value : {String / Array} The CSS values(s).
+     * @returns {Object} Object of CSS property / value pairs.
      * @global yes
      */
 
