@@ -215,8 +215,107 @@ Animator.createTransition({
 
 .text { transition : transform 250ms ease-in 50ms, opacity 250ms linear 50ms }  
 ```
+## Other Methods
+For a full description of each method and property within Animator visit the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki) page.
 
-For a full list and description of each method and property within Animator visit the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki) page.
+## Create A Style Class
+```javascript
+   /**
+     * @createClass function
+     *
+     * @params {String, Object}
+     * @description Creates a CSS class and appends it to Animator's stylesheet.
+     */
+     
+Animator.createClass(description);
+```
+
+## Delete A Style Class
+```javascript
+   /**
+     * @deleteClass function
+     *
+     * @params {String}
+     * @description Deletes a CSS class from the Animator's stylesheet.
+     */
+     
+Animator.deleteClass(description);
+```
+
+## Getting A Prefix
+```javascript
+   /**
+     * @getPrefix function
+     *
+     * @params {String}
+     * @description Returns a prefixed CSS property or DOM event name.
+     * @return {String}
+     */
+     
+Animator.getPrefix(description);
+```
+
+## Setting Styles
+```javascript
+   /**
+     * @setStyles function
+     *
+     * @params {HTMLElement, String / Array}
+     * @description Sets properties / values on an element's CSSStyleDeclaration.
+     */
+     
+Animator.setStyles(description);
+```
+
+## Getting Styles
+```javascript
+   /**
+     * @getStyles function
+     *
+     * @params {HTMLElement, Object}
+     * @description Return an object of CSS properties / values.
+     * @return {Object}
+     */
+     
+Animator.getStyles(description);
+```
+
+## Create Style Rule Object
+```javascript
+   /**
+     * @createCSSRule function
+     *
+     * @params {String / Array, String / Array}
+     * @description Returns a CSS property / value pairs object.
+     * @returns {Object}
+     */
+     
+Animator.createCSSRule(description);
+```
+
+## Add Class
+```javascript
+   /**
+     * @addClass function
+     *
+     * @params {HTMLElement / Nodelist, String / Array}
+     * @description Sets a class(es) on an element.
+     */
+     
+Animator.addClass(description);
+```
+
+## Remove Class
+```javascript
+    /**
+     * @removeClass function
+     *
+     * @params {HTMLElement / Nodelist, String / Array}
+     * @description Removes a class(es) from an element.
+     */
+     
+Animator.removeClass(description);
+```
 
 ## Licence
 
