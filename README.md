@@ -1,5 +1,5 @@
 # Animator
-Animator is an ES6 animation utility belt that allows you to easily create and sequence CSS transitions and animations programatically. Use it whenever there's a need to animate in the browser, whether it be for every day needs like creating rotating banners and giving visual feedback to user interactions, or for complex animation sequences whose values are calculated dynamically, with Animator all these things and more can be created quickly and easily. For a full API breakdown see the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki).
+Animator is an ES6 animation utility belt to help you quickly and easily create and sequence CSS transitions and animations programatically. Use it whenever there's a need to animate in the browser, whether it be for every day needs like creating rotating banners, giving visual feedback to user interactions, or for complex animation sequences whose values are calculated dynamically. For a full API breakdown see the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki).
 
 ## Features
 * CSS transition / keyframe animation creator
@@ -24,10 +24,10 @@ and go to <code>http://localhost:1337</code> to see the demo. To use, just inclu
 ```
 
 ## Browser Support
-Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator uses Jake Archibald's [ES6 Promise](https://github.com/jakearchibald/es6-promise) polyfill and Paul Miller's [ES6-shim](https://github.com/paulmillr/es6-shim/) for other ES6 features like Map and Array.from, so just by using Animator you'll have access to these ES6 goodies.
+Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator uses Jake Archibald's [ES6 Promise](https://github.com/jakearchibald/es6-promise) polyfill and Paul Miller's [ES6-shim](https://github.com/paulmillr/es6-shim/) for other ES6 features like Map and Array.from, so by using Animator you'll have access to these goodies.
 ```javascript
 if(!Animator.isSupported) {
-    // handle fallbacks here
+    // handle fallbacks here.
 }
 ```
 
@@ -36,7 +36,7 @@ Animator has three methods to use to create a sequence - <code>animation</code> 
 
 ```css
 /**
- *  Some basic CSS setup, omitting prefixes for brevity
+ *  Some basic CSS setup, omitting prefixes for brevity.
  */
 
 .text { transition: transform 4s ease-out; }
@@ -66,7 +66,8 @@ Animator has three methods to use to create a sequence - <code>animation</code> 
 var p = document.querySelectorAll(".text");
 
 /**
-  * Assign the transition to a variable to allow chaining 
+  * Combine an animation and transition together with the combo method.
+  * Assign the transition to a variable to allow chaining.
   */
  
 var sequence = Animator.combo([
@@ -89,8 +90,8 @@ sequence
     .then(function(elements) {
     
     /**
-      * Any sequenced elements are passed back into the callback.
-      *	Return a transition / animation / sequencer to continue the chain
+      * Any sequenced elements are passed into the next callback.
+      *	Return a transition / animation / combo to continue the chain.
       */
     	return Animator.transition({
 			element : elements[0],
@@ -127,13 +128,14 @@ Quickly create keyframe animations with Animator's <code>createAnimation</code> 
 
 ```javascript
 /**
-  * Create a CSS property / value object e.g. `{ "animation" : "ninjaAnimation 0.3s infinite" }
+  * Create a CSS property / value object with the `createCSSRule` method.
+  * e.g. `{ "animation" : "ninjaAnimation 0.3s infinite" }.
   */
 
 var ninjaRules = Animator.createCSSRule(Animator.getPrefix("animation"), "ninjaAnimation 0.3s infinite");
 
 /**
-  * Define the keyframe animation with any syntax e.g. from, to or % based
+  * Define the keyframe animation with either syntax e.g. from, to or % based.
   */
   
 Animator.createAnimation({
@@ -147,6 +149,7 @@ Animator.createAnimation({
 	
 	/**
   	  * Define an (optional) class to use to trigger the animation.
+  	  * Pass in the rules we created earlier.
   	  */
   	  
 	animationClass : {
@@ -156,13 +159,13 @@ Animator.createAnimation({
 });	
 
 /**
-  * Trigger the animation by adding a class directly to the element
+  * Trigger the animation by adding a class directly to the element.
   */
 
 Animator.addClass(p, "ninjaAnimation");
 
 /**
-  * Or as part of a sequence
+  * Or as part of a sequence.
   */
   
 Animator.animation({
@@ -174,10 +177,14 @@ Animator.animation({
 
 /**
   * OR, omit the `animationClass` property in the createAnimation options object 
-  * and set the style rules directly or as part of a sequence
+  * and set the style rules directly.
   */
 
 Animator.setStyles(p, ninjaRules);
+
+/**
+  * or as part of a sequence.
+  */
 
 Animator.animation({
 	element : p,
