@@ -124,7 +124,7 @@ Animator.play();
 
 ## Defining Keyframe Animations
 
-Quickly create keyframe animations with Animator's <code>createAnimation</code> method. All browser prefixing is handled internally.
+Quickly create keyframe animations with Animator's <code>createAnimation</code> method which handles keyframe creation and an optional style class creator to use to create a class to trigger the animation. When defining and passing around CSS styles, Animator expects them to be an object with CSS property name / value pairs. There's a handy method called <code>createCSSRule()</code> that takes care of this for you.
 
 ```javascript
 /**
@@ -149,7 +149,7 @@ Animator.createAnimation({
 	
 	/**
   	  * Define an (optional) class to use to trigger the animation.
-  	  * Pass in the rules we created earlier.
+  	  * Pass in the rules created with the `createCSSrule` method.
   	  */
   	  
 	animationClass : {
@@ -176,14 +176,14 @@ Animator.animation({
 });
 
 /**
-  * OR, omit the `animationClass` property in the createAnimation options object 
-  * and set the style rules directly.
+  * OR, omit the `animationClass` property in the `createAnimation` options object 
+  * And set the style rules directly.
   */
 
 Animator.setStyles(p, ninjaRules);
 
 /**
-  * or as part of a sequence.
+  * Or as part of a sequence.
   */
 
 Animator.animation({
@@ -210,7 +210,7 @@ Animator.createTransition({
 
 ```css
 /**
-  * The above is the equivalent of this (prefixes handled automatically)
+  * The above is the equivalent of this (prefixes handled automatically).
   */
 
 .text { transition : transform 250ms ease-in 50ms, opacity 250ms linear 50ms }  
