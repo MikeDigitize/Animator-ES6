@@ -124,7 +124,7 @@ Animator.play();
 
 ## Defining Keyframe Animations
 
-Quickly create keyframe animations with Animator's <code>createAnimation</code> method which handles keyframe creation and an optional style class creator to use to create a class to trigger the animation. When defining and passing around CSS styles, Animator expects them to be an object with CSS property name / value pairs. There's a handy method called <code>createCSSRule()</code> that takes care of this for you.
+Quickly define keyframe animations with Animator's <code>createAnimation</code> method which handles keyframe definitions and has an optional style class creator to use to set a class that will trigger the animation. When getting and setting styles Animator expects them to be as an object with CSS property name / value pairs. There's a handy method called <code>createCSSRule()</code> that converts property names / values into objects for you.
 
 ```javascript
 /**
