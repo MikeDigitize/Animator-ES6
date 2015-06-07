@@ -24,7 +24,7 @@ and go to <code>http://localhost:1337</code> to see the demo. To use, just inclu
 ```
 
 ## Browser Support
-Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator uses Jake Archibald's [ES6 Promise](https://github.com/jakearchibald/es6-promise) polyfill and Paul Miller's [ES6-shim](https://github.com/paulmillr/es6-shim/) for other ES6 features like Map and Array.from, so by using Animator you'll have access to these goodies.
+Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator uses Jake Archibald's [ES6 Promise](https://github.com/jakearchibald/es6-promise) polyfill and Paul Miller's [ES6-shim](https://github.com/paulmillr/es6-shim/) for other ES6 features like Map and Array.from, so by using Animator you'll get these goodies for free.
 ```javascript
 if(!Animator.isSupported) {
     // handle fallbacks here.
@@ -32,7 +32,7 @@ if(!Animator.isSupported) {
 ```
 
 ## Creating Sequences
-Animator has three methods to use to create a sequence - <code>animation</code> for keyframe animations, <code>transition</code> for CSS transitions and <code>combo</code> for combinations of the two that need to run simultaneously. Each of these return a <code>Promise</code> that resolves when all transitions / animations are complete, so they can be easily chained together to create complex sequences. Transitions and animations can be triggered either by setting styles directly on the element or adding / removing classes. See the [API guide](https://github.com/MikeDigitize/Animator-ES6/wiki) for more details.
+Animator has three methods to use to create a sequence - <code>animation</code> for keyframe animations, <code>transition</code> for CSS transitions and <code>combo</code> for combinations of the two that need to run simultaneously. Each of these return a <code>Promise</code> that resolves when all transitions / animations are complete, so they can be easily chained together to create complex sequences. Transitions and animations can be triggered either by setting styles directly on the element or adding / removing classes. See the [API guide](https://github.com/MikeDigitize/Animator-ES6/wiki/Animator-API-Guide) for more details.
 
 ```css
 /**
@@ -196,7 +196,7 @@ Animator.animation({
 
 ## Defining Transitions
 
-Defining single or multiple CSS transitions against an element or Nodelist within Animator is made quick and painless by the <code>createTransition</code> method. See the [API guide](https://github.com/MikeDigitize/Animator-ES6/wiki) for an in depth description.
+Defining single or multiple CSS transitions against an element or Nodelist within Animator is made quick and painless by the <code>createTransition</code> method. See the [API guide](https://github.com/MikeDigitize/Animator-ES6/wiki/Animator-API-Guide) for an in depth description.
 
 ```javascript
 Animator.createTransition({
