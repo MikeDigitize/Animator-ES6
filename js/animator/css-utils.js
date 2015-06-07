@@ -75,12 +75,12 @@ class CssUtils {
 
     setStyles(element, styles, important) {
 
-        let elements = element.length ? element : [element];
+        let elements = element.length ? Array.from(element) : [element];
         elements.forEach(el => {
             Object.keys(styles).forEach(property => {        
                 let important = important || styles[property].includes("important") ? "important" : null;
                 let rules = styles[property].replace(/!?important/, "").trim(); 
-                el.style.setProperty(property, rules, important);
+                el.style.setProperty(String(property), rules, important);
             });
         });
 

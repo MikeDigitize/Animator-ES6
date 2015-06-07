@@ -123,7 +123,7 @@ class Animator {
    /**
      * @addClass function
      *
-     * @params {HTMLElement, String / Array}
+     * @params {HTMLElement / Nodelist, String / Array}
      * @description Sets a class(es) on an element.
      */
 
@@ -134,7 +134,7 @@ class Animator {
    /**
      * @removeClass function
      *
-     * @params {HTMLElement, String / Array}
+     * @params {HTMLElement / Nodelist, String / Array}
      * @description Removes a class(es) from an element.
      */
 
