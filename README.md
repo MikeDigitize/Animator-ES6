@@ -215,8 +215,8 @@ Animator.createTransition({
 
 .text { transition : transform 250ms ease-in 50ms, opacity 250ms linear 50ms }  
 ```
-## Other Methods
-For a full description of each method and property within Animator visit the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki) page.
+## All Methods
+For an in-depth description with examples of each Animator method visit the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki) page.
 
 ## Create A Style Class
 ```javascript
@@ -315,6 +315,81 @@ Animator.addClass(description);
      */
      
 Animator.removeClass(description);
+```
+
+## Create CSS Transition 
+```javascript
+   /**
+     * @createTransition function
+     *
+     * @params {Object}
+     * @description Creates a CSS transition definition.
+     */
+
+Animator.createTransition(description);
+```
+
+## Create CSS Keyframe Animation 
+```javascript
+   /**
+     * @createAnimation function
+     *
+     * @params {Object}
+     * @description Creates a CSS keyframe animation definition.
+     */
+
+Animator.createAnimation(description);
+```
+
+## Create Transition Sequence
+```javascript
+   /**
+     * @transition function
+     *
+     * @params {Object}
+     * @description Creates a transition sequence.
+     * @returns {Promise}
+     */
+
+Animator.transition(description);
+```
+
+## Create Animation Sequence
+```javascript
+   /**
+     * @animation function
+     *
+     * @params {Object}
+     * @description Creates an animation sequence.
+     * @returns {Promise}
+     */
+
+Animator.animation(description);
+```
+
+## Create Combo of Transition / Animation Sequences
+```javascript
+   /**
+     * @combo function
+     *
+     * @params {Object}
+     * @description Creates an combination of sequence.
+     * @returns {Promise}
+     */
+
+Animator.combo(description);
+```
+
+## Detect Browser Support
+```javascript
+   /**
+     * @isSupported function
+     *
+     * @description Tests the browser for Animator support.
+     * @returns {Boolean}
+     */
+
+Animator.isSupported();  
 ```
 
 ## Licence
