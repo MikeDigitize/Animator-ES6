@@ -26,7 +26,7 @@ and go to <code>http://localhost:1337</code> to see the demo. To use, just inclu
 ## Browser Support
 Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator uses Jake Archibald's [ES6 Promise](https://github.com/jakearchibald/es6-promise) polyfill and Paul Miller's [ES6-shim](https://github.com/paulmillr/es6-shim/) for other ES6 features like Map and Array.from, so by using Animator you'll get these goodies for free.
 ```javascript
-if(!Animator.isSupported) {
+if(!Animator.isSupported()) {
     // handle fallbacks here.
 }
 ```
@@ -98,7 +98,7 @@ sequence
 			properties : Animator.getPrefix("transform"),
 			removeClass : {
 	        		before : "tran"
-	    		}
+	            }
 		});
     })
     .then(function() {
@@ -124,7 +124,7 @@ Animator.play();
 
 ## Defining Keyframe Animations
 
-Quickly create keyframe animations with Animator's <code>createAnimation</code> method. All browser prefixing is handled internally.
+Quickly define keyframe animations with Animator's <code>createAnimation</code> method which has an optional style class creator to use to create a class to trigger the animation. Animator handles styles as an object with CSS property name / value pairs. There's a handy method called <code>createCSSRule()</code> that converts property names / values into objects for you.
 
 ```javascript
 /**
@@ -149,7 +149,7 @@ Animator.createAnimation({
 	
 	/**
   	  * Define an (optional) class to use to trigger the animation.
-  	  * Pass in the rules we created earlier.
+  	  * Pass in the rules created with the `createCSSrule` method.
   	  */
   	  
 	animationClass : {
@@ -176,14 +176,14 @@ Animator.animation({
 });
 
 /**
-  * OR, omit the `animationClass` property in the createAnimation options object 
-  * and set the style rules directly.
+  * OR, omit the `animationClass` property in the `createAnimation` options object 
+  * And set the style rules directly.
   */
 
 Animator.setStyles(p, ninjaRules);
 
 /**
-  * or as part of a sequence.
+  * Or as part of a sequence.
   */
 
 Animator.animation({
@@ -210,13 +210,187 @@ Animator.createTransition({
 
 ```css
 /**
-  * The above is the equivalent of this (prefixes handled automatically)
+  * The above is the equivalent of this (prefixes handled automatically).
   */
 
 .text { transition : transform 250ms ease-in 50ms, opacity 250ms linear 50ms }  
 ```
+## All Methods
+For an in-depth description with examples of each Animator method visit the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki) page.
 
-For a full list and description of each method and property within Animator visit the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki) page.
+## Create A Style Class
+```javascript
+   /**
+     * @createClass function
+     *
+     * @params {String, Object}
+     * @description Creates a CSS class and appends it to Animator's stylesheet.
+     */
+     
+Animator.createClass(description);
+```
+
+## Delete A Style Class
+```javascript
+   /**
+     * @deleteClass function
+     *
+     * @params {String}
+     * @description Deletes a CSS class from the Animator's stylesheet.
+     */
+     
+Animator.deleteClass(description);
+```
+
+## Getting A Prefix
+```javascript
+   /**
+     * @getPrefix function
+     *
+     * @params {String}
+     * @description Returns a prefixed CSS property or DOM event name.
+     * @return {String}
+     */
+     
+Animator.getPrefix(description);
+```
+
+## Setting Styles
+```javascript
+   /**
+     * @setStyles function
+     *
+     * @params {HTMLElement, String / Array}
+     * @description Sets properties / values on an element's CSSStyleDeclaration.
+     */
+     
+Animator.setStyles(description);
+```
+
+## Getting Styles
+```javascript
+   /**
+     * @getStyles function
+     *
+     * @params {HTMLElement, Object}
+     * @description Return an object of CSS properties / values.
+     * @return {Object}
+     */
+     
+Animator.getStyles(description);
+```
+
+## Create Style Rule Object
+```javascript
+   /**
+     * @createCSSRule function
+     *
+     * @params {String / Array, String / Array}
+     * @description Returns a CSS property / value pairs object.
+     * @returns {Object}
+     */
+     
+Animator.createCSSRule(description);
+```
+
+## Add Class
+```javascript
+   /**
+     * @addClass function
+     *
+     * @params {HTMLElement / Nodelist, String / Array}
+     * @description Sets a class(es) on an element.
+     */
+     
+Animator.addClass(description);
+```
+
+## Remove Class
+```javascript
+    /**
+     * @removeClass function
+     *
+     * @params {HTMLElement / Nodelist, String / Array}
+     * @description Removes a class(es) from an element.
+     */
+     
+Animator.removeClass(description);
+```
+
+## Create CSS Transition 
+```javascript
+   /**
+     * @createTransition function
+     *
+     * @params {Object}
+     * @description Creates a CSS transition definition.
+     */
+
+Animator.createTransition(description);
+```
+
+## Create CSS Keyframe Animation 
+```javascript
+   /**
+     * @createAnimation function
+     *
+     * @params {Object}
+     * @description Creates a CSS keyframe animation definition.
+     */
+
+Animator.createAnimation(description);
+```
+
+## Create Transition Sequence
+```javascript
+   /**
+     * @transition function
+     *
+     * @params {Object}
+     * @description Creates a transition sequence.
+     * @returns {Promise}
+     */
+
+Animator.transition(description);
+```
+
+## Create Animation Sequence
+```javascript
+   /**
+     * @animation function
+     *
+     * @params {Object}
+     * @description Creates an animation sequence.
+     * @returns {Promise}
+     */
+
+Animator.animation(description);
+```
+
+## Create Combo of Transition / Animation Sequences
+```javascript
+   /**
+     * @combo function
+     *
+     * @params {Object}
+     * @description Creates an combination of sequence.
+     * @returns {Promise}
+     */
+
+Animator.combo(description);
+```
+
+## Detect Browser Support
+```javascript
+   /**
+     * @isSupported function
+     *
+     * @description Tests the browser for Animator support.
+     * @returns {Boolean}
+     */
+
+Animator.isSupported();  
+```
 
 ## Licence
 
