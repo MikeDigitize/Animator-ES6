@@ -45,6 +45,7 @@ class DomUtils {
      *  - Prefix: {Class} Prefix class.
      *  - CssUtils: {Class} CSS utilities class.
      *	- stylesheet: {CSSStyleSheet} Stylesheet to test inserting / removing style rules on.
+     * @returns {Boolean}
      * @global yes
      */
 

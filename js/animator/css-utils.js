@@ -14,7 +14,7 @@ class CssUtils {
    /**
      * @createStyleSheet function
      *
-     * @description Creates a stylesheet for any transition / animation / style classes created in Animator.
+     * @description A stylesheet for any transition / animation / style classes created in Animator.
      * @returns {CSSStyleSheet} stylesheet
      * @global no
      */
@@ -39,24 +39,9 @@ class CssUtils {
 
     cssTextToJs(cssText) {
 
-        let jsText = "";
-
-        if(/\-/g.test(cssText)) {
-            cssText.replace(/\-/g, " ").replace(/\w\S*/g, function(txt) {
-                txt = txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                if(txt){
-                    jsText += txt;
-                }
-            });
-            return jsText.charAt(0).toLowerCase() + jsText.substr(1);
-        }
-        else {
-            return cssText;
-        }
-
-        // styleProp = styleProp.replace(/\-(\w)/g, function(str, letter) {
-        //     return letter.toUpperCase();
-        // });
+        return cssText.replace(/\-(\w)/g, function(str, letter) {
+            return letter.toUpperCase();
+        });
 
     }
 
@@ -77,10 +62,10 @@ class CssUtils {
 
         let elements = element.length ? Array.from(element) : [element];
         elements.forEach(el => {
-            Object.keys(styles).forEach(property => {        
-                let important = important || styles[property].includes("important") ? "important" : null;
-                let rules = styles[property].replace(/!?important/, "").trim(); 
-                el.style.setProperty(String(property), rules, important);
+            Object.keys(styles).forEach(property => {                
+                let important = important || String(styles[property]).includes("important") ? "important" : null;
+                let rules = String(styles[property]).replace(/!?important/, "").trim(); 
+                el.style.setProperty(property, rules, important);
             });
         });
 

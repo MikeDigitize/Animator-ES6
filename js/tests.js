@@ -23,6 +23,8 @@
 
 	var p = document.querySelectorAll(".text");
 
+	Animator.setStyles(p, {opacity : 1});
+
 
 
 /**

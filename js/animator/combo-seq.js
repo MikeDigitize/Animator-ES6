@@ -45,7 +45,7 @@ class Combo {
    /**
      * @sequenceWatcher function
      *
-     * @description Captures resolved sequences and resolves when all have been resolved.   
+     * @description Resolves when all sequences have been resolved.   
 	 * @returns {Resolved Promise}
      * @global no
      */
