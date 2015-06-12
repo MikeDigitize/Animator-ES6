@@ -176,7 +176,7 @@ class CssUtils {
 
         animationString += "}";
 
-        stylesheet.insertRule(keyFrame + animationString, stylesheet.cssRules.length);
+        stylesheet.insertRule(keyFrame + animationString, (stylesheet.rules.length || stylesheet.cssRules.length));
         if(animation.animationClass) {
             this.createClass(animation.animationClass.name, stylesheet, animation.animationClass.rules);
         }
@@ -205,7 +205,7 @@ class CssUtils {
         });
 
         cssString += "}";
-        stylesheet.insertRule(name + cssString, stylesheet.cssRules.length);
+        stylesheet.insertRule(name + cssString, (stylesheet.rules.length || stylesheet.cssRules.length));
 
     }
 

@@ -186,7 +186,7 @@ class Animator {
      */
 
 	isSupported() {
-		return new DomUtils().support(Prefix, CssUtils, this.stylesheet);
+		return new DomUtils().support(Prefix, CssUtils);
 	}
 
    /**

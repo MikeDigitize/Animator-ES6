@@ -39,34 +39,24 @@ class DomUtils {
    /**
      * @support function
      *
-     * @params {Class, Class, CSSStyleSheet}
+     * @params {Class, Class}
      * @description Tests for CSS transition / animation / CSSOM manipulation support
      * @params description      
      *  - Prefix: {Class} Prefix class.
      *  - CssUtils: {Class} CSS utilities class.
-     *	- stylesheet: {CSSStyleSheet} Stylesheet to test inserting / removing style rules on.
      * @returns {Boolean}
      * @global yes
      */
 
-	support(Prefix, CssUtils, stylesheet) {
+	support(Prefix, CssUtils) {
 
 		let prefix = new Prefix();
 		let cssUtils = new CssUtils();
-		let cssomSupport = false;
 		let transitionSupport = prefix.getPrefix("transition");
 		let animationSupport = prefix.getPrefix("animation");
+		let raf = window.requestAnimationFrame;
 
-		try {
-			cssUtils.createClass("AnimatorTestClass", stylesheet);
-			cssUtils.deleteClass("AnimatorTestClass", stylesheet);
-			cssomSupport = true;
-		}
-		catch(e) {
-			cssomSupport = false;
-		}
-
-		return transitionSupport && animationSupport && cssomSupport;
+		return transitionSupport && animationSupport && raf;
 
 	}
 	
