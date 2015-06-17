@@ -14,11 +14,10 @@ class Combo {
      * @description Wraps x amount of sequences in a Promise.    
 	 * @params description
 	 	- sequences {Array} An array of sequences.
-	 	- Promise {Class} Promise class.
 	 * @returns {Promise}
      */
 	
-	constructor(sequences, Promise) {
+	constructor(sequences) {
 
 		return new Promise((resolve, reject) => {
 

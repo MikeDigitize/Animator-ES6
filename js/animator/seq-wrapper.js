@@ -17,14 +17,13 @@ class SequenceWrapper {
 	 	- DomUtils {Class} DOM utilities class.
 	 	- Prefix {Class} Prefix class.
 	 	- CssUtils {Class} CSS Utilities class.
-	 	- Promise {Class} Promise class.
 	 	- Sequence {Class} The sequence type (Transition / Animation).
 	 	- Combo {Class} Wrapper for multiple sequences.
 	 	- Tracker {Object} Object to store and track sequences through.
 	 * @returns {Promise}
      */
 	
-	constructor(options, DomUtils, Prefix, CssUtils, Promise, Sequence, Combo, Tracker) {
+	constructor(options, DomUtils, Prefix, CssUtils, Sequence, Combo, Tracker) {
 
 		if(options.element.length) {
 			let transitions = Array.from(options.element).map((element) => {
@@ -34,13 +33,13 @@ class SequenceWrapper {
 				});
 				opts.element = element;	 
 				Tracker.track(opts, Sequence);
-				return new Sequence(opts, DomUtils, Prefix, CssUtils, Promise, Tracker);
+				return new Sequence(opts, DomUtils, Prefix, CssUtils, Tracker);
 			});
-			return new Combo(transitions, Promise);
+			return new Combo(transitions);
 		}
 		else {
 			Tracker.track(options, Sequence);
-			return new Sequence(options, DomUtils, Prefix, CssUtils, Promise, Tracker);
+			return new Sequence(options, DomUtils, Prefix, CssUtils, Tracker);
 		}		
 
 	}

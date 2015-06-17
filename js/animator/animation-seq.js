@@ -27,12 +27,11 @@ class Animation {
 	 	- DomUtils {Class} Dom utility class.
 	 	- Prefix {Class} Prefix class.
 	 	- CssUtils {Class} CSS Utilities class.
-	 	- Promise {Class} Promise class.
 	 	- Tracker {Object} Object that tracks and monitors sequences.
 	 * @returns {Promise}
      */
 
-	constructor(options, DomUtils, Prefix, CssUtils, Promise, Tracker) {
+	constructor(options, DomUtils, Prefix, CssUtils, Tracker) {
 
 		this.options = options;
 		this.domUtils = new DomUtils();
