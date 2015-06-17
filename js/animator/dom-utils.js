@@ -54,7 +54,7 @@ class DomUtils {
 		let cssUtils = new CssUtils();
 		let transitionSupport = prefix.getPrefix("transition");
 		let animationSupport = prefix.getPrefix("animation");
-		let raf = window.requestAnimationFrame;
+		let raf = !!window.requestAnimationFrame;
 
 		return transitionSupport && animationSupport && raf;
 
