@@ -24,7 +24,7 @@ and go to <code>http://localhost:1337</code> to see the demo. To use, just inclu
 ```
 
 ## Browser Support
-Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator uses Jake Archibald's [ES6 Promise](https://github.com/jakearchibald/es6-promise) polyfill and Paul Miller's [ES6-shim](https://github.com/paulmillr/es6-shim/) for other ES6 features like Map and Array.from, so by using Animator you'll get these goodies for free.
+Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator uses an edited version of Paul Miller's [ES6-shim](https://github.com/paulmillr/es6-shim/) to polyfill Map and Promise if either aren't available and likewise Mathias Bynen's [String-includes](https://github.com/mathiasbynens/String.prototype.includes) and [Array.from](https://github.com/mathiasbynens/Array.from) polyfills.
 ```javascript
 if(!Animator.isSupported()) {
     // handle fallbacks here.
