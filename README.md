@@ -40,8 +40,8 @@ Animator has three methods to use to create a sequence - <code>animation</code> 
  */
 
 .text { transition: transform 4s ease-out; }
-.tran { transform: scale(2) }
-.anim { animation : shrink 2s 2 }
+.enlarge { transform: scale(2) }
+.blink { animation : blink 2s 2 }
 
 @keyframes blink {
     0% {
@@ -75,13 +75,13 @@ var sequence = Animator.combo([
 	    element : p,
 	    properties : Animator.getPrefix("transform"),
 	    addClass : {
-	        before : "tran"
+	        before : "enlarge"
 	    }
 	}),
 	Animator.animation({
 	    element : p,
 	    addClass : {
-	        before : "anim"
+	        before : "blink"
 	    }
 	})
 ]);       
@@ -97,7 +97,7 @@ sequence
 			element : elements[0],
 			properties : Animator.getPrefix("transform"),
 			removeClass : {
-	        		before : "tran"
+	        		before : "enlarge"
 	            }
 		});
     })
