@@ -10,289 +10,121 @@
 		return;
 	}
 
-	var pause = document.querySelector(".pause");
-	var play = document.querySelector(".play");
+	(function () {
 
-	pause.addEventListener("click", function() {
-		Animator.pause();
-	}, false);
+		var logo = document.querySelector(".logo");
+		var tank = logo.querySelector(".tank");
+		var isAnimating = false;
+		var transform = Animator.getPrefix("transform");
+		var duration = Animator.getPrefix("transition-duration");
+		var ttf = Animator.getPrefix("transition-timing-function");
 
-	play.addEventListener("click", function() {
-		Animator.play();
-	}, false);   
+		logo.addEventListener("click", function () {
+			if(!isAnimating) {
+				startTankAnimation();
+			}
+		}, false);
 
-	var p = document.querySelectorAll(".text");
+		function startTankAnimation() {
 
-	Animator.setStyles(p, {opacity : 1});
+			isAnimating = true;
+
+			Animator.setStyles(tank, Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(12deg) scale(1)"));
+			Animator.createTransition({
+				element : tank,
+				properties : transform,
+				easing : "ease-out",
+				duration : "0.7s"
+			});
+
+			var sequence = Animator.transition({
+				element : tank,
+				properties : transform,
+				setStyles : {
+					before : Animator.createCSSRule(transform, "translate3d(43px,-15px,0) rotate(17deg)")
+				}
+			});
+
+			sequence
+				.then(function () {
+					Animator.setStyles(tank, Animator.createCSSRule([duration, ttf],	["0.4s", "cubic-bezier(0.175, 0.885, 0.320, 1)"]));
+					return Animator.transition({
+						element : tank,
+						properties : transform,
+						setStyles : {
+							before : Animator.createCSSRule(transform, "translate3d(43px,-15px,0) rotate(90deg)")
+						}
+					});
+				})
+				.then(function () {
+					Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["0.7s", "ease-out"]	));
+					return Animator.transition({
+						element : tank,
+						properties : transform,
+						setStyles : {
+							before : Animator.createCSSRule(transform, "translate3d(90px,-15px,0) rotate(90deg)")
+						}
+					});
+				})
+				.then(function () {
+					Animator.setStyles(tank, Animator.createCSSRule([	duration, ttf], ["0.4s", "cubic-bezier(0.175, 0.885, 0.320, 1)"]));
+					return Animator.transition({
+						element : tank,
+						properties : transform,
+						setStyles : {
+							before : Animator.createCSSRule(transform, "translate3d(95px,-15px,0) rotate(168deg)")
+						}
+					});
+				})
+				.then(function () {
+					Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["0.8s", "ease-out"]	));
+					return Animator.transition({
+						element : tank,
+						properties : transform,
+						setStyles : {
+							before : Animator.createCSSRule(transform, "translate3d(120px,132px,0) rotate(168deg)")
+						}
+					});
+				})
+				.then(function () {
+					Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["0.3s", "cubic-bezier(0.175, 0.885, 0.320, 1)"]	));
+					return Animator.transition({
+						element : tank,
+						properties : transform,
+						setStyles : {
+							before : Animator.createCSSRule(transform, "translate3d(120px,132px,0) rotate(270deg)")
+						}
+					});
+				})
+				.then(function () {
+					Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["0.9s", "ease-out"]	));
+					return Animator.transition({
+						element : tank,
+						properties : transform,
+						setStyles : {
+							before : Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(270deg)")
+						}
+					});
+				})
+				.then(function () {
+					Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["0.3s", "cubic-bezier(0.175, 0.885, 0.320, 1)"]	));
+					return Animator.transition({
+						element : tank,
+						properties : transform,
+						setStyles : {
+							before : Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(12deg)")
+						}
+					});
+				})
+				.then(function (el) {
+					console.log("done", el);
+					isAnimating = false;
+				});
+		}
 
 
 
-/**
-  * Assign the transition to a variable so we can chain 
-  */
-
-	var sequence = Animator.combo([
-		Animator.transition({
-		    element : p,
-		    properties : Animator.getPrefix("transform"),
-		    addClass : {
-		        before : "tran"
-		    }
-		}),
-		Animator.animation({
-            element : p,
-            addClass : {
-                before : "anim"
-            }
-        })
-	]);    
-
-	sequence
-	    .then(function(elements) {
-	    	console.log("1", elements);
-	    	return Animator.transition({
-			    element : elements[0],
-			    properties : Animator.getPrefix("transform"),
-			    removeClass : {
-			        before : "tran"
-			    }
-			})
-	    })
-	    .then(function(elements) {
-	    	console.log("2", elements);
-	    	console.log("done");
-	    })
-	    .catch(function() {
-	        // handle errors here!
-	    });
-
-
-	// var p1 = document.querySelector(".one");
-	// var p2 = document.querySelector(".two");
-	// var pTags = document.querySelectorAll("p");
-	// var pauseBtn = document.querySelector(".pause");
-	// var playBtn = document.querySelector(".play");
-
-	// pauseBtn.addEventListener("click", function() {
-	// 	Animator.pause();
-	// }, false);
-
-	// playBtn.addEventListener("click", function() {
-	// 	Animator.play();
-	// }, false);
-
-	// Animator.createTransition({
-	// 	element : p1,
-	//     properties : ["font-size", "color"],
-	//     duration : ["2000ms", "1000ms"],
-	//     easing : "ease",
-	//     delay : ["500ms", "50ms"]
-	// });
-
-	// Animator.createTransition({
-	// 	element : p2,
-	//     properties : ["font-size", "color"],
-	//     duration : ["500ms", "2000ms"],
-	//     easing : "ease",
-	//     delay : "0ms" 
-	// });
-
-	// Animator.addClass(pTags, ["someClass", "animated"]);
-	// Animator.createClass("test", { "font-family" : "Georgia", "font-weight" : "bold", "color" : "blue" });
-
-	// var rules = {};
-	// var rules1 = {};
-	// var rules2 = {};
-
-	// rules[Animator.getPrefix("animation-name")] = "myAnimation";
-	// rules[Animator.getPrefix("animation-duration")] = "2s";
-	// rules[Animator.getPrefix("animation-iteration-count")] = 5;
-
-	// rules1[Animator.getPrefix("animation-duration")] = rules2[Animator.getPrefix("animation-duration")] = "4s";
-	// rules1[Animator.getPrefix("animation-delay")] = "0.5s";
-
-	// Animator.createAnimation({
-	// 	name : "myAnimation",
-	// 	animation : { 
-	// 		"0%" : { "font-size" : "100px", "color" : "red" }, 
-	// 		"50%" : { "font-size" : "50px", "color" : "blue" },
-	// 		"100%" : { "font-size" : "10px", "color" : "green" }
-	// 	},
-	// 	animationClass : {
-	// 		name : "myAnimation",
-	// 		rules : rules
-	// 	}
-	// });
-
-	// var sequence = Animator.combo([
-	// 	Animator.transition({
-	// 		element : p1,
-	// 		properties : ["color", "font-size"],
-	// 		setStyles : {
-	// 			before : {
-	// 				"color" : "red",
-	// 				"font-size" : "50px"
-	// 			}
-	// 		}
-	// 	}),
-	// 	Animator.transition({
-	// 		element : p2,
-	// 		properties : ["color", "font-size"],
-	// 		setStyles : {
-	// 			before : {
-	// 				"font-size" : "40px",
-	// 				"color" : "blue"
-	// 			}
-	// 		}
-	// 	})
-	// ]);
-
-	// sequence
-	// 	.then(function(elements) {
-	// 		return Animator.combo([
-	// 			Animator.animation({
-	// 				element : p1,
-	// 				addClass : {
-	// 					before : "jello"
-	// 				},
-	// 				removeClass : {
-	// 					after : "jello"
-	// 				},
-	// 				setStyles : {
-	// 					before : rules1
-	// 				}
-	// 			}),
-	// 			Animator.animation({
-	// 				element : p2,
-	// 				addClass : {
-	// 					before : "flipOutY"
-	// 				},
-	// 				removeClass : {
-	// 					after : "flipOutY"
-	// 				},
-	// 				setStyles : {
-	// 					before : rules2
-	// 				}
-	// 			})
-	// 		])	
-	// 	})
-	// 	.then(function(elements) {
-	// 		return Animator.transition({
-	// 			element : pTags,
-	// 			properties : ["color", "font-size"],
-	// 			setStyles : {
-	// 				before : {
-	// 					"color" : "black",
-	// 					"font-size" : "20px"
-	// 				}
-	// 			}
-	// 		});
-	// 	})
-	// 	.then(function(elements) {
-	// 		return Animator.transition({
-	// 			element : pTags,
-	// 			properties : ["color", "font-size"],
-	// 			setStyles : {
-	// 				before : {
-	// 					"color" : "grey",
-	// 					"font-size" : "50px"
-	// 				}
-	// 			}
-	// 		});
-	// 	})
-	// 	.then(function(elements) {
-	// 		rules1[Animator.getPrefix("animation-duration")] = "";
-	// 		rules1[Animator.getPrefix("animation-delay")] = "";
-	// 		return Animator.animation({
-	// 			element : pTags,
-	// 			addClass : {
-	// 				before : "tada"
-	// 			},
-	// 			removeClass : {
-	// 				after : "tada"
-	// 			},
-	// 			setStyles : {
-	// 				before : rules1
-	// 			}
-	// 		});
-	// 	})
-	// 	.then(function() {
-	// 		console.log("finished!");
-	// 	})
-	// 	.catch(function() {
-	// 		console.log("STOP!!!");
-	// 	});
-
-	// var sequence = Animator.combo([
-	// 	Animator.transition({
-	// 		element : p1,
-	// 		properties : ["color", "font-size"],
-	// 		addClass : {
-	// 			before : "transition"
-	// 		}
-	// 	}),
-	// 	Animator.transition({
-	// 		element : p2,
-	// 		properties : ["color", "font-size"],
-	// 		addClass : {
-	// 			before : "transition2"
-	// 		}
-	// 	})
-	// ]);
-
-	// sequence
-	// 	.then(function() {
-	// 		return Animator.combo([
-	// 			Animator.transition({
-	// 				element : p1,
-	// 				properties : "font-size",
-	// 				addClass : {
-	// 					before : "transition3"
-	// 				}
-	// 			}),
-	// 			Animator.transition({
-	// 				element : p2,
-	// 				properties : "font-size",
-	// 				addClass : {
-	// 					before : "transition4"
-	// 				}
-	// 			})
-	// 		]);
-	// 	})
-	// 	.then(function() {
-	// 		return Animator.combo([
-	// 			Animator.transition({
-	// 				element : p1,
-	// 				properties : "font-size",
-	// 				setStyles : {
-	// 					before : {
-	// 						"font-size" : "20px"
-	// 					}
-	// 				}
-	// 			}),
-	// 			Animator.transition({
-	// 				element : p2,
-	// 				properties : "font-size",
-	// 				setStyles : {
-	// 					before : {
-	// 						"font-size" : "20px"
-	// 					}
-	// 				}
-	// 			})
-	// 		]);
-	// 	})
-	// 	.then(function() {
-	// 		return Animator.animation({
-	// 			element : pTags,
-	// 			addClass : {
-	// 				before : "myAnimation"
-	// 			}
-	// 		})
-	// 	})
-	// 	.then(function() {
-	// 		console.log("done!");
-	// 	});
-
+	})();
 
 
 })();

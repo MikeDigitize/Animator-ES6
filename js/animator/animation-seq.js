@@ -82,7 +82,9 @@ class Animation {
      * @returns {Resolved Promise}
      */
 
-	animationEnd() {
+	animationEnd(evt) {
+
+	    evt.stopPropagation();
 
 		let opts = this.options;
 		opts.element.removeEventListener(this.prefix, this.onAnimationEnd, false);

@@ -85,7 +85,9 @@ class Transition {
      * @returns {Resolved Promise}
      */
 
-	transitionEnd() {
+	transitionEnd(evt) {
+
+	    evt.stopPropagation();
 
 		let opts = this.options;
 		this.transitionendCount++;
