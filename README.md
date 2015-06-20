@@ -225,7 +225,7 @@ For an in-depth description with examples of each Animator method visit the [WIK
      * @createClass function
      *
      * @params {String, Object}
-     * @description Creates a CSS class and appends it to Animator's stylesheet.
+     * @description Creates a CSS class from a classname and an object of CSS property / value pairs.
      */
      
 Animator.createClass(params);
@@ -237,7 +237,7 @@ Animator.createClass(params);
      * @deleteClass function
      *
      * @params {String}
-     * @description Deletes a CSS class from the Animator's stylesheet.
+     * @description Deletes a CSS class from Animator's stylesheet.
      */
      
 Animator.deleteClass(params);
