@@ -24,7 +24,7 @@ and go to <code>http://localhost:1337</code> to see the demo. To use, just inclu
 ```
 
 ## Browser Support
-Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator uses Jake Archibald's [ES6 Promise](https://github.com/jakearchibald/es6-promise) polyfill and Paul Miller's [ES6-shim](https://github.com/paulmillr/es6-shim/) for other ES6 features like Map and Array.from, so by using Animator you'll get these goodies for free.
+Animator can detect browser support based on support for CSS animations / transitions and CSSOM manipulation. Animator uses an edited version of Paul Miller's [ES6-shim](https://github.com/paulmillr/es6-shim/) to polyfill Map and Promise if either aren't available and likewise Mathias Bynen's [String-includes](https://github.com/mathiasbynens/String.prototype.includes) and [Array.from](https://github.com/mathiasbynens/Array.from) polyfills.
 ```javascript
 if(!Animator.isSupported()) {
     // handle fallbacks here.
@@ -40,8 +40,8 @@ Animator has three methods to use to create a sequence - <code>animation</code> 
  */
 
 .text { transition: transform 4s ease-out; }
-.tran { transform: scale(2) }
-.anim { animation : shrink 2s 2 }
+.enlarge { transform: scale(2) }
+.blink { animation : blink 2s 2 }
 
 @keyframes blink {
     0% {
@@ -75,13 +75,13 @@ var sequence = Animator.combo([
 	    element : p,
 	    properties : Animator.getPrefix("transform"),
 	    addClass : {
-	        before : "tran"
+	        before : "enlarge"
 	    }
 	}),
 	Animator.animation({
 	    element : p,
 	    addClass : {
-	        before : "anim"
+	        before : "blink"
 	    }
 	})
 ]);       
@@ -97,7 +97,7 @@ sequence
 			element : elements[0],
 			properties : Animator.getPrefix("transform"),
 			removeClass : {
-	        		before : "tran"
+	        		before : "enlarge"
 	            }
 		});
     })
@@ -124,15 +124,16 @@ Animator.play();
 
 ## Defining Keyframe Animations
 
-Quickly define keyframe animations with Animator's <code>createAnimation</code> method which has an optional style class creator to use to create a class to trigger the animation. Animator handles styles as an object with CSS property name / value pairs. There's a handy method called <code>createCSSRule()</code> that converts property names / values into objects for you.
+Quickly define keyframe animations with Animator's <code>createAnimation</code> method. It has an optional style class creator to use to create an associated class to trigger an animation. Animator handles styles as an object with CSS property name / value pairs. There's a handy method called <code>createCSSRule()</code> that converts property names / values into objects for you.
 
 ```javascript
 /**
-  * Create a CSS property / value object with the `createCSSRule` method.
-  * e.g. `{ "animation" : "ninjaAnimation 0.3s infinite" }.
+  * Create a class to trigger the animation and style rules for the class. 
+  * The `createCSSRule` method returns an object of CSS property / value pairs.
   */
 
 var ninjaRules = Animator.createCSSRule(Animator.getPrefix("animation"), "ninjaAnimation 0.3s infinite");
+// e.g. returns { "animation" : "ninjaAnimation 0.3s infinite" }.
 
 /**
   * Define the keyframe animation with either syntax e.g. from, to or % based.
@@ -149,7 +150,7 @@ Animator.createAnimation({
 	
 	/**
   	  * Define an (optional) class to use to trigger the animation.
-  	  * Pass in the rules created with the `createCSSrule` method.
+  	  * Pass in the rules created with the `createCSSrule` method above.
   	  */
   	  
 	animationClass : {
@@ -159,13 +160,13 @@ Animator.createAnimation({
 });	
 
 /**
-  * Trigger the animation by adding a class directly to the element.
+  * Trigger the animation by adding the class created directly to the element.
   */
 
 Animator.addClass(p, "ninjaAnimation");
 
 /**
-  * Or as part of a sequence.
+  * Or adding the class as part of a sequence.
   */
   
 Animator.animation({
@@ -183,7 +184,7 @@ Animator.animation({
 Animator.setStyles(p, ninjaRules);
 
 /**
-  * Or as part of a sequence.
+  * Or set the style rule as part of a sequence.
   */
 
 Animator.animation({
@@ -227,7 +228,7 @@ For an in-depth description with examples of each Animator method visit the [WIK
      * @description Creates a CSS class and appends it to Animator's stylesheet.
      */
      
-Animator.createClass(description);
+Animator.createClass(params);
 ```
 
 ## Delete A Style Class
@@ -239,7 +240,7 @@ Animator.createClass(description);
      * @description Deletes a CSS class from the Animator's stylesheet.
      */
      
-Animator.deleteClass(description);
+Animator.deleteClass(params);
 ```
 
 ## Getting A Prefix
@@ -252,7 +253,7 @@ Animator.deleteClass(description);
      * @return {String}
      */
      
-Animator.getPrefix(description);
+Animator.getPrefix(params);
 ```
 
 ## Setting Styles
@@ -264,7 +265,7 @@ Animator.getPrefix(description);
      * @description Sets properties / values on an element's CSSStyleDeclaration.
      */
      
-Animator.setStyles(description);
+Animator.setStyles(params);
 ```
 
 ## Getting Styles
@@ -277,7 +278,7 @@ Animator.setStyles(description);
      * @return {Object}
      */
      
-Animator.getStyles(description);
+Animator.getStyles(params);
 ```
 
 ## Create Style Rule Object
@@ -286,11 +287,11 @@ Animator.getStyles(description);
      * @createCSSRule function
      *
      * @params {String / Array, String / Array}
-     * @description Returns a CSS property / value pairs object.
+     * @description Returns an object of CSS property / value pairs.
      * @returns {Object}
      */
      
-Animator.createCSSRule(description);
+Animator.createCSSRule(params);
 ```
 
 ## Add Class
@@ -302,7 +303,7 @@ Animator.createCSSRule(description);
      * @description Sets a class(es) on an element.
      */
      
-Animator.addClass(description);
+Animator.addClass(params);
 ```
 
 ## Remove Class
@@ -314,7 +315,7 @@ Animator.addClass(description);
      * @description Removes a class(es) from an element.
      */
      
-Animator.removeClass(description);
+Animator.removeClass(params);
 ```
 
 ## Create CSS Transition 
@@ -326,7 +327,7 @@ Animator.removeClass(description);
      * @description Creates a CSS transition definition.
      */
 
-Animator.createTransition(description);
+Animator.createTransition(params);
 ```
 
 ## Create CSS Keyframe Animation 
@@ -338,7 +339,7 @@ Animator.createTransition(description);
      * @description Creates a CSS keyframe animation definition.
      */
 
-Animator.createAnimation(description);
+Animator.createAnimation(params);
 ```
 
 ## Create Transition Sequence
@@ -351,7 +352,7 @@ Animator.createAnimation(description);
      * @returns {Promise}
      */
 
-Animator.transition(description);
+Animator.transition(params);
 ```
 
 ## Create Animation Sequence
@@ -364,7 +365,7 @@ Animator.transition(description);
      * @returns {Promise}
      */
 
-Animator.animation(description);
+Animator.animation(params);
 ```
 
 ## Create Combo of Transition / Animation Sequences
@@ -377,7 +378,7 @@ Animator.animation(description);
      * @returns {Promise}
      */
 
-Animator.combo(description);
+Animator.combo(params);
 ```
 
 ## Detect Browser Support
