@@ -1,17 +1,43 @@
-.logo {
-  width: 182px;
-  height: 217px;
-  margin: 20px auto;
-  background: url("../images/logo/A.png") no-repeat top center;
-  position: relative;
-  transition: transform 4.5s ease-out;
+.hide { display: none }
+.relative { position : relative }
+.top-header {
 
-  .tank {
-	width: 47px;
-	height: 53px;
-	background: url("../images/logo/tank.png") no-repeat top center;
-	position: absolute;
-	transform: translate3d(13px,130px,0) rotate(12deg);
-	transition: transform 0.7s ease-out;
+  .logo {
+	width: 182px;
+	height: 217px;
+	margin: 20px 0;
+	background: url("../images/logo/A.png") no-repeat top center;
+	position: relative;
+	float: left;
+
+	@media(max-width: 990px) {
+	  float: none;
+	  margin: 20px auto;
+	}
+
+	.tank {
+	  width: 47px;
+	  height: 53px;
+	  background: url("../images/logo/tank.png") no-repeat top center;
+	  position: absolute;
+	  transform: translate3d(13px,130px,0) rotate(12deg) scale(0);
+	  transition: transform 0.7s ease-out;
+	}
   }
+
+  h1 {
+	font-family: "Myriad Pro", Arial, Helvetica;
+	float: left;
+	font-size: 50px;
+	margin-top: 196px;
+	@media (max-width: 990px) {
+	  text-align: center;
+	  margin-top: -20px;
+	  float: none;
+	}
+  }
+
 }
+
+
+

@@ -29,23 +29,24 @@
 
 			isAnimating = true;
 
-			Animator.setStyles(tank, Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(12deg) scale(1)"));
-			Animator.createTransition({
-				element : tank,
-				properties : transform,
-				easing : "ease-out",
-				duration : "0.7s"
-			});
-
 			var sequence = Animator.transition({
 				element : tank,
 				properties : transform,
 				setStyles : {
-					before : Animator.createCSSRule(transform, "translate3d(43px,-15px,0) rotate(17deg)")
+					before : Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(12deg) scale(1)")
 				}
 			});
 
 			sequence
+				.then(function () {
+					return Animator.transition({
+						element : tank,
+						properties : transform,
+						setStyles : {
+							before : Animator.createCSSRule(transform, "translate3d(43px,-15px,0) rotate(17deg)")
+						}
+					});
+				})
 				.then(function () {
 					Animator.setStyles(tank, Animator.createCSSRule([duration, ttf],	["0.4s", "cubic-bezier(0.175, 0.885, 0.320, 1)"]));
 					return Animator.transition({
@@ -112,7 +113,17 @@
 						element : tank,
 						properties : transform,
 						setStyles : {
-							before : Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(12deg)")
+							before : Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(12deg) scale(1)")
+						}
+					});
+				})
+				.then(function () {
+					Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["1s", "ease-out"]));
+					return Animator.transition({
+						element : tank,
+						properties : transform,
+						setStyles : {
+							before : Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(12deg) scale(0)")
 						}
 					});
 				})
