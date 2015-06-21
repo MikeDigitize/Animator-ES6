@@ -1,6 +1,6 @@
 .hide { display: none }
-.relative { position : relative }
 .top-header {
+  position: relative;
 
   .logo {
 	width: 182px;
@@ -22,7 +22,12 @@
 	  position: absolute;
 	  transform: translate3d(13px,130px,0) rotate(12deg) scale(0);
 	  transition: transform 0.7s ease-out;
+	  z-index: 1;
 	}
+  }
+
+  .missile {
+	position: absolute;
   }
 
   h1 {

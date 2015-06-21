@@ -12,8 +12,11 @@
 
 	(function () {
 
-		var logo = document.querySelector(".logo");
+		var holder = document.querySelector(".top-header");
+		var logo = holder.querySelector(".logo");
 		var tank = logo.querySelector(".tank");
+		var title = holder.querySelector("h1");
+
 		var isAnimating = false;
 		var transform = Animator.getPrefix("transform");
 		var duration = Animator.getPrefix("transition-duration");
@@ -77,7 +80,7 @@
 						}
 					});
 				})
-				.then(function () {
+				.then(function (tank) {
 					Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["0.8s", "ease-out"]	));
 					return Animator.transition({
 						element : tank,
