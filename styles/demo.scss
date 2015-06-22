@@ -1,3 +1,6 @@
+body {
+  background-color: #eeeae5;
+}
 .hide { display: none }
 .top-header {
   position: relative;
@@ -21,7 +24,7 @@
 	  background: url("../images/logo/tank.png") no-repeat top center;
 	  position: absolute;
 	  transform: translate3d(13px,130px,0) rotate(12deg) scale(0);
-	  transition: transform 0.7s ease-out;
+	  transition: transform 0.4s ease-out;
 	  z-index: 1;
 	}
   }
@@ -42,6 +45,12 @@
 	}
   }
 
+}
+
+.coming-soon {
+  text-align: center;
+  opacity: 0;
+  font-size: 15px;
 }
 
 
