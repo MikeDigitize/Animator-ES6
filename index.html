@@ -1,126 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Animator ES6 Demo</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/styles.css">
-	<link rel="stylesheet" href="css/animate.css">
+	<title>Animator - A CSS animation / transition sequencer</title>
+	<link rel="stylesheet" type="text/css" href="css/animate.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<h1>Animator</h1>
-			</div>	
+<div class="container">
+	<header class="row top-header">
+		<div class="col-sm-6 col-sm-offset-3">
+			<div class="logo">
+				<div class="tank"></div>
+			</div>
+			<h1><span class="hide">A</span>nimator</h1>
+		</div>
+	</header>
+	<div class="row">
+		<div class="col-sm-4 col-sm-offset-4">
+			<p class="coming-soon">Demo coming soon...!</p>
 		</div>
 	</div>
+</div>
 
-	<div class="container bannerExample">
-		<div class="row">
-			<div class="col-sm-12">
-				<h2>Rotating Banner Example</h2>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12 banner">
-				<div class="inner">
-					<img src="images/coolingHome.jpg" alt="cooling image" class="banner-image" />
-					<img src="images/summerHome.jpg" alt="summer image" class="banner-image" />
-					<img src="images/nextDayDelivery.jpg" alt="next day delivery" class="banner-image" />
-				</div>
-			</div>	
-		</div>
-		<div class="row">
-			<div class="col-sm-12 controls">
-				<button class="btn btn-primary start">Start</button>
-				<button class="btn btn-danger pause">Pause</button>
-				<button class="btn btn-success play">Play</button>
-				<p>Sequence: <strong class="status">-</strong></p>
-			</div>
-		</div>
-	</div>
-
-	<div class="container spriteAnimationExample">
-		<div class="row">
-			<div class="col-sm-12">
-				<h2>Sprite Animation Example</h2>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12 ninja-background">
-				<div class="ninja"></div>
-				<div class="ninja-bush"></div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12 controls">
-				<button class="btn btn-primary start">Start</button>
-				<button class="btn btn-danger pause">Pause</button>
-				<button class="btn btn-success play">Play</button>
-				<p>Sequence: <strong class="status">-</strong></p>
-			</div>
-		</div>
-	</div>
-
-	<div class="container textExample">
-		<div class="row">
-			<div class="col-sm-12">
-				<h2>Text Transition Example</h2>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<h2 class="title"><span>A</span><span>N</span><span>I</span><span>M</span><span>A</span><span>T</span><span>O</span><span>R</span></h2>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12 controls">
-				<button class="btn btn-primary start">Start</button>
-				<button class="btn btn-danger pause">Pause</button>
-				<button class="btn btn-success play">Play</button>
-				<p>Sequence: <strong class="status">-</strong></p>
-			</div>
-		</div>
-	</div>
-
-	<div class="container loadingExample">
-		<div class="row">
-			<div class="col-sm-12">
-				<h2>Loading Example</h2>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12 loadingHolder">
-				<div id="cupcake" class="box">
-					<span class="letter">L</span>
-					<div class="cupcakeCircle box">
-						<div class="cupcakeInner box">
-							<div class="cupcakeCore box"></div>
-						</div>
-					</div>
-					<span class = "letter box">A</span>
-					<span class = "letter box">D</span>
-					<span class = "letter box">I</span>
-					<span class = "letter box">N</span>
-					<span class = "letter box">G</span>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12 controls">
-				<button class="btn btn-primary start">Start</button>
-				<button class="btn btn-danger pause">Pause</button>
-				<button class="btn btn-success play">Play</button>
-				<p>Sequence: <strong class="status">-</strong></p>
-			</div>
-		</div>
-	</div>
-
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="js/animator.min.js"></script>
-	<script src="js/demo.js"></script>
+<script src="js/animator.min.js"></script>
+<script src="js/demo.js"></script>
 
 </body>
 </html>

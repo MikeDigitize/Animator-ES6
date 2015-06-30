@@ -7,10 +7,6 @@
 
 class DomUtils {
 
-	constructor() {
-
-	}
-
    /**
      * @setClass function
      *
@@ -39,19 +35,17 @@ class DomUtils {
    /**
      * @support function
      *
-     * @params {Class, Class}
+     * @params {Class}
      * @description Tests for CSS transition / animation / CSSOM manipulation support
      * @params description      
      *  - Prefix: {Class} Prefix class.
-     *  - CssUtils: {Class} CSS utilities class.
      * @returns {Boolean}
      * @global yes
      */
 
-	support(Prefix, CssUtils) {
+	support(Prefix) {
 
 		let prefix = new Prefix();
-		let cssUtils = new CssUtils();
 		let transitionSupport = prefix.getPrefix("transition");
 		let animationSupport = prefix.getPrefix("animation");
 		let raf = !!window.requestAnimationFrame;

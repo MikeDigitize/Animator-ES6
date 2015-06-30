@@ -1,461 +1,221 @@
-/**
- * Banner Example
- */
-
-(function() {
+(function(){
 
 	if(!Animator.isSupported()){
-		alert("no support for you!");
+		alert("No support for you!");
 		return;
 	}
 
-	var galleryHolder = document.querySelector(".bannerExample");
-	var gallery = galleryHolder.querySelector(".banner .inner");
-	var galleryImage = gallery.querySelector(".banner-image");
-	var controls = galleryHolder.querySelectorAll(".controls button");
-	var status = galleryHolder.querySelector(".status");
+	function startAnimation() {
 
-	function setBannerHeight() {
-		Animator.setStyles(gallery.parentNode, { "min-height" : galleryImage.offsetHeight + "px" });
-	}	
+        isPlaying = true;
 
-	window.addEventListener("resize", function() {
-		setBannerHeight();
-	}, false);
-
-	controls[0].addEventListener("click", function() {
-		bannerStart();
-		this.setAttribute("disabled", "disabled");
-		controls[1].removeAttribute("disabled");
-		status.innerHTML = "playing";
-	}, false);
-
-	controls[1].setAttribute("disabled", "disabled");
-	controls[1].addEventListener("click", function() {
-		this.setAttribute("disabled", "disabled");
-		controls[2].removeAttribute("disabled");
-		Animator.pause();
-		status.innerHTML = "paused";
-	}, false);
-
-	controls[2].setAttribute("disabled", "disabled");
-	controls[2].addEventListener("click", function() {
-		this.setAttribute("disabled", "disabled");
-		controls[1].removeAttribute("disabled");
-		Animator.play();
-		status.innerHTML = "playing";
-	}, false);
-
-	setBannerHeight();
-
-	function bannerStart() {
-		var sequence;
-
-		Animator.createAnimation({
-			name : "bannerAnimation",
-			animation : { 
-				"0%" : { "left" : "0%" }, 
-				"25%" : { "left" : "0%"},
-				"33%" : { "left" : "-100%"},
-				"58%" : { "left" : "-100%" },
-				"66%" : { "left" : "-200%" },
-				"92%" : { "left" : "-200%" },
-				"100%" : { "left" : "0%" }
-			},
-			animationClass : {
-				name : "bannerAnimation",
-				rules : Animator.createCSSRule(Animator.getPrefix("animation"), "bounce 3s 6, bannerAnimation 9s 2")
-			}
-		});	
-
-		sequence = Animator.animation({
-			element : gallery,
+		var sequence = Animator.animation({
+			element : logo,
 			addClass : {
-				before : "bannerAnimation"
+				before : ["animated", "bounceInLeft"]
 			}
 		});
 
 		sequence
-			.then(function(element) {
-				Animator.removeClass(element, "bannerAnimation");
-				Animator.deleteClass("bannerAnimation");
-				Animator.createClass("bannerAnimation", Animator.createCSSRule(Animator.getPrefix("animation"), "tada 1s 1"));
-				return Animator.animation({
-					element : gallery,
-					addClass : {
-						before : "bannerAnimation"
+			.then(function() {
+				return Animator.transition({
+					element : tank,
+					properties : transform,
+					setStyles : {
+						before : Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(12deg) scale(1)")
+					}
+				});
+			})
+			.then(function () {
+				return Animator.transition({
+					element : tank,
+					properties : transform,
+					setStyles : {
+						before : Animator.createCSSRule(transform, "translate3d(43px,-15px,0) rotate(17deg)")
+					}
+				});
+			})
+			.then(function () {
+				Animator.setStyles(tank, Animator.createCSSRule([duration, ttf],	["0.4s", "cubic-bezier(0.175, 0.885, 0.320, 1)"]));
+				return Animator.transition({
+					element : tank,
+					properties : transform,
+					setStyles : {
+						before : Animator.createCSSRule(transform, "translate3d(43px,-15px,0) rotate(90deg)")
+					}
+				});
+			})
+			.then(function () {
+				Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["0.3s", "ease-out"]	));
+				return Animator.transition({
+					element : tank,
+					properties : transform,
+					setStyles : {
+						before : Animator.createCSSRule(transform, "translate3d(90px,-15px,0) rotate(90deg)")
+					}
+				});
+			})
+			.then(function () {
+				Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["0.4s", "cubic-bezier(0.175, 0.885, 0.320, 1)"]));
+				return Animator.transition({
+					element : tank,
+					properties : transform,
+					setStyles : {
+						before : Animator.createCSSRule(transform, "translate3d(95px,-15px,0) rotate(168deg)")
+					}
+				});
+			})
+			.then(function (tank) {
+				Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["0.3s", "ease-out"]	));
+				return Animator.transition({
+					element : tank,
+					properties : transform,
+					setStyles : {
+						before : Animator.createCSSRule(transform, "translate3d(120px,132px,0) rotate(168deg)")
+					}
+				});
+			})
+			.then(function () {
+				Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["0.3s", "cubic-bezier(0.175, 0.885, 0.320, 1)"]	));
+				return Animator.transition({
+					element : tank,
+					properties : transform,
+					setStyles : {
+						before : Animator.createCSSRule(transform, "translate3d(120px,132px,0) rotate(270deg)")
+					}
+				});
+			})
+			.then(function () {
+				Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["0.3s", "ease-out"]	));
+				return Animator.transition({
+					element : tank,
+					properties : transform,
+					setStyles : {
+						before : Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(270deg)")
+					}
+				});
+			})
+			.then(function () {
+				Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["0.3s", "cubic-bezier(0.175, 0.885, 0.320, 1)"]	));
+				return Animator.transition({
+					element : tank,
+					properties : transform,
+					setStyles : {
+						before : Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(12deg) scale(1)")
+					}
+				});
+			})
+			.then(function () {
+				Animator.setStyles(tank, Animator.createCSSRule([duration, ttf], ["0.3s", "ease-out"]));
+				return Animator.transition({
+					element : tank,
+					properties : transform,
+					setStyles : {
+						before : Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(12deg) scale(0)")
 					}
 				});
 			})
 			.then(function() {
-				status.innerHTML = "finished";
-				controls[0].removeAttribute("disabled");
-				controls[1].setAttribute("disabled", "disabled");
-				controls[2].setAttribute("disabled", "disabled");
+				return Animator.animation({
+					element : title,
+					setStyles : {
+						before : {
+							opacity : 1
+						}
+					},
+					addClass : {
+						before : ["animated", "zoomInRight"]
+					},
+					removeClass : {
+						after : "zoomInRight"
+					}
+				});
 			})
-			.catch(function() {
-				console.log("error!")
-			});
-	}	
-
-})();
-
-/**
- * Sprite Animation Example
- */
-
-(function() {
-
-	if(!Animator.isSupported()){
-		alert("no support for you!");
-		return;
-	}
-
-	var spriteAnimationHolder = document.querySelector(".spriteAnimationExample");
-	var ninja = spriteAnimationHolder.querySelector(".ninja");
-	var ninjaBackground = spriteAnimationHolder.querySelector(".ninja-background");
-	var ninjaBush = spriteAnimationHolder.querySelector(".ninja-bush");
-	var controls = spriteAnimationHolder.querySelectorAll(".controls button");
-	var status = spriteAnimationHolder.querySelector(".status");
-
-	controls[0].addEventListener("click", function() {
-		this.setAttribute("disabled", "disabled");
-		controls[1].removeAttribute("disabled");
-		ninjaStart();
-		status.innerHTML = "playing";
-	}, false);
-
-	controls[1].setAttribute("disabled", "disabled");
-	controls[1].addEventListener("click", function() {
-		this.setAttribute("disabled", "disabled");
-		controls[2].removeAttribute("disabled");
-		Animator.pause();
-		status.innerHTML = "paused";
-	}, false);
-
-	controls[2].setAttribute("disabled", "disabled");
-	controls[2].addEventListener("click", function() {
-		this.setAttribute("disabled", "disabled");
-		controls[1].removeAttribute("disabled");
-		Animator.play();
-		status.innerHTML = "playing";
-	}, false);
-
-	function ninjaStart() {
-		
-		var sequence;
-
-		Animator.createAnimation({
-			name : "ninjaAnimation",
-			animation : { 
-				"0%, 24.9%, 100%" : { "background-position" : "0px" }, 
-				"25%, 49.9%" : { "background-position" : "-250px" },
-				"50%, 74.9%" : { "background-position" : "-500px" },
-				"75%, 99%" : { "background-position" : "-750px" }
-			},
-			animationClass : {
-				name : "ninjaAnimation",
-				rules : Animator.createCSSRule(Animator.getPrefix("animation"), "ninjaAnimation 0.3s 6")
-			}
-		});	
-
-		Animator.createAnimation({
-			name : "ninjaBackgroundAnimation",
-			animation : { 
-				"0%" : { "background-position" : "0px -350px" },
-				"90%" : { "background-position" : "-200px -350px" },
-				"100%" : { "background-position" : "0px -350px" }
-			},
-			animationClass : {
-				name : "ninjaBackgroundAnimation",
-				rules : Animator.createCSSRule(Animator.getPrefix("animation"), "ninjaBackgroundAnimation 6s 1")
-			}
-		});	
-
-		Animator.createAnimation({
-			name : "ninjaBushAnimation",
-			animation : { 
-				"0%" : { "background-position" : "0%" },
-				"90%" : { "background-position" : "90%" },
-				"100%" : { "background-position" : "0%" }
-			},
-			animationClass : {
-				name : "ninjaBushAnimation",
-				rules : Animator.createCSSRule(Animator.getPrefix("animation"), "ninjaBushAnimation 3s 1")
-			}
-		});	
-
-		sequence = Animator.combo([
-			Animator.animation({
-				element : ninja,
-				addClass : {
-					before : "ninjaAnimation"
-				}
-			}),
-			Animator.animation({
-				element : ninjaBackground,
-				addClass : {
-					before : "ninjaBackgroundAnimation"
-				}
-			}),
-			Animator.animation({
-				element : ninjaBush,
-				addClass : {
-					before : "ninjaBushAnimation"
-				}
+			.then(function () {
+				return Animator.transition({
+					element : title,
+					setStyles : {
+						before : Animator.createCSSRule(transform, "scale(0.1)")
+					}
+				});
 			})
-		])
-
-		sequence
-			.then(function() {
-				status.innerHTML = "finished";
-				Animator.removeClass(ninja, "ninjaAnimation");
-				Animator.removeClass(ninjaBackground, "ninjaBackgroundAnimation");
-				Animator.removeClass(ninjaBush, "ninjaBushAnimation");
-				controls[0].removeAttribute("disabled");
-				controls[1].setAttribute("disabled", "disabled");
-				controls[2].setAttribute("disabled", "disabled");
+			.then(function () {
+				Animator.setStyles(title, Animator.createCSSRule([duration, ttf, "text-transform"], ["0.2s", "cubic-bezier(0.175, 0.885, 0.320, 1)", "uppercase"]));
+				return Animator.transition({
+					element : title,
+					setStyles : {
+						before : Animator.createCSSRule(transform, "scale(5)")
+					}
+				});
 			})
-			.catch(function() {
-				console.log("error!")
-			});
-	}	
-
-})();
-
-/**
- * Text Transition Example
- */
-
-(function() {
-
-	var textHolder = document.querySelector(".textExample");
-	var title = textHolder.querySelector(".title");
-	var text = title.querySelectorAll("span");
-	var controls = textHolder.querySelectorAll(".controls button");
-	var status = textHolder.querySelector(".status");
-	var rules = {}, sequence;
-
-	controls[0].removeAttribute("disabled");
-
-	function animateLetter() {
-
-		var count = -1, total = text.length, seq;
-
-		return new Promise(function(resolve, reject) {
-
-			function check() {
-				count++;
-				if(count === total) {
-					seq = Animator.transition({
-						element : title,
-						properties : [Animator.getPrefix("transform"), "opacity"],
+			.then(function () {
+				return Animator.transition({
+					element : title,
+					setStyles : {
+						before : Animator.createCSSRule(transform, "scale(1)")
+					}
+				});
+			})
+			.then(function () {
+				Animator.setStyles(text, { opacity : 1 });
+				return Animator.combo([
+					Animator.animation({
+						element : text,
 						addClass : {
-							before : "textStep3"
+							before : ["animated", "slideInUp"]
 						},
 						removeClass : {
-							after : "textStep3"
+							after : ["animated", "slideInUp"]
 						}
-					});
-					seq
-						.then(function() {
-							resolve();		
-						});					
-				}
-				else {
-					seq = Animator.transition({
-						element : text[count],
-						properties : Animator.getPrefix("transform"),
-						addClass : {
-							before : "textStep1"
-						},
-						removeClass : {
-							after : "textStep1"
+					}),
+					Animator.transition({
+						element : text,
+						properties : "opacity",
+						setStyles : {
+							before : {
+								opacity : 1
+							}
 						}
-					});
-					seq
-						.then(function(element) {
-							return Animator.transition({
-								element : element,
-								properties : [Animator.getPrefix("transform"), "opacity"],
-								addClass : {
-									before : "textStep2"
-								},
-								removeClass : {
-									after : "textStep2"
-								}
-							});
-						})
-						.then(function() {
-							check();
-						});
-				}
-			}
-			
-			check();
-
-		});
+					})
+				]);
+			})
+			.then(function() {
+                isPlaying = false;
+				console.log("done");
+			});
 	}
 
-	controls[0].addEventListener("click", function() {
-		this.setAttribute("disabled", "disabled");
-		controls[1].removeAttribute("disabled");
-		sequence = animateLetter();
-		sequence
-			.then(function() {
-				controls[0].removeAttribute("disabled");
-				controls[1].setAttribute("disabled", "disabled");
-				controls[2].setAttribute("disabled", "disabled");
-				status.innerHTML = "finished";
-			})
-			.catch(function() {
-				console.log("whoops!");
-			})
-		status.innerHTML = "playing";
-	}, false);
+	var holder = document.querySelector(".top-header");
+	var logo = holder.querySelector(".logo");
+	var tank = logo.querySelector(".tank");
+	var title = holder.querySelector("h1");
+	var text = document.querySelector(".coming-soon");
 
-	controls[1].setAttribute("disabled", "disabled");
-	controls[1].addEventListener("click", function() {
-		this.setAttribute("disabled", "disabled");
-		controls[2].removeAttribute("disabled");
-		Animator.pause();
-		status.innerHTML = "paused";
-	}, false);
+	var transform = Animator.getPrefix("transform");
+	var duration = Animator.getPrefix("transition-duration");
+	var ttf = Animator.getPrefix("transition-timing-function");
 
-	controls[2].setAttribute("disabled", "disabled");
-	controls[2].addEventListener("click", function() {
-		this.setAttribute("disabled", "disabled");
-		controls[1].removeAttribute("disabled");
-		Animator.play();
-		status.innerHTML = "playing";
-	}, false);
+    var isPlaying = false;
 
-	Animator.createTransition({
-		element : text,
-	    properties : [Animator.getPrefix("transform"), "opacity"],
-	    duration : ["100ms", "200ms"]
-	});
+    document.body.addEventListener("click", function() {
+        isPlaying ? Animator.pause() : Animator.play();
+        isPlaying = !isPlaying;
+    });
 
+	Animator.setStyles(title, Animator.createCSSRule([transform, "opacity"], ["scale(1)", 0]));
 	Animator.createTransition({
 		element : title,
-	    properties : Animator.getPrefix("transform"),
-	    easing : ["ease-in"],
-	    duration : "250ms"
+		properties : transform,
+		duration : "0.5s",
+		easing : "ease-in-out"
 	});
-
-	rules[Animator.getPrefix("transform")] = "scale(2)";
-	Animator.createClass("textStep1", rules);
-
-	rules[Animator.getPrefix("transform")] = "scale(0.75)";
-	rules.opacity = "0 !important";
-	Animator.createClass("textStep2", rules);
-
-	rules[Animator.getPrefix("transform")] = "scale(500)";
-	rules[Animator.getPrefix("transition-duration")] = "500ms !important";
-	rules.opacity = "1";
-	Animator.createClass("textStep3", rules);
-
-})();
-
-
-/**
-  *	Loading Example
-  */
-
-(function() {
-
-	var loadingHolder = document.querySelector(".loadingExample");
-	var core = loadingHolder.querySelector(".cupcakeCore");
-	var inner = loadingHolder.querySelector(".cupcakeInner");
-	var controls = loadingHolder.querySelectorAll(".controls button");
-	var status = loadingHolder.querySelector(".status");
-	var cupcake = loadingHolder.querySelector("#cupcake");
-	var coreRules = {}, innerRules = {}, animation = Animator.getPrefix("animation"), sequence;
-
 	Animator.createTransition({
-		element : cupcake,
-		properties : Animator.getPrefix("transform"),
-	    easing : ["ease-in"],
-	    duration : "250ms"
+		element : text,
+		properties : "opacity",
+		duration : "1s",
+		easing : "ease-in"
 	});
 
-	Animator.createAnimation({
-		name : "coreAnimate",
-		animation : { 
-			"to": { "height" : "90%", "width" : "90%" }
-		}
-	});	
-
-	function playLoader() {
-
-		coreRules[animation] = "coreAnimate 500ms 10 alternate ease-in-out";
-		innerRules[animation] = "coreAnimate 1000ms 5 alternate ease-in-out";
-
-		sequence = Animator.combo([
-			Animator.animation({
-				element : core,
-				setStyles : {
-					before : coreRules
-				}
-			}),
-			Animator.animation({
-				element : inner,
-				setStyles : {
-					before : innerRules
-				}
-			})
-		]);
-
-		sequence
-			.then(function() {
-				var rules = {};
-				rules[Animator.getPrefix("animation-duration")] = "0.5s";
-				coreRules[animation] = "none";
-				innerRules[animation] = "none";
-				Animator.setStyles(core, coreRules);
-				Animator.setStyles(inner, innerRules);
-				Animator.addClass(cupcake, "animated");
-				Animator.setStyles(cupcake, rules);
-				return Animator.animation({
-					element : cupcake,
-					addClass : {
-						before : "zoomOutUp"
-					}
-				});
-			})
-			.then(function() {
-				Animator.removeClass(cupcake, "zoomOutUp");
-				controls[0].removeAttribute("disabled");
-				controls[1].setAttribute("disabled", "disabled");
-				controls[2].setAttribute("disabled", "disabled");
-			})
-			.catch(function() {
-				console.log("whoops!");
-			});
-
-	}
-
-	controls[0].addEventListener("click", function() {
-		this.setAttribute("disabled", "disabled");
-		controls[1].removeAttribute("disabled");
-		playLoader();
-		status.innerHTML = "playing";
-	}, false);
-
-	controls[1].setAttribute("disabled", "disabled");
-	controls[1].addEventListener("click", function() {
-		this.setAttribute("disabled", "disabled");
-		controls[2].removeAttribute("disabled");
-		Animator.pause();
-		status.innerHTML = "paused";
-	}, false);
-
-	controls[2].setAttribute("disabled", "disabled");
-	controls[2].addEventListener("click", function() {
-		this.setAttribute("disabled", "disabled");
-		controls[1].removeAttribute("disabled");
-		Animator.play();
-		status.innerHTML = "playing";
-	}, false);	
+	startAnimation();
 
 })();

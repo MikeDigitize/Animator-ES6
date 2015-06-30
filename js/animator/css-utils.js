@@ -86,7 +86,7 @@ class CssUtils {
     getStyles(element, props) {
 
     	let properties = Array.isArray(props) ? [...props] : [props];
-    	let styles = {}, temp = {};
+    	let styles = {};
     	properties.forEach(property => {
     		styles[property] = window.getComputedStyle(element).getPropertyValue(property);
     	});

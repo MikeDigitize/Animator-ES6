@@ -1,3 +1,6 @@
+body {
+  background-color: #eeeae5;
+}
 .hide { display: none }
 .top-header {
   position: relative;
@@ -20,8 +23,10 @@
 	  height: 53px;
 	  background: url("../images/logo/tank.png") no-repeat top center;
 	  position: absolute;
+	  -webkit-transform: translate3d(13px,130px,0) rotate(12deg) scale(0);
 	  transform: translate3d(13px,130px,0) rotate(12deg) scale(0);
-	  transition: transform 0.7s ease-out;
+	  -webkit-transition: -webkit-transform 0.4s ease-out;
+	  transition: transform 0.4s ease-out;
 	  z-index: 1;
 	}
   }
@@ -35,6 +40,7 @@
 	float: left;
 	font-size: 50px;
 	margin-top: 196px;
+	opacity: 0;
 	@media (max-width: 990px) {
 	  text-align: center;
 	  margin-top: -20px;
@@ -42,6 +48,12 @@
 	}
   }
 
+}
+
+.coming-soon {
+  text-align: center;
+  opacity: 0;
+  font-size: 15px;
 }
 
 

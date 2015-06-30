@@ -4,6 +4,7 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var minifyCSS = require('gulp-minify-css');
+var wrap = require('gulp-wrap');
 var babel = require("gulp-babel");
 var babelify = require('babelify');
 var browserify = require('browserify');
@@ -12,10 +13,8 @@ var del = require('del');
 
 var buildPath = './build';
 var compiledPath = './js/temp';
-var tests = './js/tests.js';
 var demo = './js/demo.js';
-var shim = ['./js/array-from-shim.js', './js/map-set-promise-shim.js', './js/string-includes-shim.js'];
-var minifiedShim = compiledPath + '/es6-shim.min.js';
+var shim = './js/browser-polyfill.min.js';
 var js = './js/animator/*.js';
 var styles = './styles/*.scss';
 var html = './*.html';
@@ -34,14 +33,7 @@ gulp.task('styles', function () {
         .pipe(gulp.dest(buildPath + '/css'));
 });
 
-gulp.task('shim', function() {
-    return gulp.src(shim)
-        .pipe(concat('es6-shim.min.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest(compiledPath));
-});
-
-gulp.task('es6', ['shim'], function () {
+gulp.task('es6', function () {
     return gulp.src(js)
         .pipe(babel())
         .pipe(gulp.dest(compiledPath));    
@@ -58,38 +50,24 @@ gulp.task('compileJS', ['es6'], function() {
     .pipe(gulp.dest(compiledPath));
 });
 
-gulp.task('concat-and-minify', ['compileJS'], function() {
-    gulp.src([minifiedShim, compiledPath + '/temp.js'])
+gulp.task('minify', ['compileJS'], function() {
+    return gulp.src([shim, compiledPath + '/temp.js'])
         .pipe(concat('animator.min.js'))
         .pipe(uglify())
+        .pipe(wrap("(function(){<%= contents %>})()"))
         .pipe(gulp.dest(buildPath + '/js'));
-    gulp.src(['./js/array-from-shim.js', './js/map-set-promise-shim.js', './js/string-includes-shim.js', compiledPath + '/temp.js'])
-        .pipe(concat('animator.js'))
-        .pipe(gulp.dest(buildPath + '/js'));
-});
-
-gulp.task('tests', function() {
-    return gulp.src(tests)
-        .pipe(uglify())
-        .pipe(gulp.dest(buildPath + '/js'))
 });
 
 gulp.task('demo', function() {
     return gulp.src(demo)
-        .pipe(uglify())
         .pipe(gulp.dest(buildPath + '/js'))
 });
 
-gulp.task('cleanup', ['minify'], function() {
-    return del(compiledPath);
-})
-
 gulp.task('watch', function () {
     gulp.watch(styles, ['styles']);
-    gulp.watch(js, ['shim', 'es6', 'compileJS', 'concat-and-minify']);
-    gulp.watch(tests, ['tests']);
+    gulp.watch(js, ['minify']);
     gulp.watch(demo, ['demo']);
     gulp.watch(html, ['html']);
 });
 
-gulp.task('default', ['html', 'styles', 'shim', 'es6', 'compileJS', 'concat-and-minify', 'tests', 'demo', 'watch']);
+gulp.task('default', ['html', 'styles', 'minify', 'demo', 'watch']);
