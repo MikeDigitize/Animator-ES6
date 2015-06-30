@@ -41,6 +41,7 @@ class Transition {
 		this.onTransitionEnd = this.transitionEnd.bind(this);
 		this.totaltransitions = Array.isArray(options.properties) ? options.properties.length : 1;
 		this.transitionendCount = 0;
+	    this.audio = Audio;
 		this.tracker = Tracker;
 
 		return new Promise((resolve, reject) => {
@@ -61,6 +62,11 @@ class Transition {
 	transitionStart() {
 
 		let opts = this.options;
+	    if(opts.audio) {
+		    this.audioTimer = new this.audio(opts.audio);
+		    console.log("audio!", this.audioTimer);
+	    }
+
 		opts.element.addEventListener(this.prefix, this.onTransitionEnd, false);
 
 		if(opts.setStyles && opts.setStyles.before) {
@@ -93,6 +99,10 @@ class Transition {
 		this.transitionendCount++;
 
 		if(this.transitionendCount === this.totaltransitions) {
+
+			if(opts.audio) {
+				this.audioTimer.cancel();
+			}
 
 			opts.element.removeEventListener(this.prefix, this.onTransitionEnd, false);
 			cancelAnimationFrame(this.animationFrame);

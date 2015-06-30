@@ -27,6 +27,10 @@
 			.then(function() {
 				return Animator.transition({
 					element : tank,
+					audio : [{
+						time : 100,
+						audio : "path transform"
+					}],
 					properties : transform,
 					setStyles : {
 						before : Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(12deg) scale(1)")
