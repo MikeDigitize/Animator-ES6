@@ -11,6 +11,13 @@
 
 		var sequence = Animator.animation({
 			element : logo,
+			audio : [{
+				time : 100,
+				audio : "path"
+			}, {
+				time : 300,
+				audio : "path2"
+			}],
 			addClass : {
 				before : ["animated", "bounceInLeft"]
 			}

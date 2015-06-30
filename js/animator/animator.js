@@ -13,6 +13,7 @@ import Transition from "./transition-seq";
 import Combo from "./combo-seq";
 import SequenceWrapper from "./seq-wrapper";
 import Tracker from "./tracker";
+import Audio from "./audio";
 
 class Animator { 
 
@@ -150,7 +151,7 @@ class Animator {
      */
 
 	transition(options) {
-		return new SequenceWrapper(options, DomUtils, Prefix, CssUtils, Transition, Combo, this.tracker);
+		return new SequenceWrapper(options, DomUtils, Prefix, CssUtils, Transition, Combo, Audio, this.tracker);
 	}
 
    /**
@@ -162,7 +163,7 @@ class Animator {
      */
 
 	animation(options) {
-		return new SequenceWrapper(options, DomUtils, Prefix, CssUtils, Animation, Combo, this.tracker);
+		return new SequenceWrapper(options, DomUtils, Prefix, CssUtils, Animation, Combo, Audio, this.tracker);
 	}
 
    /**

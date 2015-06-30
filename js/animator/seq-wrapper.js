@@ -23,7 +23,7 @@ class SequenceWrapper {
 	 * @returns {Promise}
      */
 	
-	constructor(options, DomUtils, Prefix, CssUtils, Sequence, Combo, Tracker) {
+	constructor(options, DomUtils, Prefix, CssUtils, Sequence, Combo, Audio, Tracker) {
 
 		if(options.element.length) {
 			let transitions = Array.from(options.element).map((element) => {
@@ -33,13 +33,13 @@ class SequenceWrapper {
 				});
 				opts.element = element;	 
 				Tracker.track(opts, Sequence);
-				return new Sequence(opts, DomUtils, Prefix, CssUtils, Tracker);
+				return new Sequence(opts, DomUtils, Prefix, CssUtils, Audio, Tracker);
 			});
 			return new Combo(transitions);
 		}
 		else {
 			Tracker.track(options, Sequence);
-			return new Sequence(options, DomUtils, Prefix, CssUtils, Tracker);
+			return new Sequence(options, DomUtils, Prefix, CssUtils, Audio, Tracker);
 		}		
 
 	}

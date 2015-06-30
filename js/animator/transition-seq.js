@@ -32,7 +32,7 @@ class Transition {
 	 * @returns {Promise}
      */
 
-	constructor(options, DomUtils, Prefix, CssUtils, Tracker) {
+	constructor(options, DomUtils, Prefix, CssUtils, Audio, Tracker) {
 
 		this.options = options;
 		this.domUtils = new DomUtils();

@@ -31,13 +31,14 @@ class Animation {
 	 * @returns {Promise}
      */
 
-	constructor(options, DomUtils, Prefix, CssUtils, Tracker) {
+	constructor(options, DomUtils, Prefix, CssUtils, Audio, Tracker) {
 
 		this.options = options;
 		this.domUtils = new DomUtils();
 		this.cssUtils = new CssUtils();
 		this.prefix = new Prefix().getPrefix("animationend");
 		this.onAnimationEnd = this.animationEnd.bind(this);
+	    this.audio = Audio;
 		this.tracker = Tracker;
 
 		return new Promise((resolve, reject) => {
@@ -58,6 +59,12 @@ class Animation {
 	animationStart() {
 
 		let opts = this.options;
+
+	    if(opts.audio) {
+			this.audioTimer = new this.audio(opts.audio);
+			console.log("audio!", this.audioTimer);
+		}
+
 		opts.element.addEventListener(this.prefix, this.onAnimationEnd, false);
 
 		if(opts.setStyles && opts.setStyles.before) {
@@ -87,6 +94,11 @@ class Animation {
 	    evt.stopPropagation();
 
 		let opts = this.options;
+
+	    if(opts.audio) {
+		   this.audioTimer.cancel();
+	    }
+
 		opts.element.removeEventListener(this.prefix, this.onAnimationEnd, false);
 		cancelAnimationFrame(this.animationFrame);
 
