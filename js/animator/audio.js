@@ -33,8 +33,9 @@ class Audio {
 	playAudio(config) {
 
 		let audioPlayer = new (window.AudioContext || window.webkitAudioContext)();
-		let source = audioPlayer.createBufferSource();
-		let request = new XMLHttpRequest();
+        let source = audioPlayer.createBufferSource();
+        let volumeNode = audioPlayer.createGain();
+        let request = new XMLHttpRequest();
 
 		request.open("GET", config.audio, true);
 		request.responseType = "arraybuffer";
@@ -42,9 +43,11 @@ class Audio {
 
 			audioPlayer.decodeAudioData(request.response, (buffer) => {
 
-				source.buffer = buffer;
-				source.connect(audioPlayer.destination);
-				source.start(0);
+                    source.buffer = buffer;
+                    volumeNode.gain.value = config.volume || 1;
+                    source.connect(volumeNode);
+                    volumeNode.connect(audioPlayer.destination);
+                    source.start(0);
 
 			},
 			(e) => {

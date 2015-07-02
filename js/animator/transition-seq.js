@@ -35,7 +35,7 @@ class Transition {
 	constructor(options, DomUtils, Prefix, CssUtils, Audio, Tracker) {
 
 		this.options = options;
-		this.domUtils = new DomUtils();
+		this.domUtils = Object.create(DomUtils.prototype);
 		this.prefix = new Prefix().getPrefix("transitionend");
 		this.cssUtils = new CssUtils();
 		this.onTransitionEnd = this.transitionEnd.bind(this);

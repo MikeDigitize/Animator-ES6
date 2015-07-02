@@ -13,7 +13,8 @@
 			element : logo,
 			audio : [{
                 time : 100,
-                audio : "audio/intro.mp3"
+                audio : "audio/intro.mp3",
+                volume : 0.01
             }, {
                 time : 700,
                 audio : "audio/needle-scrape.mp3"
