@@ -4,7 +4,7 @@
   * @description Provides Audio sample playback / timing.
   * - check for web audio support
   * - if none defer back to audio element playback / volume only
-  * - if supported play audio with panning, filtering, volume options
+  * - if supported play audio with panning, filtering, volume, loop options
   * @returns {Object}
   */
 
@@ -12,6 +12,7 @@ class Audio {
 
 	constructor(config) {
 
+		this.isWebAudioSupported = !!(window.AudioContext || window.webkitAudioContext);
 		this.milliseconds = 0;
 		this.audioSettings = Array.isArray(config) ? config : [...config];
 		this.startTimer();
@@ -23,7 +24,7 @@ class Audio {
 			this.milliseconds += 100;
 			this.audioSettings.forEach((config) => {
 				if(config.time === this.milliseconds) {
-					this.playAudio(config);
+					this.isWebAudioSupported ?	this.playAudio(config) : this.playAudioFallback(config);
 				}
 			});
 		}, 100);
@@ -31,24 +32,20 @@ class Audio {
 
 	playAudio(config) {
 
-		let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-		let source = audioCtx.createBufferSource();
+		let audioPlayer = new (window.AudioContext || window.webkitAudioContext)();
+		let source = audioPlayer.createBufferSource();
 		let request = new XMLHttpRequest();
 
 		request.open("GET", config.audio, true);
 		request.responseType = "arraybuffer";
 		request.onload = () => {
 
-			audioCtx.decodeAudioData(request.response, (buffer) => {
+			audioPlayer.decodeAudioData(request.response, (buffer) => {
 
 				source.buffer = buffer;
-				source.connect(audioCtx.destination);
-				source.loop = true;
-
+				source.connect(audioPlayer.destination);
 				source.start(0);
-				setTimeout(() => {
-					source.stop(0);
-				}, (buffer.duration * 1000));
+
 			},
 			(e) => {
 				"Error with decoding audio data" + e.err;
@@ -58,6 +55,12 @@ class Audio {
 
 		request.send();
 
+	}
+
+	playAudioFallback(config) {
+		let audioPlayer = document.createElement("audio");
+		audioPlayer.src = config.audio;
+		audioPlayer.play();
 	}
 
 	cancel() {

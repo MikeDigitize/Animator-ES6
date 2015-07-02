@@ -13,7 +13,7 @@
 			element : logo,
 			audio : [{
                 time : 100,
-                audio : "audio/boing.mp3"
+                audio : "audio/intro.mp3"
             }, {
                 time : 700,
                 audio : "audio/needle-scrape.mp3"

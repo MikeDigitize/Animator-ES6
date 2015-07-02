@@ -62,12 +62,11 @@ class Transition {
 	transitionStart() {
 
 		let opts = this.options;
-	    if(opts.audio) {
-		    this.audioTimer = new this.audio(opts.audio);
-		    console.log("audio!", this.audioTimer);
-	    }
-
 		opts.element.addEventListener(this.prefix, this.onTransitionEnd, false);
+
+	    if(opts.audio) {
+		   this.audioTimer = new this.audio(opts.audio);
+		}
 
 		if(opts.setStyles && opts.setStyles.before) {
 			this.cssUtils.setStyles(opts.element, opts.setStyles.before);
