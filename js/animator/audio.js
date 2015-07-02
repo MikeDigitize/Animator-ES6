@@ -30,41 +30,39 @@ class Audio {
 	}
 
 	playAudio(config) {
-        //let audio = document.createElement("audio");
-        //audio.src = config.audio;
-        //audio.play();
 
-        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+		let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+		let source = audioCtx.createBufferSource();
+		let request = new XMLHttpRequest();
 
-//set up the different audio nodes we will use for the app
-        var analyser = audioCtx.createAnalyser();
-        var distortion = audioCtx.createWaveShaper();
-        var gainNode = audioCtx.createGain();
-        var biquadFilter = audioCtx.createBiquadFilter();
-        var convolver = audioCtx.createConvolver();
+		request.open("GET", config.audio, true);
+		request.responseType = "arraybuffer";
+		request.onload = () => {
 
-// connect the nodes together
+			audioCtx.decodeAudioData(request.response, (buffer) => {
 
-        let source = audioCtx.createMediaStreamSource(config.audio);
-        source.connect(analyser);
-        analyser.connect(distortion);
-        distortion.connect(biquadFilter);
-        biquadFilter.connect(convolver);
-        convolver.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
+				source.buffer = buffer;
+				source.connect(audioCtx.destination);
+				source.loop = true;
 
-        // Manipulate the Biquad filter
+				source.start(0);
+				setTimeout(() => {
+					source.stop(0);
+				}, (buffer.duration * 1000));
+			},
+			(e) => {
+				"Error with decoding audio data" + e.err;
+			});
 
-        biquadFilter.type = "lowshelf";
-        biquadFilter.frequency.value = 1000;
-        biquadFilter.gain.value = 25;
+		};
 
-        console.log(source);
+		request.send();
+
 	}
 
 	cancel() {
 		clearInterval(this.timer);
-		console.log("timer cancelled")
+		console.log("timer cancelled");
 	}
 
 }
