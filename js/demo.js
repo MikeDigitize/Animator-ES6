@@ -12,12 +12,12 @@
 		var sequence = Animator.animation({
 			element : logo,
 			audio : [{
-				time : 100,
-				audio : "path"
-			}, {
-				time : 300,
-				audio : "path2"
-			}],
+                time : 100,
+                audio : "audio/boing.mp3"
+            }, {
+                time : 700,
+                audio : "audio/needle-scrape.mp3"
+            }],
 			addClass : {
 				before : ["animated", "bounceInLeft"]
 			}
@@ -27,10 +27,6 @@
 			.then(function() {
 				return Animator.transition({
 					element : tank,
-					audio : [{
-						time : 100,
-						audio : "path transform"
-					}],
 					properties : transform,
 					setStyles : {
 						before : Animator.createCSSRule(transform, "translate3d(13px,130px,0) rotate(12deg) scale(1)")
