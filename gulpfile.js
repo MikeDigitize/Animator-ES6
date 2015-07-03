@@ -50,10 +50,10 @@ gulp.task('compileJS', ['es6'], function() {
     .pipe(gulp.dest(compiledPath));
 });
 
-gulp.task('minify', ['compileJS'], function() {
+gulp.task('minify', ["compileJS"], function() {
     return gulp.src([shim, compiledPath + '/temp.js'])
         .pipe(concat('animator.min.js'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(wrap("(function(){<%= contents %>})()"))
         .pipe(gulp.dest(buildPath + '/js'));
 });

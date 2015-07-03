@@ -14,7 +14,7 @@ class Audio {
 
 		this.isWebAudioSupported = !!(window.AudioContext || window.webkitAudioContext);
 		this.milliseconds = 0;
-		this.audioSettings = Array.isArray(config) ? config : [...config];
+		this.audioSettings = Array.isArray(config) ? config : [config];
 		this.startTimer();
 
 	}
@@ -24,31 +24,23 @@ class Audio {
 			this.milliseconds += 100;
 			this.audioSettings.forEach((config) => {
 				if(config.time === this.milliseconds) {
-					this.isWebAudioSupported ?	this.playAudio(config) : this.playAudioFallback(config);
+					this.isWebAudioSupported ?	this.getAudio(config) : this.playAudioFallback(config);
 				}
 			});
 		}, 100);
 	}
 
-	playAudio(config) {
+	getAudio(config) {
 
-		let audioPlayer = new (window.AudioContext || window.webkitAudioContext)();
-        let source = audioPlayer.createBufferSource();
-        let volumeNode = audioPlayer.createGain();
+		let player = new (window.AudioContext || window.webkitAudioContext)();
         let request = new XMLHttpRequest();
 
 		request.open("GET", config.audio, true);
 		request.responseType = "arraybuffer";
 		request.onload = () => {
 
-			audioPlayer.decodeAudioData(request.response, (buffer) => {
-
-                    source.buffer = buffer;
-                    volumeNode.gain.value = config.volume || 1;
-                    source.connect(volumeNode);
-                    volumeNode.connect(audioPlayer.destination);
-                    source.start(0);
-
+            player.decodeAudioData(request.response, (buffer) => {
+                this.playAudio(player, buffer, config);
 			},
 			(e) => {
 				"Error with decoding audio data" + e.err;
@@ -59,6 +51,37 @@ class Audio {
 		request.send();
 
 	}
+
+    playAudio(player, buffer, config) {
+
+        let source = player.createBufferSource();
+        source.buffer = buffer;
+
+        if(config.pan) {
+            let panner = this.createPanner(player, config.pan);
+            source.connect(panner);
+        }
+
+        let volume = this.createVolume(player, config.volume);
+        source.connect(volume);
+        volume.connect(player.destination);
+        source.start(0);
+
+    }
+
+    // -1 to 1
+    createPanner(player, panValue) {
+        let panner = player.createStereoPanner();
+        panner.pan.value = panValue;
+        return panner;
+    }
+
+
+    createVolume(player, volumeLevel) {
+        let volume = player.createGain();
+        volume.gain.value = volumeLevel || 1;
+        return volume;
+    }
 
 	playAudioFallback(config) {
 		let audioPlayer = document.createElement("audio");

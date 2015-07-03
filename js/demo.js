@@ -14,10 +14,12 @@
 			audio : [{
                 time : 100,
                 audio : "audio/intro.mp3",
-                volume : 0.01
+                volume : -0.01,
+                pan : -1
             }, {
                 time : 700,
-                audio : "audio/needle-scrape.mp3"
+                audio : "audio/needle-scrape.mp3",
+                pan : 1
             }],
 			addClass : {
 				before : ["animated", "bounceInLeft"]
@@ -60,7 +62,13 @@
 					properties : transform,
 					setStyles : {
 						before : Animator.createCSSRule(transform, "translate3d(90px,-15px,0) rotate(90deg)")
-					}
+					},
+                    audio : {
+                        time : 100,
+                        audio : "audio/boing.mp3",
+                        volume : -0.01,
+                        pan : -1
+                    }
 				});
 			})
 			.then(function () {
