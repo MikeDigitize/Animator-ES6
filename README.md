@@ -1,3 +1,5 @@
+The prototype / test repo for [https://github.com/MikeDigitize/Animator](https://github.com/MikeDigitize/Animator)
+
 # Animator
 Animator is an ES6 animation utility belt to help you quickly and easily create and sequence CSS transitions and animations programatically. Use it whenever there's a need to animate in the browser, whether it be for every day needs like creating rotating banners, giving visual feedback to user interactions, or for complex animation sequences whose values are calculated dynamically. For a full API breakdown see the [WIKI](https://github.com/MikeDigitize/Animator-ES6/wiki).
 
